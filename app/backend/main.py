@@ -5,6 +5,6 @@ app=FastAPI()
 
 @app.get("/api/health")
 async def health_check():
-    return {"status": "healthy"}
+    return {"status": "healthy app v1.006"}
 
 app.mount("/", StaticFiles(directory="../frontend", html=True))
