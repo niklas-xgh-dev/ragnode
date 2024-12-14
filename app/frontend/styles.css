@@ -1,0 +1,21 @@
+:root {
+    --bg: #1a1a1a;
+    --text: #ffffff;
+   }
+   
+   body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 20px;
+   }
+   
+   #app {
+    max-width: 800px;
+    margin: 0 auto;
+   }
+   
+   h1 {
+    color: #006a1e;
+   }
