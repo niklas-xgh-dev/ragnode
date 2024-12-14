@@ -1,0 +1,16 @@
+name: Trigger Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger infra deploy
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PAT }}
+          repository: niklas-xgh-dev/ragnode-infra
+          event-type: code-push
