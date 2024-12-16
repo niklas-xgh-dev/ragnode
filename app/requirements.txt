@@ -1,2 +1,4 @@
 FastAPI
 Uvicorn
+gradio
+anthropic

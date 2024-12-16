@@ -1,20 +1,38 @@
-body { 
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f0f0f0;
-    padding-top: 50px;
+/* frontend/styles.css */
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #0b0f19;  /* Gradio's dark theme background */
+    color: #f3f4f6;  /* Light text color for dark background */
 }
 
 #app {
-    background-color: white;
-    width: 300px;
-    margin: 0 auto;
+    min-height: 100vh;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 #status {
-    margin-top: 20px;
-    color: #666;
+    display: inline-block;
+    padding: 8px 16px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+#chat-container {
+    margin: 20px 0;
+    padding: 20px;
+    background: #0b0f19;
+    height: 900px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#chat-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
