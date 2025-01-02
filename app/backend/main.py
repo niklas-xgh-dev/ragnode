@@ -59,7 +59,7 @@ with gr.Blocks(css="footer{display:none !important}", theme=gr.themes.Soft()) as
             fn=chat_with_claude,
             chatbot=chatbot,
             type="messages",
-            examples=["Why is Baden better than Zurich?", "What is a RAG? (in LLM context)", "Generate me some Python code"],
+            examples=["What is a RAG? (in LLM context)", "Generate me some Python code"],
         )
 
 app = gr.mount_gradio_app(app, chat_interface, path="/chat/")
