@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <rect width="100" height="100" fill="#0b0f19"/>
+    <g transform="translate(50, 50) scale(1.8)">
+        <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" fill="#0b0f19" stroke="#333333" stroke-width="2"/>
+        <text x="0" y="2" font-family="Arial" font-size="20" font-weight="500" fill="#ff6b00" text-anchor="middle" dominant-baseline="middle" letter-spacing="1">RN</text>
+    </g>
+</svg>
