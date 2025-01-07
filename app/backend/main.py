@@ -47,8 +47,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+js_func = """
+function refresh() {
+    const url = new URL(window.location);
+
+    if (url.searchParams.get('__theme') !== 'dark') {
+        url.searchParams.set('__theme', 'dark');
+        window.location.href = url.href;
+    }
+}
+"""
+
 # Create Gradio Chatbot and Gradio Chat Interface
-with gr.Blocks(css="footer{display:none !important}", theme=gr.themes.Soft()) as chat_interface:
+with gr.Blocks(css="footer{display:none !important}", theme=gr.themes.Soft(), js=js_func) as chat_interface:
     with gr.Column(scale=1, min_width=600):
         chatbot = gr.Chatbot(
             height=700,

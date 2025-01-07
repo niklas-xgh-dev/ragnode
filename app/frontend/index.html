@@ -6,49 +6,25 @@
         <link rel="icon" type="image/svg+xml" href="logo.svg">
         <link rel="icon" type="image/svg+xml" href="favicon.svg">
         <link rel="alternate icon" href="favicon.ico">
+        
     </head>
 <body>
     <div id="app">
         <div class="welcome-container">
-            <h1>Welcome to Ragnode</h1>
             <div class="main-logo-container">
                 <img src="logo.svg" alt="Ragnode Logo" class="main-logo">
             </div>
+            <h1>Welcome to Ragnode</h1>
         </div>
         
-        <section>
-            <h2>About Ragnode</h2>
-            <p>Ragnode is an advanced Retrieval Augmented Generation (RAG) system designed to revolutionize how we interact with domain-specific knowledge.</p>
-            
-            <p>Built with Python, FastAPI, and Anthropic's Claude, Ragnode processes embedded data from different domains, making information easily accessible through natural language queries or API.</p>
-        </section>
-
-        <section>
-            <h2>Current Status</h2>
-            <p>The system is currently in active development. The available chatbot interface is powered by Claude and serves as the foundation for our upcoming RAG-enhanced features.</p>
-            <p>Future updates will introduce domain-specific knowledge embedding, semantic search capabilities, and advanced data retrieval mechanisms.</p>
-        </section>
-
-        <section>
-            <h2>Try Our Chatbot</h2>
-            <p>Interact with our Claude-powered chatbot below. While currently a wrapper for Claude's capabilities, it will soon be enhanced with our custom RAG implementation.</p>
-        </section>
+        <div class="container">
+            <p>Ragnode is an advanced Retrieval Augmented Generation (RAG) system designed to interact with domain-specific knowledge.</p>
+            <p>Currently in development - Future updates will introduce our custom RAG implementation.</p>
+        </div>
 
         <div id="chat-container">
             <iframe src="/chat/" frameborder="0"></iframe>
         </div>
-
-        <section>
-            <h2>Technical Overview</h2>
-            <p>Backend: Python/FastAPI for robust API development</p>
-            <p>Frontend: Vanilla HTML/HTMX for efficient, minimal interface</p>
-            <p>Infrastructure: AWS ECS deployment with automated CI/CD pipeline</p>
-            <p>Data Processing: Vector embeddings for semantic search capabilities</p>
-        </section>
-
-        <footer>
-            <p>Currently in development - More features coming soon.</p>
-        </footer>
     </div>
 </body>
 </html>
