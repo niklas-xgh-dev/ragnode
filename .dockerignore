@@ -1,0 +1,22 @@
+# Development environment
+.env
+.env.*
+venv/
+**/__pycache__
+__pycache__/
+*.pyc
+schema/
+
+# Git
+.git
+.gitignore
+.github
+trigger.yml
+
+# IDE files
+.vscode/
+.idea/
+
+# Other unnecessary files
+README.md
+*.log

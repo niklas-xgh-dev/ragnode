@@ -1,4 +1,6 @@
 # main.py
+import os
+from dotenv import load_dotenv
 import gradio as gr
 import anthropic
 import os
@@ -6,7 +8,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-# Initialize Anthropic client
+# Only load .env if ANTHROPIC_API_KEY is not in environment
+if not os.getenv("ANTHROPIC_API_KEY"):
+    load_dotenv()
+
+# Initialize Anthropic client - will use environment variable or .env if available
 client = anthropic.Anthropic(
     api_key=os.getenv("ANTHROPIC_API_KEY")
 )
@@ -47,16 +53,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-js_func = """
-function refresh() {
-    const url = new URL(window.location);
-
-    if (url.searchParams.get('__theme') !== 'dark') {
-        url.searchParams.set('__theme', 'dark');
-        window.location.href = url.href;
-    }
-}
-"""
+js_func = open('app/static/gradio_force_theme.js', 'r').read()
 
 # Create Gradio Chatbot and Gradio Chat Interface
 with gr.Blocks(css="footer{display:none !important}", theme=gr.themes.Soft(), js=js_func) as chat_interface:
@@ -74,7 +71,7 @@ with gr.Blocks(css="footer{display:none !important}", theme=gr.themes.Soft(), js
         )
 
 app = gr.mount_gradio_app(app, chat_interface, path="/chat/")
-app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
+app.mount("/", StaticFiles(directory="app/static", html=True), name="static")
 
 if __name__ == "__main__":
     import uvicorn

@@ -2,3 +2,4 @@ FastAPI
 Uvicorn
 gradio
 anthropic
+python-dotenv
