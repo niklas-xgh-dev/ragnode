@@ -17,21 +17,27 @@ A distributed RAG (Retrieval Augmented Generation) system deployed on AWS ECS, d
 The system is split into two repositories:
 
 ```
-ragnode/                      # Main application code
-├── app/
-│   ├── backend/
-│   │   ├── main.py          # FastAPI application entrypoint
-│   │   ├── embeddings/      # Embedding generation and management
-│   │   ├── retrieval/       # RAG implementation
-│   │   └── api/             # REST endpoints
-│   └── frontend/            # HTMX/vanilla JS implementation
-│
-└── .github/                 # CI workflows
-
-ragnode-infra/               # Private infrastructure repository
-├── scripts/                 # Infrastructure management scripts
-├── .github/                 # Infrastructure deployment workflows
-└── config/                  # ECS task definitions and configurations
+├── Dockerfile
+├── README.md
+├── app
+│   ├── __init__.py
+│   ├── backend
+│   │   ├── __init__.py
+│   │   ├── chat
+│   │   │   ├── __init__.py
+│   │   │   ├── base_chat.py
+│   │   │   └── interface.py
+│   │   ├── database.py
+│   │   └── models.py
+│   └── static
+│       ├── favicon.svg
+│       ├── gradio_force_theme.js
+│       ├── index.html
+│       ├── logo.svg
+│       └── styles.css
+├── build.sh
+├── main.py
+└── requirements.txt
 ```
 
 ## Technical Implementation
