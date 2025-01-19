@@ -28,15 +28,21 @@ class BaseChat:
         formatted_messages.append({"role": "user", "content": message})
         return formatted_messages
 
+    async def save_message(self, role: str, content: str) -> None:
+        try:
+            async with async_session() as session:
+                msg = ChatMessage(role=role, content=content)
+                session.add(msg)
+                await session.commit()
+        except Exception as e:
+            print(f"Error saving {role} message to database: {str(e)}")
+
     async def get_response(self, message: str, history: List[Dict] = None) -> str:
         try:
             formatted_messages = self.format_messages(message, history)
             
             # Save user message
-            async with async_session() as session:
-                user_msg = ChatMessage(role="user", content=message)
-                session.add(user_msg)
-                await session.commit()
+            await self.save_message("user", message)
             
             # Get AI response
             async with self.client as client:
@@ -49,13 +55,24 @@ class BaseChat:
             response_text = response.content[0].text
             
             # Save assistant response
-            async with async_session() as session:
-                assistant_msg = ChatMessage(role="assistant", content=response_text)
-                session.add(assistant_msg)
-                await session.commit()
+            await self.save_message("assistant", response_text)
             
             return response_text
             
+        except anthropic.APIError as api_error:
+            error_message = f"API Error: {str(api_error)}"
+            print(error_message)
+            await self.save_message("assistant", error_message)
+            return error_message
+            
+        except anthropic.APIConnectionError as conn_error:
+            error_message = "Connection to AI service failed. Please try again."
+            print(f"Connection error: {str(conn_error)}")
+            await self.save_message("assistant", error_message)
+            return error_message
+            
         except Exception as e:
-            print(f"Error in get_response: {str(e)}")
-            return "I encountered an error processing your request. Please try again."
+            error_message = "I encountered an error processing your request. Please try again."
+            print(f"Unexpected error in get_response: {str(e)}")
+            await self.save_message("assistant", error_message)
+            return error_message
