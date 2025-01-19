@@ -4,6 +4,8 @@ from fastapi.staticfiles import StaticFiles
 import gradio as gr
 import os
 from dotenv import load_dotenv
+from app.backend.database import engine
+from app.backend.models import Base
 
 # Load environment variables
 if not os.getenv("ANTHROPIC_API_KEY"):
@@ -23,13 +25,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.on_event("startup")
+async def startup():
+    # Create database tables
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
 # Create chat interface
 chat_interface = ChatInterface().create_interface()
 
 # Mount Gradio app and static files
 app = gr.mount_gradio_app(app, chat_interface, path="/chat/")
 app.mount("/", StaticFiles(directory="app/static", html=True), name="static")
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)

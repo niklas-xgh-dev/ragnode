@@ -1,5 +1,7 @@
-FastAPI
-Uvicorn
+fastapi
+uvicorn
 gradio
 anthropic
 python-dotenv
+sqlalchemy[asyncio]
+asyncpg
