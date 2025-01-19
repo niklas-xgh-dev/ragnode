@@ -4,8 +4,6 @@ from fastapi.staticfiles import StaticFiles
 import gradio as gr
 import os
 from dotenv import load_dotenv
-from app.backend.database import engine
-from app.backend.models import Base
 
 # Load environment variables
 if not os.getenv("ANTHROPIC_API_KEY"):
@@ -24,12 +22,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.on_event("startup")
-async def startup():
-    # Create database tables
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
 
 # Create chat interface
 chat_interface = ChatInterface().create_interface()
