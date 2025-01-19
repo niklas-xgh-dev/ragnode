@@ -10,9 +10,8 @@ class BaseChat:
         if not os.getenv("ANTHROPIC_API_KEY"):
             load_dotenv()
             
-        self.client = anthropic.AsyncAnthropic(
-            api_key=os.getenv("ANTHROPIC_API_KEY")
-        )
+        # Create client without async context
+        self.api_key = os.getenv("ANTHROPIC_API_KEY")
     
     def format_messages(self, message: str, history: List[Dict] = None) -> List[Dict]:
         formatted_messages = []
@@ -44,13 +43,13 @@ class BaseChat:
             # Save user message
             await self.save_message("user", message)
             
-            # Get AI response
-            async with self.client as client:
-                response = await client.messages.create(
-                    model="claude-3-5-haiku-latest",
-                    max_tokens=1024,
-                    messages=formatted_messages
-                )
+            # Create a new client for each request
+            client = anthropic.AsyncAnthropic(api_key=self.api_key)
+            response = await client.messages.create(
+                model="claude-3-5-haiku-latest",
+                max_tokens=1024,
+                messages=formatted_messages
+            )
             
             response_text = response.content[0].text
             
