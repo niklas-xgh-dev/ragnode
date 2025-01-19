@@ -98,12 +98,6 @@ jobs:
 
 ## Future Technical Roadmap
 
-### Near-term
-- ECS service auto-scaling based on queue depth
-- Enhanced prompt engineering for context injection
-- Streaming response optimization
-- Advanced monitoring and alerting setup
-
 ### Long-term
 - Multi-model embedding support
 - Advanced vector compression techniques
@@ -127,8 +121,6 @@ AWS Services:
 - ECR
 - RDS
 - Parameter Store
-- CloudWatch
-- IAM
 
 ## Development Notes
 
