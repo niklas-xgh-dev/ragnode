@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ title }} - Ragnode</title>
+        <link rel="stylesheet" href="/static/styles.css">
+        <link rel="icon" type="image/svg+xml" href="/static/logo.svg">
+        <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+        <link rel="alternate icon" href="/static/favicon.ico">
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    </head>
+<body>
+    <nav class="side-nav">
+        <div class="header-spacer"></div>
+        <ul class="nav-links">
+            <li><a href="/" class="nav-item">Home</a></li>
+            <li><a href="/diamond-hands-chat" class="nav-item {% if title == 'Diamond Hands' %}active{% endif %}">Diamond Hands</a></li>
+            <li><a href="/chippie-chat" class="nav-item {% if title == 'Chippie' %}active{% endif %}">Chippie</a></li>
+            <li><a href="/badener-chat" class="nav-item {% if title == 'The Badener' %}active{% endif %}">The Badener</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="expert-header">
+            <div class="main-logo-container">
+                <img src="/static/logo_v2.svg" alt="Ragnode Logo" class="main-logo">
+            </div>
+            <h1>{{ title }}</h1>
+            <p class="expert-description">{{ description }}</p>
+        </div>
+
+        <div id="chat-container">
+            <iframe src="/{{ title.lower().replace(' ', '-') }}/" frameborder="0"></iframe>
+        </div>
+    </main>
+</body>
+</html>

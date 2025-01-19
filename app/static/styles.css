@@ -1,80 +1,74 @@
-/* frontend/styles.css */
+/* Base styles */
 body {
     margin: 0;
     font-family: system-ui, -apple-system, sans-serif;
-    background: #0b0f19;  /* Gradio's dark theme background */
-    color: #f3f4f6;  /* Light text color for dark background */
-}
-
-#app {
-    min-height: 100vh;
-    padding: 80px 20px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-#status {
-    display: inline-block;
-    padding: 8px 16px;
-    background: #e8f5e9;
-    color: #2e7d32;
-    border-radius: 4px;
-    margin: 10px 0;
-}
-
-#chat-container {
-    margin: 20px 0;
-    padding: 20px;
     background: #0b0f19;
-    height: 900px;
-    width: 100%;
-    box-sizing: border-box;
+    color: #f3f4f6;
+    display: flex;
 }
 
-#chat-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-/* Header and logo styles */
-.site-header {
+/* Side Navigation */
+.side-nav {
+    width: 240px;
+    height: 100vh;
     position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    padding: 1rem;
-    background: #0b0f19;
-    z-index: 1000;
+    background: #151923;
+    padding: 2rem 0;
+    border-right: 1px solid #2d3748;
 }
 
-.logo-container {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 32px;
-    height: 32px;
+.nav-logo-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2rem;
 }
 
-.site-logo {
-    width: 100%;
-    height: 100%;
+.nav-logo {
+    width: 94px;
+    height: auto;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
     display: block;
+    padding: 0.75rem 2rem;
+    color: #f3f4f6;
+    text-decoration: none;
+    transition: background-color 0.2s;
 }
 
+.nav-item:hover {
+    background-color: #1f2937;
+}
+
+.nav-item.active {
+    background-color: #2d3748;
+    border-right: 3px solid #60a5fa;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 240px;
+    padding: 2rem;
+    width: calc(100% - 240px);
+}
+
+/* Welcome Container */
 .welcome-container {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 0rem;
-    margin-bottom: 2rem;
-    flex-direction: row;
+    gap: 1rem;
+    margin-bottom: 3rem;
 }
 
 .main-logo-container {
-    width: 80px;
-    flex: 0 0 auto;
-    display: inline-flex;
+    width: 64px;
 }
 
 .main-logo {
@@ -82,7 +76,61 @@ body {
     height: auto;
 }
 
-.welcome-container h1 {
+/* Expert Grid */
+.expert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.expert-card {
+    background: #151923;
+    border: 1px solid #2d3748;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    color: #f3f4f6;
+    text-decoration: none;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.expert-card:hover {
+    transform: translateY(-2px);
+    border-color: #60a5fa;
+}
+
+.expert-card h2 {
+    margin: 0 0 1rem 0;
+    color: #60a5fa;
+}
+
+.expert-card p {
     margin: 0;
-    display: inline-flex;
+    color: #9ca3af;
+    line-height: 1.5;
+}
+
+/* Expert Page Header */
+.expert-header {
+    margin-bottom: 2rem;
+}
+
+.expert-description {
+    color: #9ca3af;
+    margin-top: 0.5rem;
+}
+
+/* Chat Container */
+#chat-container {
+    background: #151923;
+    border-radius: 0.5rem;
+    border: 1px solid #2d3748;
+    height: calc(100vh - 200px);
+    overflow: hidden;
+}
+
+#chat-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }

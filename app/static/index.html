@@ -2,29 +2,46 @@
 <html>
     <head>
         <title>Ragnode</title>
-        <link rel="stylesheet" href="styles.css">
-        <link rel="icon" type="image/svg+xml" href="logo.svg">
-        <link rel="icon" type="image/svg+xml" href="favicon.svg">
-        <link rel="alternate icon" href="favicon.ico">
-        
+        <link rel="stylesheet" href="/static/styles.css">
+        <link rel="icon" type="image/svg+xml" href="/static/logo.svg">
+        <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+        <link rel="alternate icon" href="/static/favicon.ico">
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     </head>
 <body>
-    <div id="app">
+    <nav class="side-nav">
+        <div class="nav-logo-container">
+            <img src="/static/logo_v2.svg" alt="Ragnode Logo" class="nav-logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="/" class="nav-item active">Home</a></li>
+            <li><a href="/diamond-hands-chat" class="nav-item">Diamond Hands</a></li>
+            <li><a href="/chippie-chat" class="nav-item">Chippie</a></li>
+            <li><a href="/badener-chat" class="nav-item">The Badener</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
         <div class="welcome-container">
-            <div class="main-logo-container">
-                <img src="logo.svg" alt="Ragnode Logo" class="main-logo">
-            </div>
             <h1>Welcome to Ragnode</h1>
         </div>
         
-        <div class="container">
-            <p>Ragnode is an advanced Retrieval Augmented Generation (RAG) system designed to interact with domain-specific knowledge.</p>
-            <p>Currently in development - Future updates will introduce our custom RAG implementation.</p>
+        <div class="expert-grid">
+            <a href="/diamond-hands-chat" class="expert-card">
+                <h2>Diamond Hands</h2>
+                <p>Apes together stronk. Cools you down and doesn't let you YOLO stockpick. Based ETF recommendations.</p>
+            </a>
+            
+            <a href="/chippie-chat" class="expert-card">
+                <h2>Chippie</h2>
+                <p>Semiconductor nerd. Takes one to like one.</p>
+            </a>
+            
+            <a href="/badener-chat" class="expert-card">
+                <h2>The Badener</h2>
+                <p>Complete Baden fanboy, but at least knows everything there is about Baden.</p>
+            </a>
         </div>
-
-        <div id="chat-container">
-            <iframe src="/chat/" frameborder="0"></iframe>
-        </div>
-    </div>
+    </main>
 </body>
 </html>
