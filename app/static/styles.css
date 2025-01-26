@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: system-ui, -apple-system, sans-serif;
-    background: #0b0f19;
+    background: rgb(17, 17, 18);
     color: #f3f4f6;
     display: flex;
 }
@@ -12,7 +12,7 @@ body {
     width: 240px;
     height: 100vh;
     position: fixed;
-    background: #151923;
+    background: rgb(23, 23, 25);
     padding: 2rem 0;
     border-right: 1px solid #2d3748;
 }
@@ -49,7 +49,7 @@ body {
 
 .nav-item.active {
     background-color: #2d3748;
-    border-right: 3px solid #60a5fa;
+    border-right: 3px solid rgb(186, 108, 77);
 }
 
 /* Main Content */
@@ -85,7 +85,7 @@ body {
 }
 
 .expert-card {
-    background: #151923;
+    background: rgb(23, 23, 25);
     border: 1px solid #2d3748;
     border-radius: 0.5rem;
     padding: 1.5rem;
@@ -96,12 +96,12 @@ body {
 
 .expert-card:hover {
     transform: translateY(-2px);
-    border-color: #60a5fa;
+    border-color: rgb(186, 108, 77);
 }
 
 .expert-card h2 {
     margin: 0 0 1rem 0;
-    color: #60a5fa;
+    color: rgb(186, 108, 77);
 }
 
 .expert-card p {
@@ -122,7 +122,7 @@ body {
 
 /* Chat Container */
 #chat-container {
-    background: #151923;
+    background: rgb(23, 23, 25);
     border-radius: 0.5rem;
     border: 1px solid #2d3748;
     height: calc(100vh - 200px);

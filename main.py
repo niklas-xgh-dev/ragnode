@@ -7,16 +7,13 @@ import gradio as gr
 import os
 from dotenv import load_dotenv
 
-# Load environment variables
 if not os.getenv("ANTHROPIC_API_KEY"):
     load_dotenv()
 
-# Import after environment is loaded
 from app.backend.chat.interface import ChatInterface
 
 app = FastAPI()
 
-# Configure CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -25,20 +22,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configure templates
 templates = Jinja2Templates(directory="app/static")
 
-# Create a single chat interface that we'll reuse
-# Later we can modify ChatInterface to handle different environments
-chat_interface = ChatInterface().create_interface()
+# Create separate interfaces for each bot
+diamond_hands_interface = ChatInterface(bot_type="diamond-hands").create_interface()
+chippie_interface = ChatInterface(bot_type="chippie").create_interface()
+badener_interface = ChatInterface(bot_type="badener").create_interface()
 
-# Mount the same Gradio app at different paths
-app = gr.mount_gradio_app(app, chat_interface, path="/chat/")
-app = gr.mount_gradio_app(app, chat_interface, path="/diamond-hands/")
-app = gr.mount_gradio_app(app, chat_interface, path="/chippie/")
-app = gr.mount_gradio_app(app, chat_interface, path="/badener/")
+# Mount each interface
+app = gr.mount_gradio_app(app, diamond_hands_interface, path="/diamond-hands/")
+app = gr.mount_gradio_app(app, chippie_interface, path="/chippie/")
+app = gr.mount_gradio_app(app, badener_interface, path="/badener/")
 
-# Define routes for HTML pages
+# Routes remain the same
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
@@ -70,5 +66,4 @@ async def badener_page(request: Request):
         "chat_path": "/badener/"
     })
 
-# Mount static files last to not override routes
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
