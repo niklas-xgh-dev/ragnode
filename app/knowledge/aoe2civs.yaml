@@ -1,0 +1,1109 @@
+civilizations:
+  - name: Armenians
+    difficulty: Hard
+    difficulty_reason: Mobile cart mechanics differ significantly from standard openings requiring specialized knowledge.
+    tier: C
+    winrate: 48.40
+    tier_reason: Good on water maps and hybrid maps with strong economy. Lacking Bombard Cannon and heavy cavalry armor makes them struggle in some late-game scenarios.
+    focus: Infantry and Naval
+    wonder: Etchmiadzin Cathedral
+    unique_units:
+      - name: Composite Bowman
+        description: Foot archer that ignores armor.
+      - name: Warrior Priest
+        description: Religious infantry that can fight, carry Relics, and heal allied units.
+    unique_buildings:
+      - name: Mule Cart
+        description: Mobile dropsite for wood, gold, stone, and hunted food. Replaces the Lumber and Mining Camps.
+      - name: Fortified Church
+        description: Trains and upgrades Monks, and can garrison certain units. Fires arrows when garrisoned with Villagers or Relics. Replaces the Monastery.
+    unique_technologies:
+      - name: Cilician Fleet
+        description: Demolition Ships +20% blast radius; Galley-line and Dromons +1 range.
+      - name: Fereters
+        description: Infantry (except Spearman-line) +30 hit points, Warrior Priests +100% heal speed.
+    civilization_bonuses:
+      - Mule Carts cost -25%.
+      - Mule Cart technologies are 40% more effective.
+      - First Fortified Church receives a free Relic.
+      - Long Swordsman and above, and Spearman line available one Age earlier.
+      - Galley-line and Dromons fire one additional projectile each, which deal 1 attack and advertised attack respectively.
+    team_bonus: Infantry have +2 Line of Sight.
+
+  - name: Aztecs
+    difficulty: Medium
+    difficulty_reason: Strong monks and infantry but lack of cavalry requires adaptation to standard strategies.
+    tier: C
+    winrate: 47.43
+    tier_reason: Powerful military and resource gathering bonuses make them formidable. Strong monks and infantry with good economic advantages through faster resource gathering.
+    focus: Infantry and Monk
+    wonder: Great Pyramid of Tenochtitlan
+    unique_units:
+      - name: Jaguar Warrior
+        description: Anti-infantry infantry
+    unique_technologies:
+      - name: Atlatl
+        description: Skirmishers +1 attack and range.
+      - name: Garland Wars
+        description: Infantry +4 attack.
+    civilization_bonuses:
+      - Start the game with an Eagle Scout.
+      - Villagers carry +3 extra resources.
+      - All military units are created 15% faster.
+      - Monks gain 5 HP for every researched Monastery technology.
+      - Start with +50 gold.
+    team_bonus: Relics generate +33% gold.
+
+  - name: Bengalis
+    difficulty: Hard
+    difficulty_reason: Weak mid-game and slow, damage-inefficient late-game army requires exceptional game knowledge.
+    tier: B
+    winrate: 50.56
+    tier_reason: Solid on closed and hybrid maps but awkward to play. Elephant Archers are excellent in late game but Rathas are clunky to use effectively.
+    focus: Elephant and Naval
+    wonder: Somapura Mahavihara
+    unique_units:
+      - name: Ratha
+        description: Mounted archer that can switch between melee and ranged attacks.
+    unique_technologies:
+      - name: Paiks
+        description: Rathas and elephant units attack 20% faster.
+      - name: Mahayana
+        description: Villagers and Monks take up -10% population space.
+    civilization_bonuses:
+      - Elephant units receive 25% less bonus damage and are more resistant to conversion.
+      - All Town Centers spawn 2 Villagers when the next Age is reached.
+      - Cavalry units +2 attack vs Skirmishers.
+      - Ships regenerate 15 HP per minute.
+      - Monks +3/+3 armor.
+    team_bonus: Trade units yield 10% food in addition to gold.
+
+  - name: Berbers
+    difficulty: Medium
+    difficulty_reason: Cavalry discount is straightforward but camel/cavalry archer combinations need coordination.
+    tier: B
+    winrate: 50.00
+    tier_reason: Cheaper stable units in Castle Age and Imperial Age provide good value. No early bonuses until Castle Age makes their early game relatively generic.
+    focus: Cavalry and Naval
+    wonder: Hassan Tower
+    unique_units:
+      - name: Camel Archer
+        description: Mounted archer with attack bonus against mounted archers.
+      - name: Genitour
+        description: Mounted Skirmisher.
+    unique_technologies:
+      - name: Kasbah
+        description: Allied Castles work 25% faster.
+      - name: Maghrebi Camels
+        description: Camel units regenerate 15 HP/min.
+    civilization_bonuses:
+      - Villagers move 5% faster in Dark Age, 10% faster starting in Feudal Age.
+      - Stable units are 15%/20% cheaper in the Castle/Imperial Age.
+      - Ships move 10% faster.
+    team_bonus: Genitours are available at the Archery Range starting in the Castle Age.
+
+  - name: Bohemians
+    difficulty: Medium
+    difficulty_reason: Mining/chemistry bonuses and gunpowder/monk focus require non-standard approaches.
+    tier: A
+    winrate: 51.50
+    tier_reason: Strong on closed maps with good gunpowder and monk units. Mining camp upgrades for free is a great economic bonus for gold and stone.
+    focus: Gunpowder and Monk
+    wonder: Powder Tower of Prague
+    unique_units:
+      - name: Hussite Wagon
+        description: Tanky siege unit that can protect rear units.
+      - name: Houfnice
+        description: Upgrade of the Bombard Cannon, provides additional HP, attack, and blast radius.
+    unique_technologies:
+      - name: Wagenburg Tactics
+        description: Gunpowder units move 15% faster.
+      - name: Hussite Reforms
+        description: Monks and Monastery upgrades have their gold cost replaced by food.
+    civilization_bonuses:
+      - Blacksmiths and Universities cost -100 wood.
+      - Chemistry and Hand Cannoneer available in Castle Age.
+      - Spearman-line deals +25% bonus damage.
+      - Fervor and Sanctity affect Villagers.
+      - Mining Camp technologies are free.
+    team_bonus: Markets work 80% faster.
+
+  - name: Britons
+    difficulty: Easy
+    difficulty_reason: Archer range bonuses create straightforward gameplan around massing archers and longbowmen.
+    tier: D
+    winrate: 47.37
+    tier_reason: Once strong but now underwhelming with archer range bonus. Feels like a one-trick pony civilization that isn't even that good at its one trick anymore.
+    focus: Foot archer
+    wonder: Chichester Cathedral
+    unique_units:
+      - name: Longbowman
+        description: Long-ranged foot archer.
+    unique_technologies:
+      - name: Yeomen
+        description: Gives foot archers +1 range and towers +2 attack.
+      - name: Warwolf
+        description: Gives Trebuchets blast damage and 100% accuracy against units.
+    civilization_bonuses:
+      - Town Centers cost -50% wood starting in the Castle Age.
+      - Foot archers (except Skirmishers) have +1/+2 range in the Castle/Imperial Age.
+      - Shepherds work 25% faster.
+    team_bonus: Archery Ranges work 10% faster.
+
+  - name: Bulgarians
+    difficulty: Medium
+    difficulty_reason: Earlier infantry upgrades and krepost mechanics require specific timing knowledge.
+    tier: D
+    winrate: 49.45
+    tier_reason: Few maps where they really shine and no economic bonus to carry them. Strong early aggression potential with Konnik but limited late-game options.
+    focus: Infantry and Cavalry
+    wonder: Preslav Round Church
+    unique_units:
+      - name: Konnik
+        description: Cavalry that keeps on fighting as a dismounted infantry when killed.
+      - name: Dismounted Konnik
+        description: The dismounted infantry unit which appears after the death of the cavalry Konnik.
+    unique_buildings:
+      - name: Krepost
+        description: Miniature version of the Castle, which can create the Konnik.
+    unique_technologies:
+      - name: Stirrups
+        description: Cavalry attack 33% faster.
+      - name: Bagains
+        description: Militia line units +5 armor.
+    civilization_bonuses:
+      - Militia line units are upgraded for free.
+      - Town Centers cost -50% stone (except starting Town Center).
+      - Blacksmith and Siege Workshop technologies cost -50% food.
+    team_bonus: Blacksmiths work 80% faster.
+
+  - name: Burgundians
+    difficulty: Hard
+    difficulty_reason: Economic upgrades available earlier require precise timing knowledge for maximum impact.
+    tier: C
+    winrate: 46.26
+    tier_reason: Early economic upgrades and Cavalier access in Castle Age makes them very strong. Considered the number one Arena civilization with excellent closed map performance.
+    focus: Cavalry
+    wonder: Brussels Town Hall
+    unique_units:
+      - name: Coustillier
+        description: Cavalry unit that can charge its attack over time.
+      - name: Flemish Militia
+        description: Infantry unit with a bonus vs cavalry; can only be obtained first via the Flemish Revolution technology.
+    unique_technologies:
+      - name: Burgundian Vineyards
+        description: Farmers slowly generate gold in addition to food.
+      - name: Flemish Revolution
+        description: Upgrades all existing Villagers to Flemish Militia, and allows the training of Flemish Militia at Barracks.
+    civilization_bonuses:
+      - Economic upgrades (except Coinage and Banking) cost -33% food and are available one Age earlier than other civilizations.
+      - Stable technologies are 50% cheaper. Cavalier upgrade available in the Castle Age.
+      - Gunpowder units gain +25% attack.
+    team_bonus: Relics generate 0.5 food/s in addition to gold.
+
+  - name: Burmese
+    difficulty: Hard
+    difficulty_reason: Lumber camp upgrades free but reliance on elephants and monks requires specialized micro.
+    tier: D
+    winrate: 48.03
+    tier_reason: Good economy but missing archer armor is a glaring weakness. Manipur Cavalry tech and strong elephants provide good late-game options.
+    focus: Monk and Elephant
+    wonder: Shwezigon Pagoda
+    unique_units:
+      - name: Arambai
+        description: Ranged cavalry with powerful but inaccurate attack.
+    unique_technologies:
+      - name: Manipur Cavalry
+        description: Gives cavalry units +4 attack against archers.
+      - name: Howdah
+        description: Gives Battle Elephants +1/+1 armor.
+    civilization_bonuses:
+      - Lumber Camp technologies are free.
+      - Battle Elephants have +1/+1 armor.
+      - Infantry units have +1/+2/+3 attack in the Feudal/Castle/Imperial Age.
+      - Monastery technologies are 50% cheaper.
+    team_bonus: Relics are visible on the map from the game start.
+
+  - name: Byzantines
+    difficulty: Easy
+    difficulty_reason: Nearly complete tech tree with defensive bonuses gives beginners time to learn while surviving longer.
+    tier: D
+    winrate: 47.88
+    tier_reason: Definition of a solid civilization with counter units for everything. Building HP bonus is underrated and they have excellent defensive capabilities.
+    focus: Defensive
+    wonder: Hagia Sophia
+    unique_units:
+      - name: Cataphract
+        description: Heavy cavalry that excels at combat against infantry and Camel Riders.
+    unique_technologies:
+      - name: Greek Fire
+        description: Gives Fire Ships +1 range; Dromons +0.2 blast radius; Bombard Towers +0.5 blast radius [25% effect without friendly fire damage]
+      - name: Logistica
+        description: Gives Cataphracts trample damage in 0.5 tiles radius (pure 5 damage) and +6 attack against infantry.
+    civilization_bonuses:
+      - Buildings, Walls/Gates, and Farms have +10%/+20%/+30%/+40% hit points in the Dark/Feudal/Castle/Imperial Age.
+      - Camel Rider, Skirmisher, and Spearman lines are 25% cheaper.
+      - Fire Ships and Dromons fire 20% faster.
+      - Advancing to the Imperial Age is 33% cheaper.
+      - Town Watch and Town Patrol are free.
+    team_bonus: Monks heal 100% faster.
+
+  - name: Celts
+    difficulty: Medium
+    difficulty_reason: Siege and infantry focus requires proper positioning but wood bonus helps early economy.
+    tier: C
+    winrate: 50.91
+    tier_reason: Decent on hybrid maps with wood bonus but awkward transition from Castle to Imperial Age. Siege weapons fire 20% faster making them strong in certain situations.
+    focus: Infantry and Siege
+    wonder: Rock of Cashel
+    unique_units:
+      - name: Woad Raider
+        description: Quick infantry unit.
+    unique_technologies:
+      - name: Stronghold
+        description: Castles and towers fire 33% faster; Castles can heal allied infantry units by 30 hit points per minute in an 18 tile square.
+      - name: Furor Celtica
+        description: Gives Siege Workshop units +40% hit points.
+    civilization_bonuses:
+      - Infantry units move 15% faster starting from the Feudal Age.
+      - Lumberjacks work 15% faster.
+      - Siege weapons fire 25% faster.
+      - Non-Celt herdable animals can be converted regardless of units next to them.
+    team_bonus: Siege Workshops work 20% faster.
+
+  - name: Chinese
+    difficulty: Hard
+    difficulty_reason: Starting with extra villagers but TC idle time requires careful early game management and optimization.
+    tier: A
+    winrate: 49.39
+    tier_reason: Extra villagers at start provide significant economic advantage, especially on open land maps. Considered the best civilization on Arabia but somewhat weaker on closed maps.
+    focus: Archer
+    wonder: Hall of Prayer for Good Harvests in the Temple of Heaven complex
+    unique_units:
+      - name: Chu Ko Nu
+        description: Foot archer that fires multiple arrows.
+    unique_technologies:
+      - name: Great Wall
+        description: Increases the hit points of walls and towers by +30%.
+      - name: Rocketry
+        description: Increases the pierce attack of Chu Ko Nu by +2, and the attack of Scorpions by +4.
+    civilization_bonuses:
+      - Start game with +3 Villagers, but with -200 food, -50 wood.
+      - Town Centers support 15 population (instead of 5) and have +7 Line of Sight.
+      - Technologies are 5%/10%/15% cheaper in the Feudal/Castle/Imperial Age.
+      - Demolition Ships have +50% hit points.
+    team_bonus: Farms start with +10% food.
+
+  - name: Cumans
+    difficulty: Hard
+    difficulty_reason: Second Town Center in Feudal Age and feudal battering rams create unique timing attacks requiring specific knowledge.
+    tier: B
+    winrate: 50.29
+    tier_reason: Can be either the best or worst civilization depending on if you can get away with 2 TC boom. Strong on land maps but terrible on hybrid and water maps.
+    focus: Cavalry
+    wonder: Sarkel Fortress (ruined)
+    unique_units:
+      - name: Kipchak
+        description: Cheap multi-shot mounted archer.
+    unique_technologies:
+      - name: Steppe Husbandry
+        description: Scout Cavalry line, Steppe Lancers, and Cavalry Archers are trained 100% faster.
+      - name: Cuman Mercenaries
+        description: Team members can create 5 free Elite Kipchaks per each Castle.
+    civilization_bonuses:
+      - A second Town Center can be built in the Feudal Age.
+      - Archery Ranges and Stables cost -75 wood.
+      - Siege Workshop and Battering Ram available in Feudal Age; Capped Ram upgrade available in Castle Age.
+      - Mounted units move 5%/10%/15% faster in the Feudal/Castle/Imperial Age.
+    team_bonus: Palisade Walls have +33% hit points.
+
+  - name: Dravidians
+    difficulty: Hard
+    difficulty_reason: Lack of knights creates difficult mid-game requiring alternative strategic approaches.
+    tier: C
+    winrate: 48.19
+    tier_reason: Strong on water and hybrid maps with excellent naval options. Wood bonus and Elephant Archers provide good economy and late-game potential.
+    focus: Infantry and Naval
+    wonder: Brihadisvara Temple
+    unique_units:
+      - name: Urumi Swordsman
+        description: Infantry that can charge its attack to cause extra attack with Area of Effect.
+      - name: Thirisadai
+        description: Tanky warship that fires multiple projectiles.
+    unique_technologies:
+      - name: Medical Corps
+        description: Elephant units regenerate 30 hit points per minute.
+      - name: Wootz Steel
+        description: Infantry and cavalry attacks ignore armor.
+    civilization_bonuses:
+      - Receive 200 wood when advancing to the next Age.
+      - Fishermen, Oyster gatherers, and Fishing Ships carry +15.
+      - Barracks technologies cost -50%.
+      - Siege units cost -33% wood.
+      - Skirmishers and Elephant Archers attack 25% faster.
+    team_bonus: Docks provide +5 population space.
+
+  - name: Ethiopians
+    difficulty: Medium
+    difficulty_reason: Archer fire rate and free pikeman upgrade help but require timing knowledge to maximize.
+    tier: C
+    winrate: 50.95
+    tier_reason: Never feels bad but never exceptional, with archer bonus and free Pikeman upgrade. Good for players who love archers and aggressive play.
+    focus: Foot archer
+    wonder: Biete Amanuel
+    unique_units:
+      - name: Shotel Warrior
+        description: Rapidly deployed infantry with high attack but low armor and hit points.
+    unique_technologies:
+      - name: Royal Heirs
+        description: Shotels and Camel units receive -3 damage from mounted units.
+      - name: Torsion Engines
+        description: Increases the blast radius of Siege Workshop units.
+    civilization_bonuses:
+      - The Archer line fires 18% faster.
+      - Receive +100 food, +100 gold whenever a new Age is reached.
+      - The Pikeman upgrade is free.
+    team_bonus: Outposts +3 Line of Sight and stone cost removed.
+
+  - name: Franks
+    difficulty: Easy
+    difficulty_reason: Free farming technologies and cavalry HP bonus provide clear path to knights/paladins strategy.
+    tier: B
+    winrate: 50.73
+    tier_reason: Strong cavalry civilization with free farm upgrades and castle discount. Berry bonus and faster foraging provide solid early economy.
+    focus: Cavalry
+    wonder: St. Vitus Cathedral
+    unique_units:
+      - name: Throwing Axeman
+        description: Ranged infantry unit.
+    unique_technologies:
+      - name: Bearded Axe
+        description: Throwing Axeman +1 range.
+      - name: Chivalry
+        description: Stables work 40% faster.
+    civilization_bonuses:
+      - Farm upgrades are free.
+      - Castles are 15%/25% cheaper in the Castle/Imperial Age.
+      - Mounted units have +20% hit points (starting in the Feudal Age).
+      - Foragers work 15% faster.
+    team_bonus: Knights have +2 Line of Sight.
+
+  - name: Georgians
+    difficulty: Hard
+    difficulty_reason: Mobile cart mechanics completely change standard build orders and resource management.
+    tier: S
+    winrate: 50.59
+    tier_reason: Overpowered with free lumber camp equivalent and strong healing on cavalry units. Excellent economy and military options make them dominant on virtually all map types.
+    focus: Cavalry and Defensive
+    wonder: Svetitskhoveli Cathedral
+    unique_units:
+      - name: Monaspa
+        description: Cavalry unit that becomes stronger when other Monaspas or Knight-line units are nearby.
+    unique_buildings:
+      - name: Mule Cart
+        description: Mobile dropsite for wood, gold, stone, and hunted food. Replaces the Lumber and Mining Camps.
+      - name: Fortified Church
+        description: Trains and upgrades Monks, and can garrison certain units. Fires arrows when garrisoned with Villagers or Relics. Replaces the Monastery.
+    unique_technologies:
+      - name: Svan Towers
+        description: Defensive structures receive +2 attack. Towers deal pass-through damage.
+      - name: Aznauri Cavalry
+        description: Mounted units take 15% less population space.
+    civilization_bonuses:
+      - Start with a Mule Cart.
+      - Fortified Churches provide +10% work rate to Villagers in a 19 tile square.
+      - Units and buildings receive -20% damage (-40% instead of -25%) when fighting from higher elevation.
+      - Mounted units regenerate 5/10/15 hit points per minute in the Feudal/Castle/Imperial Age.
+    team_bonus: Repairing buildings costs -25% resources.
+
+  - name: Goths
+    difficulty: Medium
+    difficulty_reason: Infantry discount and population bonus make late-game straightforward but surviving early pressure is challenging.
+    tier: C
+    winrate: 49.47
+    tier_reason: Strong infantry spam in late game and instant Loom for early aggression. Performs better at lower ELOs where infantry spam can be overwhelming.
+    focus: Infantry
+    wonder: Mausoleum of Theoderic I
+    unique_units:
+      - name: Huskarl
+        description: Archer-resistant infantry unit.
+    unique_technologies:
+      - name: Anarchy
+        description: Allows the creation of Huskarls at the Barracks.
+      - name: Perfusion
+        description: Increases the working speed of Barracks by +100%.
+    civilization_bonuses:
+      - Infantry are 20%/25%/30%/35% cheaper in the Dark/Feudal/Castle/Imperial Age.
+      - Infantry have +1/+2/+3 attack bonus against standard buildings in the Feudal/Castle/Imperial Age.
+      - Hunters have +5 attack against aggressive huntables (Wild Boar, Javelina, Elephant, Rhinoceros) and carry +15 food. Hunt lasts 20% longer.
+      - Loom is researched instantly.
+      - +10 population cap in the Imperial Age.
+    team_bonus: Barracks work 20% faster.
+
+  - name: Gurjaras
+    difficulty: Medium
+    difficulty_reason: Unusual sheep garrisoning mechanic and unique unit options require specialized knowledge.
+    tier: C
+    winrate: 47.99
+    tier_reason: Excellent food discount for all units and powerful unique units (Shrivamsha Riders). Food-based unit discount technology makes them particularly strong in late game.
+    focus: Cavalry and Camel
+    wonder: Somnath Temple
+    unique_units:
+      - name: Chakram Thrower
+        description: Light infantry with a ranged melee attack and pass-through damage.
+      - name: Shrivamsha Rider
+        description: Light cavalry which can dodge projectile attacks.
+      - name: Camel Scout
+        description: Early camel unit.
+    unique_technologies:
+      - name: Kshatriyas
+        description: Military units cost -25% food.
+      - name: Frontier Guards
+        description: Camel Riders and Elephant Archers +4 melee armor.
+    civilization_bonuses:
+      - Start the game with a Camel Scout.
+      - Starts with 2 Forage Bushes under the Town Center.
+      - Can garrison Docks with allied Fishing Ships.
+      - Can garrison Mills with herdable animals to produce food.
+      - Mounted units deal +20%/+30%/+40% bonus damage in the Feudal/Castle/Imperial Age.
+    team_bonus: Camel and elephant units are created 25% faster.
+
+  - name: Hindustanis
+    difficulty: Easy
+    difficulty_reason: Excellent versatility with strong camel units and markets working 10% faster provides economic advantage throughout the game.
+    tier: S
+    winrate: 52.85
+    tier_reason: Excellent versatility with good options across all maps and strong camel units. Markets working 10% faster provides good economy boost throughout the game.
+    focus: Camel and Gunpowder
+    wonder: Maqbara-i Humayun
+    unique_units:
+      - name: Ghulam
+        description: Archer-resistant infantry unit that thrusts its spear through multiple targets.
+      - name: Imperial Camel Rider
+        description: Unique upgrade of the Heavy Camel Rider, provides additional HP and attack.
+    unique_buildings:
+      - name: Caravanserai
+        description: Building which heals and speeds up nearby allied Trade Carts.
+    unique_technologies:
+      - name: Grand Trunk Road
+        description: Increases the speed of all gold income by +10%. Trading fee reduced to 10%.
+      - name: Shatagni
+        description: Gives Hand Cannoneers +2 range.
+    civilization_bonuses:
+      - Villagers are 8/13/18/23% cheaper in the Dark/Feudal/Castle/Imperial Age.
+      - Camel Riders attack 20% faster.
+      - Gunpowder units have +1/+1 armor.
+    team_bonus: Camel units and light cavalry units have +2 attack against standard buildings.
+
+  - name: Huns
+    difficulty: Easy
+    difficulty_reason: No need to build houses saves resources and mental bandwidth for other tasks.
+    tier: A
+    winrate: 52.65
+    tier_reason: No houses provides population space flexibility but base is more open. Good on hybrid maps and for aggressive play but falls behind without early military success.
+    focus: Cavalry
+    wonder: Arch of Constantine (ruined)
+    unique_units:
+      - name: Tarkan
+        description: Cavalry unit that excels at razing defensive structures.
+    unique_technologies:
+      - name: Marauders
+        description: Allows the creation of Tarkans at the Stable.
+      - name: Atheism
+        description: Adds 100 years to Wonder and Relic victory countdowns and reduces enemy Relic resource generation by 50%.
+    civilization_bonuses:
+      - Start the game with -100 wood, but with the population cap at the maximum.
+      - On Nomadic maps, the first Town Center spawns a Hunnic Horse.
+      - Mounted archers are 10%/20% cheaper in the Castle/Imperial Age.
+      - Trebuchets have +35% accuracy against units.
+    team_bonus: Stables work 20% faster.
+
+  - name: Incas
+    difficulty: Hard
+    difficulty_reason: No cavalry forces unique infantry/slinger combinations requiring specific counter knowledge.
+    tier: A
+    winrate: 50.79
+    tier_reason: Versatile civilization with houses supporting units and excellent counter units. Strong on land maps with multiple viable strategies available.
+    focus: Infantry
+    wonder: The Temple of the Sun at Machu Picchu
+    unique_units:
+      - name: Kamayuk
+        description: Infantry wielding a long spear that allows attacking at range and attack bonus against cavalry.
+      - name: Slinger
+        description: Foot archer with a massive attack bonus against infantry.
+    unique_technologies:
+      - name: Andean Sling
+        description: Slingers +1 attack and removes the minimum range from Slingers and Skirmishers.
+      - name: Fabric Shields
+        description: Gives Eagle Warriors, Kamayuks, and Slingers +1/+2 armor.
+    civilization_bonuses:
+      - Military units cost -10%/-15%/-20%/-25% food in Dark/Feudal/Castle/Imperial Ages
+      - Villagers benefit from Blacksmith infantry upgrades starting in the Castle Age.
+      - Houses support 10 population.
+      - Buildings cost -15% stone.
+    team_bonus: Start with a free Llama.
+
+  - name: Italians
+    difficulty: Medium
+    difficulty_reason: Discount bonuses require broader game knowledge to fully leverage advantages.
+    tier: D
+    winrate: 47.99
+    tier_reason: Excellent on water maps with dock discount and good on hybrid maps. Versatile with decent options on most map types and advancing to ages costs less.
+    focus: Foot archers and Navy
+    wonder: Genoa Cathedral, Cathedral of St. Lawrence
+    unique_units:
+      - name: Genoese Crossbowman
+        description: Archer with an attack bonus against cavalry.
+      - name: Condottiero
+        description: Melee infantry with an attack bonus against gunpowder units.
+    unique_technologies:
+      - name: Pavise
+        description: Gives foot archers (except Skirmishers) and Condottieri +1/+1 armor.
+      - name: Silk Road
+        description: Halves trade unit cost.
+    civilization_bonuses:
+      - Advancing to the next Age is 15% cheaper.
+      - Dock and University technologies are 33% cheaper.
+      - Fishing Ships are 15% cheaper.
+      - Gunpowder units are 20% cheaper.
+    team_bonus: Condottieri are available at the Barracks.
+
+  - name: Japanese
+    difficulty: Medium
+    difficulty_reason: Balanced civilization requiring knowledge of when to leverage infantry bonuses effectively.
+    tier: C
+    winrate: 48.00
+    tier_reason: Excellent on hybrid maps with fishing ship bonus and infantry attack speed. Lack of Bombard Cannon is their biggest weakness in late game.
+    focus: Infantry
+    wonder: Great Buddha Hall (daibutsuden) at the Tōdai-ji temple complex
+    unique_units:
+      - name: Samurai
+        description: Fast-attacking infantry with an attack bonus against unique units.
+    unique_technologies:
+      - name: Yasama
+        description: Gives towers two extra arrows.
+      - name: Kataparuto
+        description: Makes Trebuchets pack, unpack, and fire faster.
+    civilization_bonuses:
+      - Fishing Ships have double hit points, +2 pierce armor, and work 5%/10%/15%/20% faster in the Dark/Feudal/Castle/Imperial Age.
+      - Mills, Lumber Camps and Mining Camps are 50% cheaper.
+      - Infantry attack 33% faster starting in the Feudal Age.
+      - Mounted archers +2 attack vs. archers (except Skirmishers).
+    team_bonus: Galleys have a +50% longer Line of Sight.
+
+  - name: Khmer
+    difficulty: Medium
+    difficulty_reason: No building requirements for advancement helps but elephant focus requires adjustment.
+    tier: A
+    winrate: 49.32
+    tier_reason: No building requirements allows for flexible strategies and faster advancement. House garrisoning provides excellent mobility and their Battle Elephants are among the best.
+    focus: Siege and Elephant
+    wonder: Central shrine of the Angkor Wat temple complex
+    unique_units:
+      - name: Ballista Elephant
+        description: Heavy cavalry siege unit.
+    unique_technologies:
+      - name: Tusk Swords
+        description: Battle Elephants +3 attack.
+      - name: Double Crossbow
+        description: Ballista Elephants and Scorpions fire an additional bolt of half strength.
+    civilization_bonuses:
+      - No buildings are required to advance to the next age or to unlock other buildings.
+      - Battle Elephants move 10% faster.
+      - Farmers don't carry food but rather add it directly to the stockpile without any drop-off, but work 5% slower.
+      - Villagers (and Kings) can garrison in Houses.
+    team_bonus: Scorpions have +1 range.
+
+  - name: Koreans
+    difficulty: Hard
+    difficulty_reason: Tower and castle bonuses require specific strategies that differ from standard play.
+    tier: C
+    winrate: 48.77
+    tier_reason: Good for tower and siege pushes with free tower upgrades and no minimum range on mangonels. Never feels like the best civilization but offers solid options.
+    focus: Defensive and Naval
+    wonder: Hwangnyong Temple
+    unique_units:
+      - name: War Wagon
+        description: Heavily armored cavalry archer.
+      - name: Turtle Ship
+        description: Heavily armored ship that fires cannonballs.
+    unique_technologies:
+      - name: Eupseong
+        description: Towers (except Bombard Towers) have +2 range.
+      - name: Shinkichon
+        description: Gives the Mangonel line +1 range.
+    civilization_bonuses:
+      - Villagers have +3 Line of Sight.
+      - Stone Miners work 20% faster.
+      - Archer armor and tower upgrades are free (Bombard Tower requires Chemistry).
+      - Archer and infantry units cost -50% wood.
+      - Warships cost -20% wood.
+    team_bonus: The Mangonel line minimum range is reduced to 1.
+
+  - name: Lithuanians
+    difficulty: Easy
+    difficulty_reason: Starting food bonus reduces early game pressure and cavalier/paladin bonus is straightforward to utilize.
+    tier: A
+    winrate: 49.69
+    tier_reason: Starting with extra food and relic bonus for cavalry makes them potent. Excellent on hybrid maps with strong potential for deadly Leitis cavalry units.
+    focus: Cavalry and Monk
+    wonder: Trakai Island Castle
+    unique_units:
+      - name: Leitis
+        description: Cavalry whose attack ignores unit's armor.
+      - name: Winged Hussar
+        description: Unique upgrade of the Light Cavalry replacing the Hussar (shared with the Poles).
+    unique_technologies:
+      - name: Hill Forts
+        description: Town Centers +3 range.
+      - name: Tower Shields
+        description: Spearman line and Skirmishers +2 pierce armor.
+    civilization_bonuses:
+      - Each Town Center (including starting one) provides +100 food.
+      - Spearman line and Skirmishers move 10% faster.
+      - Each garrisoned Relic gives +1 attack to Knights and Leitis (maximum +4).
+    team_bonus: Monasteries (and Fortified Churches) work 20% faster.
+
+  - name: Magyars
+    difficulty: Easy
+    difficulty_reason: Well-rounded tech tree with strong scout bonus makes standard play patterns intuitive.
+    tier: C
+    winrate: 50.53
+    tier_reason: Good on aggressive open maps with free scout upgrades but predictable. Poor on water and hybrid maps due to lack of wood-saving bonuses.
+    focus: Cavalry
+    wonder: Hunyad Castle
+    unique_units:
+      - name: Magyar Huszar
+        description: Light cavalry with an attack bonus against siege weapons.
+    unique_technologies:
+      - name: Corvinian Army
+        description: Magyar Huszar gold cost is replaced by additional food cost.
+      - name: Recurve Bow
+        description: Mounted archers +1 attack and range.
+    civilization_bonuses:
+      - Forging, Iron Casting, and Blast Furnace are free.
+      - Scout Cavalry line is 15% cheaper.
+      - Villagers kill wild animals in one strike.
+    team_bonus: Mounted archers are trained 25% faster.
+
+  - name: Malay
+    difficulty: Hard
+    difficulty_reason: Faster age-up but weaker units require careful timing and transitions between ages.
+    tier: S
+    winrate: 52.20
+    tier_reason: Extremely strong with faster age-up times and excellent water/hybrid map capabilities. Their cost-effective units and strong late game make them formidable on most maps.
+    focus: Infantry and Naval
+    wonder: Kalasan Temple
+    unique_units:
+      - name: Karambit Warrior
+        description: Cheap infantry that only takes up half a population space.
+    unique_buildings:
+      - name: Harbor
+        description: Docks which shoots multiple arrows like a Yasama Watch Tower.
+    unique_technologies:
+      - name: Thalassocracy
+        description: Upgrades Docks to Harbors.
+      - name: Forced Levy
+        description: Militia line costs +20 food, -20 gold.
+    civilization_bonuses:
+      - Advancing in Age is +66% faster.
+      - Fish Traps are 33% cheaper and provide 3x food.
+      - Battle Elephants are 25% cheaper in the Castle Age, 35% cheaper in the Imperial Age.
+      - Infantry armor upgrades are free.
+    team_bonus: Docks have double Line of Sight.
+
+  - name: Malians
+    difficulty: Medium
+    difficulty_reason: Building construction speed and gold mining efficiency require economic planning to leverage properly.
+    tier: A
+    winrate: 51.48
+    tier_reason: Good on every map but not exceptional anywhere specific. Gold mining bonus allows for good rushing potential and flexible strategies.
+    focus: Infantry
+    wonder: Great Mosque of Djenné
+    unique_units:
+      - name: Gbeto
+        description: Fast light infantry with a powerful ranged attack.
+    unique_technologies:
+      - name: Tigui
+        description: Town Centers fire +8 arrows always.
+      - name: Farimba
+        description: Cavalry units +5 attack.
+    civilization_bonuses:
+      - Buildings cost -15% wood (except Farms and starting Town Center).
+      - Barracks units have +1/+2/+3 pierce armor in the Feudal/Castle/Imperial Age.
+      - Villagers drop off +10% gold.
+    team_bonus: Universities work +80% faster.
+
+  - name: Mayans
+    difficulty: Hard
+    difficulty_reason: Start housed and lack cavalry units requiring alternative strategy development.
+    tier: A
+    winrate: 49.08
+    tier_reason: Excellent resource efficiency and strong archers make them consistently powerful. Longer-lasting resources and 100 HP Eagles provide excellent value throughout the game.
+    focus: Foot archer
+    wonder: Temple of the Great Jaguar (Tikal Temple I)
+    unique_units:
+      - name: Plumed Archer
+        description: Quick foot archer with high hit points and pierce armor, but low attack.
+    unique_technologies:
+      - name: Hul'che Javelineers
+        description: Skirmishers throw an additional projectile, which deals one pierce attack.
+      - name: El Dorado
+        description: Eagle Warriors +40 hit points.
+    civilization_bonuses:
+      - Start the game with an Eagle Scout.
+      - Start the game with +1 Villager, but with -50 food.
+      - Resources last 15% longer.
+      - Foot archers (except Skirmishers) are 10%/20%/30% cheaper in the Feudal/Castle/Imperial Age.
+    team_bonus: Walls and gates (both Palisade and Stone) are 50% cheaper.
+
+  - name: Mongols
+    difficulty: Easy
+    difficulty_reason: Hunting bonus and faster firing cavalry archers provide clear strategic direction.
+    tier: S
+    winrate: 51.00
+    tier_reason: Exceptional hunting bonus for early economy and deadly Steppe Lancers. Strong on all maps with excellent early game pressure potential and reliable late-game options.
+    focus: Mounted archers
+    wonder: Great Tent of Genghis Khan
+    unique_units:
+      - name: Mangudai
+        description: Mounted archer with an attack bonus against siege weapons.
+    unique_technologies:
+      - name: Nomads
+        description: Makes Houses keep their population space if they are destroyed.
+      - name: Drill
+        description: Increases the movement speed of Siege Workshop units by +50%.
+    civilization_bonuses:
+      - Cavalry archers fire 25% faster.
+      - Scout Cavalry-line and Steppe Lancers +20/30% hit points in the Castle/Imperial Age.
+      - Hunters work 40% faster.
+    team_bonus: The Scout Cavalry line has +2 Line of Sight.
+
+  - name: Persians
+    difficulty: Medium
+    difficulty_reason: TC/Dock work rate helps early economy but war elephant transition requires specific knowledge.
+    tier: S
+    winrate: 51.44
+    tier_reason: Versatile civilization with strong economy bonus (TC works faster) and excellent unit options. Strong on virtually every map type with few weaknesses.
+    focus: Cavalry
+    wonder: Taq Kasra (Arch of Ctesiphon)
+    unique_units:
+      - name: War Elephant
+        description: Slow but extremely powerful cavalry unit.
+      - name: Savar
+        description: Unique upgrade of the Cavalier, replacing the Paladin.
+    unique_buildings:
+      - name: Caravanserai
+        description: Building which heals and speeds up nearby allied Trade Carts.
+    unique_technologies:
+      - name: Kamandaran
+        description: Archer-line cost changed from 25 wood, 45 gold to 60 wood.
+      - name: Citadels
+        description: Castles +4 attack, +3 against rams, +3 against infantry, and receive -25% bonus damage.
+    civilization_bonuses:
+      - Start the game with +50 food, +50 wood.
+      - Town Centers and Docks have double hit points and work 5%/10%/15%/20% faster in the Dark/Feudal/Castle/Imperial Age.
+      - Parthian Tactics available in the Castle Age.
+    team_bonus: Knight line has +2 attack against archers.
+
+  - name: Poles
+    difficulty: Medium
+    difficulty_reason: Stone mining bonuses and unique folwark farming system require specialized economic management.
+    tier: D
+    winrate: 48.03
+    tier_reason: Hard to play effectively with folwark farming system. Overshadowed by Georgians who do similar things but better and with less risk.
+    focus: Cavalry
+    wonder: Wawel Cathedral
+    unique_units:
+      - name: Obuch
+        description: Infantry whose attack reduces the target unit's armor.
+      - name: Winged Hussar
+        description: Unique upgrade of the Light Cavalry replacing the Hussar (shared with the Lithuanians).
+    unique_buildings:
+      - name: Folwark
+        description: Free upgrade to the Mill, which collects 8% food from nearby constructed Farms.
+    unique_technologies:
+      - name: Szlachta Privileges
+        description: Knight line costs -60% gold.
+      - name: Lechitic Legacy
+        description: Scout Cavalry line deals 33% trample damage in 0.5 tiles radius.
+    civilization_bonuses:
+      - Villagers regenerate 10/15/20 HP per minute in the Feudal/Castle/Imperial Age.
+      - Stone miners generate 33% gold in addition to stone.
+      - Bloodlines and Scout Cavalry-line upgrades cost -50% food.
+    team_bonus: The Scout Cavalry line has +1 attack vs. archers.
+
+  - name: Portuguese
+    difficulty: Medium
+    difficulty_reason: Gold-focused bonuses require planning and longer-term economic management.
+    tier: B
+    winrate: 48.86
+    tier_reason: Strong gold discount and excellent late-game options with Organ Guns. Particularly powerful on Arena and closed maps with good water capabilities.
+    focus: Naval and Gunpowder
+    wonder: Belém Tower
+    unique_units:
+      - name: Organ Gun
+        description: Gunpowder siege unit filling a similar purpose as the Scorpion.
+      - name: Caravel
+        description: Warship that causes pass-through damage, like the Scorpion.
+    unique_technologies:
+      - name: Carrack
+        description: Ships have +1/+1 armor.
+      - name: Arquebus
+        description: Gunpowder units can track moving targets.
+    unique_buildings:
+      - name: Feitoria
+        description: Building that costs 20 population but slowly and passively generates resources.
+    civilization_bonuses:
+      - All units cost –20% gold.
+      - All ships have +10% hit points.
+      - Foragers generate wood in addition to food (0.33 wood per food).
+    team_bonus: All technologies (excluding Age ups) research 25% faster.
+
+  - name: Romans
+    difficulty: Easy
+    difficulty_reason: Balanced civilization with both infantry and cavalry options makes learning different unit types accessible.
+    tier: S
+    winrate: 53.04
+    tier_reason: Strong early game with Meta Arms (Man-at-Arms) and good armor bonuses. Better in open maps with aggressive play styles and multiple viable paths.
+    focus: Infantry
+    wonder: Colosseum
+    unique_units:
+      - name: Legionary
+        description: Sturdy infantry unit. Replacement of the Two-Handed Swordsman and Champion upgrades.
+      - name: Centurion
+        description: Heavy cavalry unit that increases the attack and movement speeds of nearby Militia-line units.
+    unique_technologies:
+      - name: Ballistas
+        description: Scorpions fire 33% faster, the Galley-line has +2 attack.
+      - name: Comitatenses
+        description: Militia-line, Knight-line, and Centurions train 50% faster and receive +5 charge attack over 20 seconds.
+    civilization_bonuses:
+      - Villagers gather, build, and repair 5% faster.
+      - Galley-line and Dromon +1/+1 armor.
+      - Infantry receives double the effect from Blacksmith armor upgrades.
+      - Scorpions cost -60% gold.
+    team_bonus: The Scorpion-line's minimum range is reduced to 1.
+
+  - name: Saracens
+    difficulty: Hard
+    difficulty_reason: Market bonuses require active market usage and flexible army composition without standout early bonuses.
+    tier: C
+    winrate: 48.62
+    tier_reason: Versatile with good market usage and camel archers. Neither the best nor worst on any map type, with market bonus providing good resource flexibility.
+    focus: Camel and Naval
+    wonder: Great Mosque of Samarra
+    unique_units:
+      - name: Mameluke
+        description: Camel cavalry with ranged melee attack, and an attack bonus against mounted units.
+    unique_technologies:
+      - name: Bimaristan
+        description: Monks automatically heal multiple nearby units.
+      - name: Counterweights
+        description: Trebuchets and Mangonel-line +15% attack.
+    civilization_bonuses:
+      - The commodity trading fee is 5%.
+      - Markets cost 75 wood.
+      - Transport Ships have double hit points and +5 carry capacity.
+      - Galleys attack 25% faster.
+      - Camel units +25% hit points.
+    team_bonus: Foot archers have +3 attack against standard buildings.
+
+  - name: Sicilians
+    difficulty: Hard
+    difficulty_reason: Damage reduction and first crusade mechanics create unique gameplay requiring specialized knowledge.
+    tier: B
+    winrate: 51.56
+    tier_reason: Lacks identity and clear win conditions with limited late-game options. Missing Hand Cannoneer and Bombard Cannon creates clear holes in their technology tree.
+    focus: Infantry and Cavalry
+    wonder: Monreale Cathedral
+    unique_units:
+      - name: Serjeant
+        description: Heavily-armored infantry unit that can also build Donjons. It is available starting in the Feudal Age, and is upgraded for free upon reaching the Castle Age.
+    unique_buildings:
+      - name: Donjon
+        description: Watch Tower line replacement which gets stronger when aging up and can train Serjeants and the Spearman line.
+    unique_technologies:
+      - name: First Crusade
+        description: Each Town Center (up to 5) spawns a one-time group of 5 Serjeants; also increases resistance against conversion (+4/+4 min/max conversion intervals, effect identical to Faith).
+      - name: Hauberk
+        description: Knight-line +1/+2 armor.
+    civilization_bonuses:
+      - Start with +100 stone.
+      - Fortifications built 50%, Town Centers built 100% faster.
+      - Land military units (except siege weapons) receive 33% less bonus damage.
+      - Farm upgrades provide additional +125% food.
+    team_bonus: Transport Ships have +5 Line of Sight and cost -50%.
+
+  - name: Slavs
+    difficulty: Medium
+    difficulty_reason: Farming bonus is helpful but infantry/siege combination requires coordination.
+    tier: B
+    winrate: 50.52
+    tier_reason: 15% faster farming is a huge boost to their economy. Perform well on closed maps and maps where farming economy shines.
+    focus: Infantry and Siege
+    wonder: Kizhi Pogost
+    unique_units:
+      - name: Boyar
+        description: Heavily armored cavalry, resistant to melee attack.
+    unique_technologies:
+      - name: Detinets
+        description: Replaces 40% of Castles' and Towers' stone cost with wood.
+      - name: Druzhina
+        description: Infantry units damage adjacent units in +0.5 tiles radius with 5 damage.
+    civilization_bonuses:
+      - Farmers work 15% faster.
+      - Supplies and Gambesons are free.
+      - Siege Workshop units are 15% cheaper.
+      - Monks move 20% faster.
+    team_bonus: Barracks, Archery Ranges, Stables, and Siege Workshops provide +5 population.
+
+  - name: Spanish
+    difficulty: Medium
+    difficulty_reason: Builder work rate is helpful but reliance on unique units requires timing knowledge.
+    tier: B
+    winrate: 50.42
+    tier_reason: Strong if you can get to Castle Age with Conquistadors and devotion. Trade bonus and builders working faster provides good economic advantages.
+    focus: Gunpowder and Monk
+    wonder: Torre del Oro
+    unique_units:
+      - name: Conquistador
+        description: Mounted gunpowder unit.
+      - name: Missionary
+        description: Mounted Monk.
+    unique_technologies:
+      - name: Inquisition
+        description: Increases conversion speed for Monks and Missionaries. Missionaries +1 range.
+      - name: Supremacy
+        description: Gives Villagers +6 attack, +2/+2 armor, and +40 hit points.
+    civilization_bonuses:
+      - Builders work 30% faster (20% for Wonders).
+      - Blacksmith upgrades don't cost gold.
+      - Cannon Galleon projectiles can track moving targets and move faster.
+      - Gunpowder units fire 18% faster.
+      - Receive 20 gold for each technology researched.
+    team_bonus: Trade units generate +25% gold.
+
+  - name: Tatars
+    difficulty: Medium
+    difficulty_reason: Elevation bonus and keshik mechanics require positional awareness.
+    tier: C
+    winrate: 48.37
+    tier_reason: Good if you like them but nothing special, with some good matchups and some bad ones. Hill bonus gives them situational advantages on certain maps.
+    focus: Mounted archer
+    wonder: Ulugh Beg Observatory
+    unique_units:
+      - name: Keshik
+        description: Cavalry that generates gold with each attack.
+      - name: Flaming Camel
+        description: Camel that explodes like a Petard, with attack bonuses against mounted units and elephants.
+    unique_technologies:
+      - name: Silk Armor
+        description: Scout Cavalry line, Steppe Lancers and mounted archers have +1/+1 armor.
+      - name: Timurid Siegecraft
+        description: Trebuchets have +2 range.
+    civilization_bonuses:
+      - Herdable animals contain +50% food.
+      - Units do +20% damage when attacking from higher elevations (+50% instead of +25%).
+      - Parthian Tactics and Thumb Ring are free.
+      - Two Sheep spawn near newly-constructed Town Centers starting in the Castle Age.
+    team_bonus: Mounted archers have +2 Line of Sight.
+
+  - name: Teutons
+    difficulty: Easy
+    difficulty_reason: Strong defensive capabilities and powerful units compensate for lack of mobility.
+    tier: C
+    winrate: 50.87
+    tier_reason: Solid monk, knight, and infantry play with cheaper farms. Clear weaknesses with no Bracer, no Arbalester, and no Husbandry make them situational.
+    focus: Infantry
+    wonder: Maria Laach Abbey
+    unique_units:
+      - name: Teutonic Knight
+        description: Slow but strong infantry.
+    unique_technologies:
+      - name: Ironclad
+        description: Gives siege weapons +4 melee armor.
+      - name: Crenellations
+        description: Gives Castles +3 range and makes garrisoned infantry shoot arrows.
+    civilization_bonuses:
+      - Monks have double healing range.
+      - Towers garrison twice as many units.
+      - Murder Holes and Herbal Medicine are free.
+      - Farms are 40% cheaper.
+      - Town Centers can garrison +10 units.
+      - Barracks and Stable units receive +1/+2 melee armor in the Castle/Imperial Age.
+    team_bonus: Units and buildings resist conversion (+3/+1 min/max conversion intervals).
+
+  - name: Turks
+    difficulty: Hard
+    difficulty_reason: Strong gunpowder focus but weak trash units creates vulnerability when gold runs scarce.
+    tier: C
+    winrate: 50.63
+    tier_reason: Good for strategic and off-meta play with strong gunpowder units. Performs well on Arena but requires smart play to be effective.
+    focus: Gunpowder
+    wonder: Selimiye Mosque
+    unique_units:
+      - name: Janissary
+        description: More powerful version of the Hand Cannoneer.
+    unique_technologies:
+      - name: Sipahi
+        description: Mounted archers +20 hit points.
+      - name: Artillery
+        description: +2 range for Bombard Towers, Bombard Cannons, Cannon Galleons.
+    civilization_bonuses:
+      - Gunpowder units have +25% hit points.
+      - Chemistry is free.
+      - Gunpowder technologies are 50% cheaper.
+      - Gold Miners work 20% faster.
+      - Light Cavalry and Hussar upgrades are free.
+      - Scout Cavalry line gain +1 pierce armor.
+    team_bonus: Gunpowder units are created 25% faster.
+
+  - name: Vietnamese
+    difficulty: Medium
+    difficulty_reason: Revealing enemy starting positions helps with planning but requires archer micro skill.
+    tier: D
+    winrate: 47.53
+    tier_reason: Solid economy and good on many different maps with few weaknesses. Free economic upgrades provide consistent advantage throughout the game.
+    focus: Archer
+    wonder: Bút Tháp
+    unique_units:
+      - name: Rattan Archer
+        description: Foot archer with high pierce armor.
+      - name: Imperial Skirmisher
+        description: Upgrade of the Elite Skirmisher, provides additional hit points and attack.
+    unique_technologies:
+      - name: Chatras
+        description: Gives Battle Elephants +100 hit points.
+      - name: Paper Money
+        description: Lumberjacks generate gold when working.
+    civilization_bonuses:
+      - Archery Range units have +20% hit points.
+      - Reveal enemy initial Town Centers location at the start of the game.
+      - Conscription is free.
+      - Economic upgrades (except Coinage and Banking) cost no wood and are researched 100% faster.
+    team_bonus: Imperial Skirmisher upgrade is available at the Archery Range (requires the Imperial Age and Elite Skirmisher).
+
+  - name: Vikings
+    difficulty: Easy
+    difficulty_reason: Free wheelbarrow/hand cart economic bonuses make booming straightforward.
+    tier: S
+    winrate: 51.78
+    tier_reason: One of the best water civilizations with cheaper docks and ships. Economic bonus is strong but they have a somewhat weaker late game.
+    focus: Infantry and Naval
+    wonder: Borgund Stave Church
+    unique_units:
+      - name: Berserk
+        description: Infantry that can regenerate.
+      - name: Longboat
+        description: Quick warship that fires multiple arrows.
+    unique_technologies:
+      - name: Chieftains
+        description: Gives infantry +5 attack against cavalry and +4 attack against camels; infantry generate gold when killing villagers, trade units and monks.
+      - name: Bogsveigar
+        description: Archer-line and Longboats +1 attack.
+    civilization_bonuses:
+      - Wheelbarrow and Hand Cart free.
+      - Warships cost -15%/-15%/-20% in the Feudal/Castle/Imperial Age.
+      - Infantry have +20% hit points starting from the Feudal Age.
+    team_bonus: Docks are 15% cheaper.

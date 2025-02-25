@@ -10,22 +10,25 @@
     </head>
 <body>
     <nav class="side-nav">
+        <div class="nav-logo-container">
+            <img src="/static/logo_v2.svg" alt="Ragnode Logo" class="nav-logo">
+        </div>
         <div class="header-spacer"></div>
         <ul class="nav-links">
             <li><a href="/" class="nav-item">Home</a></li>
             <li><a href="/diamond-hands-chat" class="nav-item {% if title == 'Diamond Hands' %}active{% endif %}">Diamond Hands</a></li>
-            <li><a href="/chippie-chat" class="nav-item {% if title == 'Chippie' %}active{% endif %}">Chippie</a></li>
+            <li><a href="/aoe2-wizard-chat" class="nav-item {% if title == 'AoE2 Wizard' %}active{% endif %}">AoE2 Wizard</a></li>
             <li><a href="/badener-chat" class="nav-item {% if title == 'The Badener' %}active{% endif %}">The Badener</a></li>
         </ul>
     </nav>
 
     <main class="main-content">
         <div class="expert-header">
-            <div class="main-logo-container">
-                <img src="/static/logo_v2.svg" alt="Ragnode Logo" class="main-logo">
-            </div>
             <h1>{{ title }}</h1>
-            <p class="expert-description">{{ description }}</p>
+            <p class="expert-description">
+                {{ description }}
+                <a href="/aoe2-civs" style="display: block; margin-top: 12px; color: rgb(186, 108, 77); font-size: 0.95em;">RAG is build on Civilization Database →</a>
+            </p>
         </div>
 
         <div id="chat-container">
