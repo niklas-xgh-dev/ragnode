@@ -1,7 +1,8 @@
 import os
 from dotenv import load_dotenv
 import anthropic
-from typing import List, Dict
+from typing import List, Dict, AsyncGenerator
+import asyncio
 from ..database import async_session
 from ..models import ChatMessage
 
@@ -12,6 +13,7 @@ class BaseChat:
             
         self.api_key = os.getenv("ANTHROPIC_API_KEY")
         self.system_prompt = system_prompt
+        self.client = None
     
     def format_messages(self, message: str, history: List[Dict] = None) -> List[Dict]:
         formatted_messages = []
@@ -35,30 +37,52 @@ class BaseChat:
                 await session.commit()
         except Exception as e:
             print(f"Error saving {role} message to database: {str(e)}")
+    
+    async def get_client(self):
+        if self.client is None:
+            self.client = anthropic.AsyncAnthropic(api_key=self.api_key)
+        return self.client
 
-    async def get_response(self, message: str, history: List[Dict] = None) -> str:
+    async def get_response(self, message: str, history: List[Dict] = None) -> AsyncGenerator[str, None]:
+        """
+        Get a streaming response from Claude.
+        
+        Args:
+            message: The user's message
+            history: Chat history
+            
+        Yields:
+            Chunks of the response text as they become available
+        """
         if not message or message.strip() == "":
-            return "Please enter a message."
+            yield "Please enter a message."
+            return
             
         try:
             formatted_messages = self.format_messages(message, history)
-            
             await self.save_message("user", message)
             
-            client = anthropic.AsyncAnthropic(api_key=self.api_key)
-            response = await client.messages.create(
+            client = await self.get_client()
+            
+            # Keep track of full response for saving to database
+            full_response = ""
+            
+            # Stream the response
+            async with client.messages.stream(
                 model="claude-3-5-haiku-latest",
                 max_tokens=1024,
                 system=self.system_prompt if self.system_prompt else None,
-                messages=formatted_messages
-            )
+                messages=formatted_messages,
+            ) as stream:
+                async for text in stream.text_stream:
+                    full_response += text
+                    yield full_response  # Yield the cumulative response each time
             
-            response_text = response.content[0].text
-            await self.save_message("assistant", response_text)
-            return response_text
-            
+            # Save the complete message to the database after streaming is complete
+            await self.save_message("assistant", full_response)
+                
         except Exception as e:
             error_message = f"Error: {str(e)}"
             print(f"Error in get_response: {str(e)}")
             await self.save_message("assistant", error_message)
-            return error_message
+            yield error_message

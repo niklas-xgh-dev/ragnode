@@ -1,6 +1,7 @@
 import gradio as gr
 import os
 import yaml
+import asyncio
 from .base_chat import BaseChat
 
 class ChatInterface:
@@ -96,6 +97,8 @@ class ChatInterface:
         }
         return examples.get(self.bot_type, [])
         
+    # The process_example method is no longer needed as we're using the existing user/bot functions
+                
     def create_interface(self):
         js_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 
                               'static', 'gradio_force_theme.js')
@@ -111,17 +114,68 @@ class ChatInterface:
                     label="Chat"
                 )
                 
-                async def wrapped_response(message, history):
-                    if not message or message.strip() == "":
-                        return None
-                    response = await self.chat.get_response(message, history)
-                    return response
+                with gr.Row():
+                    with gr.Column(scale=8):
+                        msg = gr.Textbox(
+                            show_label=False,
+                            placeholder="Type your message here...",
+                            container=True
+                        )
+                    with gr.Column(scale=1, min_width=50):
+                        submit_btn = gr.Button("Send", variant="primary")
                 
-                gr.ChatInterface(
-                    fn=wrapped_response,
-                    chatbot=chatbot,
-                    type="messages",
-                    examples=self.get_examples(),
+                async def user(user_message, history):
+                    # Add user message to history and return immediately
+                    return "", history + [{"role": "user", "content": user_message}]
+                    
+                async def bot(history):
+                    # Get the last user message
+                    user_message = history[-1]["content"]
+                    
+                    # Add empty assistant message that will be updated during streaming
+                    history.append({"role": "assistant", "content": ""})
+                    
+                    # Stream the response and update UI in real-time
+                    async for full_response in self.chat.get_response(user_message, history[:-1]):
+                        history[-1]["content"] = full_response
+                        yield history
+                
+                # Add examples directly in the chat interface
+                examples = self.get_examples()
+                if examples:
+                    with gr.Row():
+                        example_buttons = []
+                        for example in examples:
+                            # Create a button for each example
+                            example_btn = gr.Button(example, size="sm")
+                            example_buttons.append(example_btn)
+                            
+                            # Set up event handler for the example button
+                            example_btn.click(
+                                fn=lambda example_text=example: example_text,
+                                outputs=msg,
+                                queue=False
+                            ).then(
+                                fn=user,
+                                inputs=[msg, chatbot],
+                                outputs=[msg, chatbot],
+                                queue=False
+                            ).then(
+                                fn=bot,
+                                inputs=[chatbot],
+                                outputs=[chatbot]
+                            )
+                
+                # Set up event handlers for regular user input
+                msg.submit(user, [msg, chatbot], [msg, chatbot], queue=False).then(
+                    bot, chatbot, chatbot
                 )
+                submit_btn.click(user, [msg, chatbot], [msg, chatbot], queue=False).then(
+                    bot, chatbot, chatbot
+                )
+                
+                # Set a timeout for websocket connections
+                if hasattr(chat_interface, '_queue'):
+                    chat_interface._queue.timeout = 120  # 2-minute timeout for idle connections
         
         return chat_interface

@@ -1,10 +1,12 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import gradio as gr
 import os
+import asyncio
+import signal
 from dotenv import load_dotenv
 
 if not os.getenv("ANTHROPIC_API_KEY"):
@@ -24,10 +26,18 @@ app.add_middleware(
 
 templates = Jinja2Templates(directory="app/static")
 
+# Create a global variable to hold all Gradio apps
+gradio_apps = []
+
 # Create separate interfaces for each bot
 diamond_hands_interface = ChatInterface(bot_type="diamond-hands").create_interface()
+gradio_apps.append(diamond_hands_interface)
+
 aoe2_wizard_interface = ChatInterface(bot_type="aoe2-wizard").create_interface()
+gradio_apps.append(aoe2_wizard_interface)
+
 badener_interface = ChatInterface(bot_type="badener").create_interface()
+gradio_apps.append(badener_interface)
 
 # Mount each interface
 app = gr.mount_gradio_app(app, diamond_hands_interface, path="/diamond-hands/")
@@ -52,6 +62,23 @@ bots = {
         "chat_path": "/badener/"
     }
 }
+
+# Add shutdown event handler
+@app.on_event("shutdown")
+async def shutdown_event():
+    print("Shutting down server and closing all Gradio connections...")
+    for gradio_app in gradio_apps:
+        # Close all running Gradio apps
+        if hasattr(gradio_app, 'close'):
+            await gradio_app.close()
+        elif hasattr(gradio_app, '_queue'):
+            # For newer Gradio versions
+            if hasattr(gradio_app._queue, 'close'):
+                await gradio_app._queue.close()
+    
+    # Give a small timeout to allow connections to close
+    await asyncio.sleep(0.5)
+    print("Server shutdown complete")
 
 # Routes
 @app.get("/", response_class=HTMLResponse)
