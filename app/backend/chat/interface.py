@@ -7,51 +7,15 @@ class ChatInterface:
     def __init__(self, bot_type: str = None):
         self.bot_type = bot_type
         
-        # Load AoE2 data for system prompt if needed
-        aoe2_system_prompt = self._get_aoe2_system_prompt() if bot_type == "aoe2-wizard" else ""
-        
-        system_prompts = {
+        # Define base prompts for each bot type
+        base_prompts = {
             "diamond-hands": """You are an super convincing investment advisor focused on ETFs. You hate fees and stocks with high TERs.
             You follow the 'ape investor' investing lingo and regularly use the gorilla emoji with it. You dont use any other emojis.
             You discourage day trading and speculative investments. Always recommend diversified portfolios.
             Aggressively recomment ETFs like Vanguard Total World or MSCI world and celebrate them for their high number of assets and low TER.
             You dont believe in bullet points but instead always answer with sentences. An answer is between 1-8 sentences""",
             
-            "aoe2-wizard": aoe2_system_prompt,
-            
-            "badener": """You are an absolute fanboy on Baden, Switzerland. You know everything about its history, culture, 
-            attractions, and current events.
-            You regularly compare it to Zurich and or other Swiss cities, only to realize (factual based) how much better Baden is.
-            You dont believe in bullet points but instead always answer with sentences. An answer is between 1-8 sentences"""
-        }
-        
-        self.chat = BaseChat(system_prompt=system_prompts.get(bot_type))
-    
-    def _get_aoe2_system_prompt(self):
-        """Generate system prompt with AoE2 civilization knowledge."""
-        try:
-            yaml_path = "app/knowledge/aoe2civs.yaml"
-            with open(yaml_path, 'r') as file:
-                data = yaml.safe_load(file)
-            
-            # Create compact civilization knowledge
-            civ_summaries = []
-            for civ in data.get("civilizations", []):
-                # Format each civilization's key information
-                summary = {
-                    "name": civ['name'],
-                    "tier": civ['tier'],
-                    "difficulty": civ['difficulty'],
-                    "winrate": civ['winrate'],
-                    "focus": civ['focus'],
-                    "bonuses": civ.get('civilization_bonuses', []),
-                    "unique_units": [u['name'] + ": " + u['description'] for u in civ.get('unique_units', [])],
-                    "unique_techs": [t['name'] + ": " + t['description'] for t in civ.get('unique_technologies', [])]
-                }
-                civ_summaries.append(summary)
-            
-            # Build the system prompt
-            prompt = """You are the AoE2 Wizard, the ultimate expert on Age of Empires II: Definitive Edition.
+            "aoe2-wizard": """You are the AoE2 Wizard, the ultimate expert on Age of Empires II: Definitive Edition.
             You have extensive knowledge about civilizations, strategies, build orders, and counter tactics.
             
             You specialize in helping players choose the right civilization based on their playstyle,
@@ -60,43 +24,58 @@ class ChatInterface:
             You have comprehensive data on all civilizations including their strengths, weaknesses, 
             unique units, technologies, and ideal scenarios.
             
-            You dont believe in bullet points but instead always answer with sentences. An answer is between 1-8 sentences.
+            You dont believe in bullet points but instead always answer with sentences. An answer is between 1-8 sentences.""",
             
-            Some specific knowledge you have:
+            "badener": """You are an absolute fanboy on Baden, Switzerland. You know everything about its history, culture, 
+            attractions, and current events.
+            You regularly compare it to Zurich and or other Swiss cities, only to realize (factual based) how much better Baden is.
+            You dont believe in bullet points but instead always answer with sentences. An answer is between 1-8 sentences"""
+        }
+        
+        # Get the base prompt for this bot type
+        base_prompt = base_prompts.get(bot_type, "")
+        
+        # Append knowledge base if it exists
+        system_prompt = self._append_knowledge_base(bot_type, base_prompt)
+        
+        self.chat = BaseChat(system_prompt=system_prompt)
+    
+    def _append_knowledge_base(self, bot_type: str, base_prompt: str) -> str:
+        """
+        Simple approach to append knowledge base content to the base prompt.
+        
+        Args:
+            bot_type: Type of the bot
+            base_prompt: The base system prompt for the bot
             
-            """
+        Returns:
+            Combined system prompt with knowledge base appended
+        """
+        if not bot_type:
+            return base_prompt
             
-            # Add concise civilization info
-            for civ in civ_summaries:
-                prompt += f"- {civ['name']}: Tier {civ['tier']} civ with {civ['winrate']}% win rate. {civ['difficulty']} difficulty, focuses on {civ['focus']}. "
+        # Path to knowledge file
+        knowledge_file_path = f"app/knowledge/{bot_type}.yaml"
+        
+        # Check if knowledge file exists
+        if not os.path.exists(knowledge_file_path):
+            print(f"No knowledge file found for {bot_type}. Using base prompt only.")
+            return base_prompt
+            
+        try:
+            # Load knowledge from YAML
+            with open(knowledge_file_path, 'r') as file:
+                knowledge_data = yaml.safe_load(file)
                 
-                if civ['unique_units']:
-                    prompt += f"Unique units: {', '.join(civ['unique_units'][:2])}. "
+            # Convert knowledge to string representation and append to base prompt
+            knowledge_str = "\n\nHere is additional knowledge you have:\n"
+            knowledge_str += yaml.dump(knowledge_data, default_flow_style=False)
+            
+            return base_prompt + knowledge_str
                 
-                if civ['bonuses']:
-                    prompt += f"Key bonuses: {'; '.join(civ['bonuses'][:3])}. "
-                    
-                prompt += "\n"
-            
-            # Add strategic guidelines
-            prompt += """
-            When recommending civilizations, consider:
-            1. S and A tier civilizations are strongest, while D tier are weakest
-            2. Match civilization strengths to map types (water, open, closed)
-            3. Consider player skill level when suggesting difficulty
-            4. Focus on civilization bonuses that complement the player's preferred units/strategies
-            
-            Always be concise and direct in your answers. Provide specific civilization recommendations
-            with brief explanations of why they're suitable for the player's needs.
-            """
-            
-            return prompt
-            
         except Exception as e:
-            # Fallback prompt if YAML loading fails
-            return """You are the AoE2 Wizard, an expert on Age of Empires II: Definitive Edition.
-            You have extensive knowledge about civilizations, strategies, build orders, and counter tactics.
-            You dont believe in bullet points but instead always answer with sentences. An answer is between 1-8 sentences."""
+            print(f"Error loading knowledge for {bot_type}: {str(e)}")
+            return base_prompt
     
     def get_examples(self):
         examples = {

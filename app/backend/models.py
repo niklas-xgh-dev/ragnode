@@ -10,11 +10,3 @@ class ChatMessage(Base):
     role = Column(String)  # 'user' or 'assistant'
     content = Column(Text)
     timestamp = Column(DateTime, default=datetime.datetime.utcnow)
-
-class BadenRAG(Base):
-    __tablename__ = "baden_rag"
-
-    id = Column(Integer, primary_key=True, index=True)
-    fact = Column(Text)
-    embedding = Column(Vector(512))
-    timestamp = Column(DateTime, default=datetime.datetime.utcnow)
