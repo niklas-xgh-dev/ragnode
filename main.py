@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 if not os.getenv("ANTHROPIC_API_KEY"):
     load_dotenv()
 
-from app.backend.chat.interface import ChatInterface
+from app.backend.chat.interface import ChatInterface, get_available_bots
 
 app = FastAPI()
 
@@ -29,39 +29,24 @@ templates = Jinja2Templates(directory="app/static")
 # Create a global variable to hold all Gradio apps
 gradio_apps = []
 
-# Create separate interfaces for each bot
-diamond_hands_interface = ChatInterface(bot_type="diamond-hands").create_interface()
-gradio_apps.append(diamond_hands_interface)
+# Get all available bots from config files
+bots = get_available_bots()
 
-aoe2_wizard_interface = ChatInterface(bot_type="aoe2-wizard").create_interface()
-gradio_apps.append(aoe2_wizard_interface)
-
-badener_interface = ChatInterface(bot_type="badener").create_interface()
-gradio_apps.append(badener_interface)
-
-# Mount each interface
-app = gr.mount_gradio_app(app, diamond_hands_interface, path="/diamond-hands/")
-app = gr.mount_gradio_app(app, aoe2_wizard_interface, path="/aoe2-wizard/")
-app = gr.mount_gradio_app(app, badener_interface, path="/badener/")
-
-# Bot configurations
-bots = {
-    "diamond-hands": {
-        "title": "Diamond Hands",
-        "description": "Apes together stronk. Cools you down and doesn't let you YOLO stockpick. Based ETF recommendations.",
-        "chat_path": "/diamond-hands/"
-    },
-    "aoe2-wizard": {
-        "title": "AoE2 Wizard",
-        "description": "Your Age of Empires II strategy advisor. Get civilization recommendations, build orders, and counter strategies.",
-        "chat_path": "/aoe2-wizard/"
-    },
-    "badener": {
-        "title": "The Badener",
-        "description": "Complete Baden fanboy, but at least knows everything there is about Baden.",
-        "chat_path": "/badener/"
-    }
-}
+# Create and mount interfaces for each bot
+for bot_id, bot_config in bots.items():
+    try:
+        # Create the interface
+        interface = ChatInterface(bot_id=bot_id).create_interface()
+        gradio_apps.append(interface)
+        
+        # Mount the interface
+        chat_path = bot_config.get("chat_path", f"/{bot_id}/")
+        app = gr.mount_gradio_app(app, interface, path=chat_path)
+        
+        print(f"Mounted {bot_id} interface at {chat_path}")
+        
+    except Exception as e:
+        print(f"Error mounting interface for {bot_id}: {str(e)}")
 
 # Add shutdown event handler
 @app.on_event("shutdown")
@@ -86,25 +71,28 @@ async def read_root(request: Request):
     return templates.TemplateResponse("unified-template.html", {
         "request": request,
         "page": "home",
-        "title": "Home"
+        "title": "Home",
+        "bots": bots
     })
 
-@app.get("/{bot_type}-chat", response_class=HTMLResponse)
-async def chat_page(request: Request, bot_type: str):
-    if bot_type not in bots:
+@app.get("/{bot_id}-chat", response_class=HTMLResponse)
+async def chat_page(request: Request, bot_id: str):
+    if bot_id not in bots:
         return templates.TemplateResponse("unified-template.html", {
             "request": request,
             "page": "home",
-            "title": "Home - Page Not Found"
+            "title": "Home - Page Not Found",
+            "bots": bots
         })
     
-    bot_config = bots[bot_type]
+    bot_config = bots[bot_id]
     return templates.TemplateResponse("unified-template.html", {
         "request": request,
-        "page": bot_type,
+        "page": bot_id,
         "title": bot_config["title"],
         "description": bot_config["description"],
-        "chat_path": bot_config["chat_path"]
+        "chat_path": bot_config["chat_path"],
+        "bots": bots
     })
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")

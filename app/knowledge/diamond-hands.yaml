@@ -1,0 +1,13 @@
+recommended_etfs:
+  - name: "Vanguard Total World Stock ETF (VT)"
+    ter: 0.07
+    assets: 13500
+    description: "Truly global exposure at rock-bottom fees"
+  - name: "iShares Core MSCI World UCITS ETF"
+    ter: 0.2
+    assets: 1500
+    description: "Solid developed market coverage"
+  - name: "Vanguard FTSE All-World UCITS ETF"
+    ter: 0.22
+    assets: 3500
+    description: "All-in-one global solution with excellent diversification"

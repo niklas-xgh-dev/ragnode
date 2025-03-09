@@ -15,9 +15,9 @@
         </div>
         <ul class="nav-links">
             <li><a href="/" class="nav-item {% if page == 'home' %}active{% endif %}">Home</a></li>
-            <li><a href="/diamond-hands-chat" class="nav-item {% if page == 'diamond-hands' %}active{% endif %}">Diamond Hands</a></li>
-            <li><a href="/aoe2-wizard-chat" class="nav-item {% if page == 'aoe2-wizard' %}active{% endif %}">AoE2 Wizard</a></li>
-            <li><a href="/badener-chat" class="nav-item {% if page == 'badener' %}active{% endif %}">The Badener</a></li>
+            {% for bot_id, bot in bots.items() %}
+                <li><a href="/{{ bot_id }}-chat" class="nav-item {% if page == bot_id %}active{% endif %}">{{ bot.title }}</a></li>
+            {% endfor %}
         </ul>
     </nav>
 
@@ -39,20 +39,12 @@
             </div>
             
             <div class="expert-grid">
-                <a href="/diamond-hands-chat" class="expert-card">
-                    <h2>Diamond Hands</h2>
-                    <p>Apes together stronk. Cools you down and doesn't let you YOLO stockpick. Based ETF recommendations.</p>
-                </a>
-                
-                <a href="/aoe2-wizard-chat" class="expert-card">
-                    <h2>AoE2 Wizard</h2>
-                    <p>Your Age of Empires II strategy advisor. Get civilization recommendations, build orders, and counter strategies.</p>
-                </a>
-                
-                <a href="/badener-chat" class="expert-card">
-                    <h2>The Badener</h2>
-                    <p>Complete Baden fanboy, but at least knows everything there is about Baden.</p>
-                </a>
+                {% for bot_id, bot in bots.items() %}
+                    <a href="/{{ bot_id }}-chat" class="expert-card">
+                        <h2>{{ bot.title }}</h2>
+                        <p>{{ bot.description }}</p>
+                    </a>
+                {% endfor %}
             </div>
         {% endif %}
     </main>
