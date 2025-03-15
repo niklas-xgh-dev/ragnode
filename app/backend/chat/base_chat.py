@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 import anthropic
-from typing import List, Dict, AsyncGenerator
+from typing import List, Dict, AsyncGenerator, Tuple
 import asyncio
 from ..database import async_session
 from ..models import ChatMessage
@@ -42,6 +42,87 @@ class BaseChat:
         if self.client is None:
             self.client = anthropic.AsyncAnthropic(api_key=self.api_key)
         return self.client
+
+    async def triage_request(self, message: str) -> Tuple[int, str]:
+        """
+        Triage the user request to determine the appropriate action.
+        
+        Args:
+            message: The user's message
+            
+        Returns:
+            Tuple containing (option, reason)
+            option: 1 = Decline, 2 = Retrieve knowledge, 3 = Answer directly
+        """
+        try:
+            client = await self.get_client()
+            
+            # Extract a brief context about the assistant's role
+            role_context = ""
+            if self.system_prompt:
+                prompt_lines = self.system_prompt.split('\n')
+                role_context = '\n'.join(prompt_lines[:min(5, len(prompt_lines))])
+            
+            triage_prompt = f"""
+            You are a triage assistant that determines how to handle user requests.
+            
+            Here is information about the assistant's role:
+            {role_context}
+            
+            For each user request, categorize it into ONE of these options:
+            
+            1. DECLINE: The request is not relevant to your knowledge domain.
+            
+            2. RETRIEVE: The request is relevant AND requires specific facts, data, or detailed information.
+               Choose this option whenever the request:
+               - Asks about specific details that would be in a knowledge base
+               - Requests factual information beyond general concepts
+               - Needs precise data, statistics, or specialized knowledge
+               - Refers to specific entities, products, or services
+               - Is complex and would benefit from additional reference material
+               
+            3. ANSWER: The request is relevant but can be answered with general knowledge only.
+               Choose this option ONLY when:
+               - The request is about high-level concepts only
+               - No specific facts or details are needed
+               - The answer involves general principles that don't require reference material
+            
+            IMPORTANT: Default to option 2 (RETRIEVE) for most relevant requests, especially if there's 
+            any chance that specific information would improve the answer.
+            
+            RESPOND EXACTLY IN THIS FORMAT:
+            OPTION: [1 or 2 or 3]
+            REASON: [brief explanation]
+            """
+            
+            response = await client.messages.create(
+                model="claude-3-5-haiku-latest",
+                max_tokens=150,
+                system=triage_prompt,
+                messages=[{"role": "user", "content": f"Request: {message}"}],
+            )
+            
+            decision_text = response.content[0].text.strip()
+            print(f"Raw triage decision: {decision_text}")
+            
+            # More streamlined parsing
+            option = 2  # Default to retrieve knowledge now
+            reason = "Need additional knowledge to provide a complete answer"
+            
+            if "OPTION: 1" in decision_text or "OPTION:1" in decision_text:
+                option = 1
+            elif "OPTION: 3" in decision_text or "OPTION:3" in decision_text:
+                option = 3
+            
+            # Extract reason regardless of option
+            if "REASON:" in decision_text:
+                reason = decision_text.split("REASON:", 1)[1].strip()
+            
+            return option, reason
+                
+        except Exception as e:
+            print(f"Error in triage_request: {str(e)}")
+            return 2, f"Error during triage: {str(e)}"  # Default to knowledge retrieval on error
 
     async def get_response(self, message: str, history: List[Dict] = None) -> AsyncGenerator[str, None]:
         """
