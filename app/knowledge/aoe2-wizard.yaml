@@ -1,3 +1,438 @@
+build_orders:
+  - name: "1 Range Archer"
+    civilization: "Any"
+    preferred_civs: ["Ethiopians", "Mayans"]
+    type: "Archer Rush"
+    steps:
+      # Dark Age
+      - vill: 6
+        age: "Dark"
+        eco: [0, 6, 0, 0]  # [wood, food, gold, stone]
+        tasks: ["2 Houses + 6 Sheep"]
+
+      - vill: 9
+        age: "Dark"
+        eco: [3, 6, 0, 0]
+        tasks: ["Lumber Camp + 3 Wood"]
+
+      - vill: 10
+        age: "Dark"
+        eco: [3, 7, 0, 0]
+        tasks: ["1 Lures Boar"]
+
+      - vill: 11
+        age: "Dark"
+        eco: [3, 8, 0, 0]
+        tasks: ["House + Mill + 1 Berries", "Push 3 Deer"]
+
+      - vill: 12
+        age: "Dark"
+        eco: [3, 9, 0, 0]
+        tasks: ["1 Lures Boar"]
+
+      - vill: 17
+        age: "Dark"
+        eco: [3, 14, 0, 0]
+        tasks: ["5 Sheep"]
+
+      - vill: 19
+        age: "Dark"
+        eco: [5, 14, 0, 0]
+        tasks: ["2 Wood", "Scout enemy", "Research Loom", "Click Feudal (20 pop)"]
+
+      # Feudal Transition
+      - vill: 19
+        age: "Feudal Transition"
+        eco: [12, 4, 2, 0, 1]  # [wood, food, gold, stone, builder]
+        tasks: ["1 Sheep → Builder + House", "Build Barracks", "5 Sheep → 5 Wood + Lumber Camp", 
+                "2 Sheep → Stragglers", "2 Sheep → 2 Gold + Mining Camp"]
+
+      # Feudal Age
+      - vill: 19
+        age: "Feudal"
+        eco: [12, 4, 2, 0, 1]
+        tasks: ["Double-Bit Axe", "Archery Range", "Train 10 Archers", "4 Sheep → 4 Berries", "2 Spearmen"]
+
+      - vill: 21
+        age: "Feudal"
+        eco: [12, 4, 4, 0, 1]
+        tasks: ["2 Gold", "Blacksmith", "Fletching", "Palisade + House"]
+
+      - vill: 29
+        age: "Feudal"
+        eco: [12, 12, 4, 0, 1]
+        tasks: ["8 Farms"]
+
+      - vill: 35
+        age: "Feudal"
+        eco: [12, 12, 10, 0, 1]
+        tasks: ["6 Gold", "4 Farms from Foragers", "Stable if needed", "Wheelbarrow + Horse Collar", "Click Castle"]
+
+      # Castle Transition & Age
+      - vill: 35
+        age: "Castle Transition"
+        eco: [12, 12, 10, 0, 1]
+        tasks: ["Second Archery Range", "Gold Mining"]
+
+      - vill: 35
+        age: "Castle"
+        eco: [12, 12, 10, 0, 1]
+        tasks: ["Bow Saw", "Crossbowman + Bodkin + Padded Archer", "Second TC", 
+                "Siege Workshop + University", "Ballistics", "Balance 15-15-15"]
+
+  - name: "Fast Castle"
+    civilization: "Any"
+    type: "Boom"
+    steps:
+      # Dark Age
+      - vill: 6
+        age: "Dark"
+        eco: [0, 6, 0, 0]
+        tasks: ["2 Houses + 6 Sheep"]
+
+      - vill: 9
+        age: "Dark"
+        eco: [3, 6, 0, 0]
+        tasks: ["3 Wood + Lumber Camp"]
+
+      - vill: 10
+        age: "Dark"
+        eco: [3, 7, 0, 0]
+        tasks: ["1 Lures Boar"]
+
+      - vill: 11
+        age: "Dark"
+        eco: [3, 8, 0, 0]
+        tasks: ["House + Mill + 1 Berries", "Push 1 Deer"]
+
+      - vill: 14
+        age: "Dark"
+        eco: [3, 11, 0, 0]
+        tasks: ["1 Lures Boar + 2 on Boar"]
+
+      - vill: 18
+        age: "Dark"
+        eco: [3, 15, 0, 0]
+        tasks: ["4 Berries"]
+
+      - vill: 21
+        age: "Dark"
+        eco: [3, 18, 0, 0]
+        tasks: ["3 Farms"]
+
+      - vill: 25
+        age: "Dark"
+        eco: [7, 18, 0, 0]
+        tasks: ["4 Wood"]
+
+      - vill: 27
+        age: "Dark"
+        eco: [7, 18, 2, 0]
+        tasks: ["2 Gold", "Click Feudal (28 pop)"]
+
+      # Feudal Transition
+      - vill: 27
+        age: "Feudal Transition"
+        eco: [10, 11, 2, 4]
+        tasks: ["4 Sheep → 4 Stone", "1 Sheep → 1 Wood + Blacksmith", "2 Sheep → 2 Wood + Market"]
+
+      # Feudal Age
+      - vill: 29
+        age: "Feudal"
+        eco: [10, 11, 2, 6]
+        tasks: ["2 Stone", "Click Castle"]
+
+      # Castle Transition
+      - vill: 29
+        age: "Castle Transition"
+        eco: [10, 11, 2, 6]
+        tasks: ["Double-Bit Axe + Horse Collar"]
+        
+  - name: "1Stable Scouts"
+    civilization: "Any"
+    preferred_civs: ["Franks", "Huns", "Lithuanians", "Magyars", "Malians"]
+    type: "Scout Rush"
+    steps:
+      # Dark Age
+      - vill: 6
+        age: "Dark"
+        eco: [0, 6, 0, 0]
+        tasks: ["2 Houses + 6 Sheep"]
+
+      - vill: 8
+        age: "Dark"
+        eco: [2, 6, 0, 0]
+        tasks: ["2 Wood"]
+
+      - vill: 9
+        age: "Dark"
+        eco: [2, 7, 0, 0]
+        tasks: ["1 Lures Boar"]
+
+      - vill: 10
+        age: "Dark"
+        eco: [2, 8, 0, 0]
+        tasks: ["House + Mill + 1 Berries", "Lure Deer after finding Sheep"]
+
+      - vill: 16
+        age: "Dark"
+        eco: [2, 14, 0, 0]
+        tasks: ["6 on Food under TC", "Lure Boar with TC villager"]
+
+      - vill: 18
+        age: "Dark"
+        eco: [4, 14, 0, 0]
+        tasks: ["2 Wood", "Research Loom", "Click Feudal (19 pop)"]
+
+      # Feudal Transition
+      - vill: 18
+        age: "Feudal Transition"
+        eco: [8, 10, 0, 0]
+        tasks: ["4 TC Food → 4 Wood", "4 TC Food → 4 Berries", "Build Barracks"]
+
+      # Feudal Age
+      - vill: 18
+        age: "Feudal"
+        eco: [8, 10, 0, 0]
+        tasks: ["Double-Bit Axe + Horse Collar", "Build Stable", "Wall with builders", 
+                "Seed Farms with extra wood", "Continuous Scout production", "Optional 1-4 Spearmen"]
+                
+  - name: "Fast Men-at-Arms"
+    civilization: "Any"
+    type: "MAA Rush"
+    steps:
+      # Dark Age
+      - vill: 6
+        age: "Dark"
+        eco: [0, 6, 0, 0]
+        tasks: ["2 Houses + 6 Sheep"]
+
+      - vill: 8
+        age: "Dark"
+        eco: [2, 6, 0, 0]
+        tasks: ["2 Wood"]
+
+      - vill: 9
+        age: "Dark"
+        eco: [3, 6, 0, 0]
+        tasks: ["House + 1 Wood"]
+
+      - vill: 15
+        age: "Dark"
+        eco: [3, 12, 0, 0]
+        tasks: ["1 Lures Boar + 5 on Boar", "Lure second Boar", "Lure Deer ASAP"]
+
+      - vill: 16
+        age: "Dark"
+        eco: [3, 12, 0, 0, 1]
+        tasks: ["1 Builder for Barracks"]
+
+      - vill: 18
+        age: "Dark"
+        eco: [3, 14, 0, 0, 1]
+        tasks: ["2 Sheep", "Research Loom", "Click Feudal (19 pop)"]
+
+      # Feudal Transition
+      - vill: 18
+        age: "Feudal Transition"
+        eco: [8, 8, 2, 0]
+        tasks: ["House", "Train 3 Militia", "5 Boar → 5 Wood", "Mining Camp", 
+                "1 Sheep → 1 Gold", "1 Builder → 1 Gold"]
+
+      # Feudal Age
+      - vill: 18
+        age: "Feudal"
+        eco: [8, 7, 2, 0, 1]
+        tasks: ["1 Sheep → 1 Builder", "House"]
+
+      - vill: 19
+        age: "Feudal"
+        eco: [8, 8, 2, 0, 1]
+        tasks: ["Mill + 1 Berries", "Double-Bit Axe + Man-at-Arms Upgrade", "Build Archery Range"]
+
+      - vill: 21
+        age: "Feudal"
+        eco: [8, 10, 2, 0, 1]
+        tasks: ["2 Berries", "3 Sheep → 3 Berries", "Seed 3 Farms"]
+
+      - vill: 23
+        age: "Feudal"
+        eco: [8, 10, 4, 0, 1]
+        tasks: ["2 Gold"]
+
+      - vill: 25
+        age: "Feudal"
+        eco: [8, 12, 4, 0, 1]
+        tasks: ["2 Farms", "Build Blacksmith", "Research Fletching"]
+
+      - vill: 28
+        age: "Feudal"
+        eco: [11, 12, 4, 0, 1]
+        tasks: ["Second Lumber Camp + 3 Wood"]
+
+      - vill: 33
+        age: "Feudal"
+        eco: [11, 17, 4, 0, 1]
+        tasks: ["5 Farms"]
+
+      - vill: 36
+        age: "Feudal"
+        eco: [11, 17, 7, 0, 1]
+        tasks: ["3 Gold", "Research Wheelbarrow", "Click Castle"]
+
+      # Castle Transition
+      - vill: 36
+        age: "Castle Transition"
+        eco: [11, 17, 7, 0, 1]
+        tasks: ["Option 1: 3 Ranges + Siege Workshop", "Option 2: Start Boom"]
+        
+  - name: "Economy Boom"
+    civilization: "Any"
+    type: "Boom"
+    difficulty: "Beginner"
+    steps:
+      # Dark Age
+      - vill: 6
+        age: "Dark"
+        eco: [0, 6, 0, 0]
+        tasks: ["2 Houses + 6 Sheep"]
+
+      - vill: 10
+        age: "Dark"
+        eco: [4, 6, 0, 0]
+        tasks: ["4 Wood"]
+
+      - vill: 11
+        age: "Dark"
+        eco: [4, 7, 0, 0]
+        tasks: ["1 Lures Boar"]
+
+      - vill: 15
+        age: "Dark"
+        eco: [4, 11, 0, 0]
+        tasks: ["2 Houses + Mill + 4 Berries", "Lure second Boar"]
+
+      - vill: 17
+        age: "Dark"
+        eco: [4, 13, 0, 0]
+        tasks: ["2 on Food under TC", "Move weak villagers to Farms"]
+
+      - vill: 22
+        age: "Dark"
+        eco: [9, 13, 0, 0]
+        tasks: ["5 Wood"]
+
+      - vill: 25
+        age: "Dark"
+        eco: [9, 13, 3, 0]
+        tasks: ["3 Gold", "Research Loom", "Click Feudal (26 pop)"]
+
+      # Feudal Transition
+      - vill: 25
+        age: "Feudal Transition"
+        eco: [9, 13, 3, 0]
+        tasks: ["Make Farms with Sheep villagers (9 total)"]
+
+      # Feudal Age
+      - vill: 27
+        age: "Feudal"
+        eco: [11, 13, 3, 0]
+        tasks: ["2 Wood", "Build Blacksmith with 2 Wood vills", 
+                "Build Market with 1 Wood vill", "Build 3 Houses", "Wall if needed", "Click Castle"]
+
+      # Castle Transition
+      - vill: 27
+        age: "Castle Transition"
+        eco: [11, 13, 3, 0]
+        tasks: ["Research Double-Bit Axe + Horse Collar"]
+
+      # Castle Age
+      - vill: 27
+        age: "Castle"
+        eco: [11, 13, 3, 0]
+        tasks: ["Send new villagers to Wood", "Build 2 TCs on resources", 
+                "Build Barracks, Stable, Archery Range", "Prepare for Crossbows/Knights", 
+                "Grow economy to ~100 villagers", "Click Imperial"]
+
+      # Imperial Age
+      - vill: 100+
+        age: "Imperial"
+        eco: [35+, 35+, 25+, 5+]
+        tasks: ["Build army and push"]
+        
+  - name: "Cumans 2 TC Boom"
+    civilization: "Cumans"
+    type: "Boom"
+    special: "Requires Cumans unique ability to build second TC in Feudal Age"
+    steps:
+      # Dark Age
+      - vill: 0
+        age: "Dark"
+        eco: [0, 0, 0, 0]
+        tasks: ["2 Houses"]
+        
+      - vill: 6
+        age: "Dark"
+        eco: [0, 6, 0, 0]
+        tasks: ["6 Sheep"]
+        
+      - vill: 7
+        age: "Dark"
+        eco: [0, 7, 0, 0]
+        tasks: ["1 Lures Boar"]
+        
+      - vill: 9
+        age: "Dark"
+        eco: [2, 7, 0, 0]
+        tasks: ["Lumber Camp + 2 Wood", "Push 3 Deer"]
+        
+      - vill: 11
+        age: "Dark"
+        eco: [2, 9, 0, 0]
+        tasks: ["1 Lures Boar + 1 on Boar", "Lure Boar with TC villager"]
+        
+      - vill: 12
+        age: "Dark"
+        eco: [2, 9, 0, 0, 1]
+        tasks: ["1 Builder for House"]
+        
+      - vill: 12
+        age: "Dark"
+        eco: [3, 9, 0, 0]
+        tasks: ["Builder → Wood"]
+        
+      - vill: 13
+        age: "Dark"
+        eco: [3, 10, 0, 0]
+        tasks: ["1 Lures Boar", "Build Mill"]
+        
+      - vill: 17
+        age: "Dark"
+        eco: [3, 14, 0, 0]
+        tasks: ["4 Berries", "Research Loom", "Click Feudal"]
+        
+      # Feudal Transition
+      - vill: 17
+        age: "Feudal Transition"
+        eco: [8, 9, 0, 0]
+        tasks: ["5 Sheep → 5 Wood"]
+        
+      - vill: 17
+        age: "Feudal Transition"
+        eco: [8, 7, 0, 0, 2]
+        tasks: ["2 Sheep → 2 Builders + Palisade Wall"]
+        
+      # Feudal Age (Unique Cuman Strategy)
+      - vill: 17
+        age: "Feudal"
+        eco: [8, 7, 0, 0, 2]
+        tasks: ["Build second Town Center", "Research Double-Bit Axe"]
+        
+      - vill: 19
+        age: "Feudal"
+        eco: [10, 7, 0, 0, 2]
+        tasks: ["2 on Straggler Trees", "Send new vils to Farms and Wood", "Fully wall base"]
+
 civilizations:
   - name: Armenians
     difficulty: Hard
@@ -6,7 +441,6 @@ civilizations:
     winrate: 48.40
     tier_reason: Good on water maps and hybrid maps with strong economy. Lacking Bombard Cannon and heavy cavalry armor makes them struggle in some late-game scenarios.
     focus: Infantry and Naval
-    wonder: Etchmiadzin Cathedral
     unique_units:
       - name: Composite Bowman
         description: Foot archer that ignores armor.
@@ -37,7 +471,6 @@ civilizations:
     winrate: 47.43
     tier_reason: Powerful military and resource gathering bonuses make them formidable. Strong monks and infantry with good economic advantages through faster resource gathering.
     focus: Infantry and Monk
-    wonder: Great Pyramid of Tenochtitlan
     unique_units:
       - name: Jaguar Warrior
         description: Anti-infantry infantry
@@ -61,7 +494,6 @@ civilizations:
     winrate: 50.56
     tier_reason: Solid on closed and hybrid maps but awkward to play. Elephant Archers are excellent in late game but Rathas are clunky to use effectively.
     focus: Elephant and Naval
-    wonder: Somapura Mahavihara
     unique_units:
       - name: Ratha
         description: Mounted archer that can switch between melee and ranged attacks.
@@ -85,7 +517,6 @@ civilizations:
     winrate: 50.00
     tier_reason: Cheaper stable units in Castle Age and Imperial Age provide good value. No early bonuses until Castle Age makes their early game relatively generic.
     focus: Cavalry and Naval
-    wonder: Hassan Tower
     unique_units:
       - name: Camel Archer
         description: Mounted archer with attack bonus against mounted archers.
@@ -109,7 +540,6 @@ civilizations:
     winrate: 51.50
     tier_reason: Strong on closed maps with good gunpowder and monk units. Mining camp upgrades for free is a great economic bonus for gold and stone.
     focus: Gunpowder and Monk
-    wonder: Powder Tower of Prague
     unique_units:
       - name: Hussite Wagon
         description: Tanky siege unit that can protect rear units.
@@ -135,7 +565,6 @@ civilizations:
     winrate: 47.37
     tier_reason: Once strong but now underwhelming with archer range bonus. Feels like a one-trick pony civilization that isn't even that good at its one trick anymore.
     focus: Foot archer
-    wonder: Chichester Cathedral
     unique_units:
       - name: Longbowman
         description: Long-ranged foot archer.
@@ -157,7 +586,6 @@ civilizations:
     winrate: 49.45
     tier_reason: Few maps where they really shine and no economic bonus to carry them. Strong early aggression potential with Konnik but limited late-game options.
     focus: Infantry and Cavalry
-    wonder: Preslav Round Church
     unique_units:
       - name: Konnik
         description: Cavalry that keeps on fighting as a dismounted infantry when killed.
@@ -184,7 +612,6 @@ civilizations:
     winrate: 46.26
     tier_reason: Early economic upgrades and Cavalier access in Castle Age makes them very strong. Considered the number one Arena civilization with excellent closed map performance.
     focus: Cavalry
-    wonder: Brussels Town Hall
     unique_units:
       - name: Coustillier
         description: Cavalry unit that can charge its attack over time.
@@ -208,7 +635,6 @@ civilizations:
     winrate: 48.03
     tier_reason: Good economy but missing archer armor is a glaring weakness. Manipur Cavalry tech and strong elephants provide good late-game options.
     focus: Monk and Elephant
-    wonder: Shwezigon Pagoda
     unique_units:
       - name: Arambai
         description: Ranged cavalry with powerful but inaccurate attack.
@@ -231,7 +657,6 @@ civilizations:
     winrate: 47.88
     tier_reason: Definition of a solid civilization with counter units for everything. Building HP bonus is underrated and they have excellent defensive capabilities.
     focus: Defensive
-    wonder: Hagia Sophia
     unique_units:
       - name: Cataphract
         description: Heavy cavalry that excels at combat against infantry and Camel Riders.
@@ -255,7 +680,6 @@ civilizations:
     winrate: 50.91
     tier_reason: Decent on hybrid maps with wood bonus but awkward transition from Castle to Imperial Age. Siege weapons fire 20% faster making them strong in certain situations.
     focus: Infantry and Siege
-    wonder: Rock of Cashel
     unique_units:
       - name: Woad Raider
         description: Quick infantry unit.
@@ -278,7 +702,6 @@ civilizations:
     winrate: 49.39
     tier_reason: Extra villagers at start provide significant economic advantage, especially on open land maps. Considered the best civilization on Arabia but somewhat weaker on closed maps.
     focus: Archer
-    wonder: Hall of Prayer for Good Harvests in the Temple of Heaven complex
     unique_units:
       - name: Chu Ko Nu
         description: Foot archer that fires multiple arrows.
@@ -301,7 +724,6 @@ civilizations:
     winrate: 50.29
     tier_reason: Can be either the best or worst civilization depending on if you can get away with 2 TC boom. Strong on land maps but terrible on hybrid and water maps.
     focus: Cavalry
-    wonder: Sarkel Fortress (ruined)
     unique_units:
       - name: Kipchak
         description: Cheap multi-shot mounted archer.
@@ -324,7 +746,6 @@ civilizations:
     winrate: 48.19
     tier_reason: Strong on water and hybrid maps with excellent naval options. Wood bonus and Elephant Archers provide good economy and late-game potential.
     focus: Infantry and Naval
-    wonder: Brihadisvara Temple
     unique_units:
       - name: Urumi Swordsman
         description: Infantry that can charge its attack to cause extra attack with Area of Effect.
@@ -350,7 +771,6 @@ civilizations:
     winrate: 50.95
     tier_reason: Never feels bad but never exceptional, with archer bonus and free Pikeman upgrade. Good for players who love archers and aggressive play.
     focus: Foot archer
-    wonder: Biete Amanuel
     unique_units:
       - name: Shotel Warrior
         description: Rapidly deployed infantry with high attack but low armor and hit points.
@@ -372,7 +792,6 @@ civilizations:
     winrate: 50.73
     tier_reason: Strong cavalry civilization with free farm upgrades and castle discount. Berry bonus and faster foraging provide solid early economy.
     focus: Cavalry
-    wonder: St. Vitus Cathedral
     unique_units:
       - name: Throwing Axeman
         description: Ranged infantry unit.
@@ -395,7 +814,6 @@ civilizations:
     winrate: 50.59
     tier_reason: Overpowered with free lumber camp equivalent and strong healing on cavalry units. Excellent economy and military options make them dominant on virtually all map types.
     focus: Cavalry and Defensive
-    wonder: Svetitskhoveli Cathedral
     unique_units:
       - name: Monaspa
         description: Cavalry unit that becomes stronger when other Monaspas or Knight-line units are nearby.
@@ -423,7 +841,6 @@ civilizations:
     winrate: 49.47
     tier_reason: Strong infantry spam in late game and instant Loom for early aggression. Performs better at lower ELOs where infantry spam can be overwhelming.
     focus: Infantry
-    wonder: Mausoleum of Theoderic I
     unique_units:
       - name: Huskarl
         description: Archer-resistant infantry unit.
@@ -447,7 +864,6 @@ civilizations:
     winrate: 47.99
     tier_reason: Excellent food discount for all units and powerful unique units (Shrivamsha Riders). Food-based unit discount technology makes them particularly strong in late game.
     focus: Cavalry and Camel
-    wonder: Somnath Temple
     unique_units:
       - name: Chakram Thrower
         description: Light infantry with a ranged melee attack and pass-through damage.
@@ -475,7 +891,6 @@ civilizations:
     winrate: 52.85
     tier_reason: Excellent versatility with good options across all maps and strong camel units. Markets working 10% faster provides good economy boost throughout the game.
     focus: Camel and Gunpowder
-    wonder: Maqbara-i Humayun
     unique_units:
       - name: Ghulam
         description: Archer-resistant infantry unit that thrusts its spear through multiple targets.
@@ -502,7 +917,6 @@ civilizations:
     winrate: 52.65
     tier_reason: No houses provides population space flexibility but base is more open. Good on hybrid maps and for aggressive play but falls behind without early military success.
     focus: Cavalry
-    wonder: Arch of Constantine (ruined)
     unique_units:
       - name: Tarkan
         description: Cavalry unit that excels at razing defensive structures.
@@ -525,7 +939,6 @@ civilizations:
     winrate: 50.79
     tier_reason: Versatile civilization with houses supporting units and excellent counter units. Strong on land maps with multiple viable strategies available.
     focus: Infantry
-    wonder: The Temple of the Sun at Machu Picchu
     unique_units:
       - name: Kamayuk
         description: Infantry wielding a long spear that allows attacking at range and attack bonus against cavalry.
@@ -550,7 +963,6 @@ civilizations:
     winrate: 47.99
     tier_reason: Excellent on water maps with dock discount and good on hybrid maps. Versatile with decent options on most map types and advancing to ages costs less.
     focus: Foot archers and Navy
-    wonder: Genoa Cathedral, Cathedral of St. Lawrence
     unique_units:
       - name: Genoese Crossbowman
         description: Archer with an attack bonus against cavalry.
@@ -575,7 +987,6 @@ civilizations:
     winrate: 48.00
     tier_reason: Excellent on hybrid maps with fishing ship bonus and infantry attack speed. Lack of Bombard Cannon is their biggest weakness in late game.
     focus: Infantry
-    wonder: Great Buddha Hall (daibutsuden) at the Tōdai-ji temple complex
     unique_units:
       - name: Samurai
         description: Fast-attacking infantry with an attack bonus against unique units.
@@ -598,7 +1009,6 @@ civilizations:
     winrate: 49.32
     tier_reason: No building requirements allows for flexible strategies and faster advancement. House garrisoning provides excellent mobility and their Battle Elephants are among the best.
     focus: Siege and Elephant
-    wonder: Central shrine of the Angkor Wat temple complex
     unique_units:
       - name: Ballista Elephant
         description: Heavy cavalry siege unit.
@@ -621,7 +1031,6 @@ civilizations:
     winrate: 48.77
     tier_reason: Good for tower and siege pushes with free tower upgrades and no minimum range on mangonels. Never feels like the best civilization but offers solid options.
     focus: Defensive and Naval
-    wonder: Hwangnyong Temple
     unique_units:
       - name: War Wagon
         description: Heavily armored cavalry archer.
@@ -647,7 +1056,6 @@ civilizations:
     winrate: 49.69
     tier_reason: Starting with extra food and relic bonus for cavalry makes them potent. Excellent on hybrid maps with strong potential for deadly Leitis cavalry units.
     focus: Cavalry and Monk
-    wonder: Trakai Island Castle
     unique_units:
       - name: Leitis
         description: Cavalry whose attack ignores unit's armor.
@@ -671,7 +1079,6 @@ civilizations:
     winrate: 50.53
     tier_reason: Good on aggressive open maps with free scout upgrades but predictable. Poor on water and hybrid maps due to lack of wood-saving bonuses.
     focus: Cavalry
-    wonder: Hunyad Castle
     unique_units:
       - name: Magyar Huszar
         description: Light cavalry with an attack bonus against siege weapons.
@@ -693,7 +1100,6 @@ civilizations:
     winrate: 52.20
     tier_reason: Extremely strong with faster age-up times and excellent water/hybrid map capabilities. Their cost-effective units and strong late game make them formidable on most maps.
     focus: Infantry and Naval
-    wonder: Kalasan Temple
     unique_units:
       - name: Karambit Warrior
         description: Cheap infantry that only takes up half a population space.
@@ -719,7 +1125,6 @@ civilizations:
     winrate: 51.48
     tier_reason: Good on every map but not exceptional anywhere specific. Gold mining bonus allows for good rushing potential and flexible strategies.
     focus: Infantry
-    wonder: Great Mosque of Djenné
     unique_units:
       - name: Gbeto
         description: Fast light infantry with a powerful ranged attack.
@@ -741,7 +1146,6 @@ civilizations:
     winrate: 49.08
     tier_reason: Excellent resource efficiency and strong archers make them consistently powerful. Longer-lasting resources and 100 HP Eagles provide excellent value throughout the game.
     focus: Foot archer
-    wonder: Temple of the Great Jaguar (Tikal Temple I)
     unique_units:
       - name: Plumed Archer
         description: Quick foot archer with high hit points and pierce armor, but low attack.
@@ -764,7 +1168,6 @@ civilizations:
     winrate: 51.00
     tier_reason: Exceptional hunting bonus for early economy and deadly Steppe Lancers. Strong on all maps with excellent early game pressure potential and reliable late-game options.
     focus: Mounted archers
-    wonder: Great Tent of Genghis Khan
     unique_units:
       - name: Mangudai
         description: Mounted archer with an attack bonus against siege weapons.
@@ -786,7 +1189,6 @@ civilizations:
     winrate: 51.44
     tier_reason: Versatile civilization with strong economy bonus (TC works faster) and excellent unit options. Strong on virtually every map type with few weaknesses.
     focus: Cavalry
-    wonder: Taq Kasra (Arch of Ctesiphon)
     unique_units:
       - name: War Elephant
         description: Slow but extremely powerful cavalry unit.
@@ -813,7 +1215,6 @@ civilizations:
     winrate: 48.03
     tier_reason: Hard to play effectively with folwark farming system. Overshadowed by Georgians who do similar things but better and with less risk.
     focus: Cavalry
-    wonder: Wawel Cathedral
     unique_units:
       - name: Obuch
         description: Infantry whose attack reduces the target unit's armor.
@@ -840,7 +1241,6 @@ civilizations:
     winrate: 48.86
     tier_reason: Strong gold discount and excellent late-game options with Organ Guns. Particularly powerful on Arena and closed maps with good water capabilities.
     focus: Naval and Gunpowder
-    wonder: Belém Tower
     unique_units:
       - name: Organ Gun
         description: Gunpowder siege unit filling a similar purpose as the Scorpion.
@@ -867,7 +1267,6 @@ civilizations:
     winrate: 53.04
     tier_reason: Strong early game with Meta Arms (Man-at-Arms) and good armor bonuses. Better in open maps with aggressive play styles and multiple viable paths.
     focus: Infantry
-    wonder: Colosseum
     unique_units:
       - name: Legionary
         description: Sturdy infantry unit. Replacement of the Two-Handed Swordsman and Champion upgrades.
@@ -892,7 +1291,6 @@ civilizations:
     winrate: 48.62
     tier_reason: Versatile with good market usage and camel archers. Neither the best nor worst on any map type, with market bonus providing good resource flexibility.
     focus: Camel and Naval
-    wonder: Great Mosque of Samarra
     unique_units:
       - name: Mameluke
         description: Camel cavalry with ranged melee attack, and an attack bonus against mounted units.
@@ -916,7 +1314,6 @@ civilizations:
     winrate: 51.56
     tier_reason: Lacks identity and clear win conditions with limited late-game options. Missing Hand Cannoneer and Bombard Cannon creates clear holes in their technology tree.
     focus: Infantry and Cavalry
-    wonder: Monreale Cathedral
     unique_units:
       - name: Serjeant
         description: Heavily-armored infantry unit that can also build Donjons. It is available starting in the Feudal Age, and is upgraded for free upon reaching the Castle Age.
@@ -942,7 +1339,6 @@ civilizations:
     winrate: 50.52
     tier_reason: 15% faster farming is a huge boost to their economy. Perform well on closed maps and maps where farming economy shines.
     focus: Infantry and Siege
-    wonder: Kizhi Pogost
     unique_units:
       - name: Boyar
         description: Heavily armored cavalry, resistant to melee attack.
@@ -965,7 +1361,6 @@ civilizations:
     winrate: 50.42
     tier_reason: Strong if you can get to Castle Age with Conquistadors and devotion. Trade bonus and builders working faster provides good economic advantages.
     focus: Gunpowder and Monk
-    wonder: Torre del Oro
     unique_units:
       - name: Conquistador
         description: Mounted gunpowder unit.
@@ -991,7 +1386,6 @@ civilizations:
     winrate: 48.37
     tier_reason: Good if you like them but nothing special, with some good matchups and some bad ones. Hill bonus gives them situational advantages on certain maps.
     focus: Mounted archer
-    wonder: Ulugh Beg Observatory
     unique_units:
       - name: Keshik
         description: Cavalry that generates gold with each attack.
@@ -1016,7 +1410,6 @@ civilizations:
     winrate: 50.87
     tier_reason: Solid monk, knight, and infantry play with cheaper farms. Clear weaknesses with no Bracer, no Arbalester, and no Husbandry make them situational.
     focus: Infantry
-    wonder: Maria Laach Abbey
     unique_units:
       - name: Teutonic Knight
         description: Slow but strong infantry.
@@ -1041,7 +1434,6 @@ civilizations:
     winrate: 50.63
     tier_reason: Good for strategic and off-meta play with strong gunpowder units. Performs well on Arena but requires smart play to be effective.
     focus: Gunpowder
-    wonder: Selimiye Mosque
     unique_units:
       - name: Janissary
         description: More powerful version of the Hand Cannoneer.
@@ -1066,7 +1458,6 @@ civilizations:
     winrate: 47.53
     tier_reason: Solid economy and good on many different maps with few weaknesses. Free economic upgrades provide consistent advantage throughout the game.
     focus: Archer
-    wonder: Bút Tháp
     unique_units:
       - name: Rattan Archer
         description: Foot archer with high pierce armor.
@@ -1091,7 +1482,6 @@ civilizations:
     winrate: 51.78
     tier_reason: One of the best water civilizations with cheaper docks and ships. Economic bonus is strong but they have a somewhat weaker late game.
     focus: Infantry and Naval
-    wonder: Borgund Stave Church
     unique_units:
       - name: Berserk
         description: Infantry that can regenerate.

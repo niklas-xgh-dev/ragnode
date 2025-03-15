@@ -72,8 +72,23 @@ class BaseChat:
             For each user request, categorize it into ONE of these options:
             
             1. DECLINE: The request is not relevant to your knowledge domain.
-            2. RETRIEVE: The request requires specific facts or information from a knowledge base.
-            3. ANSWER: The request can be answered with general knowledge.
+            
+            2. RETRIEVE: The request is relevant AND requires specific facts, data, or detailed information.
+               Choose this option whenever the request:
+               - Asks about specific details that would be in a knowledge base
+               - Requests factual information beyond general concepts
+               - Needs precise data, statistics, or specialized knowledge
+               - Refers to specific entities, products, or services
+               - Is complex and would benefit from additional reference material
+               
+            3. ANSWER: The request is relevant but can be answered with general knowledge only.
+               Choose this option ONLY when:
+               - The request is about high-level concepts only
+               - No specific facts or details are needed
+               - The answer involves general principles that don't require reference material
+            
+            IMPORTANT: Default to option 2 (RETRIEVE) for most relevant requests, especially if there's 
+            any chance that specific information would improve the answer.
             
             RESPOND EXACTLY IN THIS FORMAT:
             OPTION: [1 or 2 or 3]
@@ -88,15 +103,16 @@ class BaseChat:
             )
             
             decision_text = response.content[0].text.strip()
+            print(f"Raw triage decision: {decision_text}")
             
             # More streamlined parsing
-            option = 3  # Default to answer directly
-            reason = "Using foundational knowledge"
+            option = 2  # Default to retrieve knowledge now
+            reason = "Need additional knowledge to provide a complete answer"
             
             if "OPTION: 1" in decision_text or "OPTION:1" in decision_text:
                 option = 1
-            elif "OPTION: 2" in decision_text or "OPTION:2" in decision_text:
-                option = 2
+            elif "OPTION: 3" in decision_text or "OPTION:3" in decision_text:
+                option = 3
             
             # Extract reason regardless of option
             if "REASON:" in decision_text:
@@ -106,7 +122,7 @@ class BaseChat:
                 
         except Exception as e:
             print(f"Error in triage_request: {str(e)}")
-            return 3, f"Error during triage: {str(e)}"
+            return 2, f"Error during triage: {str(e)}"  # Default to knowledge retrieval on error
 
     async def get_response(self, message: str, history: List[Dict] = None) -> AsyncGenerator[str, None]:
         """

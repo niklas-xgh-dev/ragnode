@@ -15,6 +15,9 @@ class ChatInterface:
         
         # Create chat instance with just the base prompt
         self.chat = BaseChat(system_prompt=self.base_prompt)
+        
+        # Track if knowledge was appended to avoid double appending
+        self.knowledge_appended = False
     
     def _load_config(self, bot_id: str) -> dict:
         """
@@ -179,28 +182,42 @@ class ChatInterface:
                     return "", history + [{"role": "user", "content": user_message}]
                     
                 async def bot(history):
-                    """Streamlined bot response handler"""
+                    """
+                    Bot response handler that ensures knowledge is never appended twice
+                    when using Gradio's persistent history.
+                    """
                     user_message = history[-1]["content"]
                     
                     # Initialize assistant message
-                    history.append({"role": "assistant", "content": "🤔 Thinking..."})
+                    history.append({"role": "assistant", "content": "Thinking..."})
                     yield history
+                    
+                    # IMPORTANT: Always reset to base prompt at the beginning of each turn
+                    # This ensures any previously appended knowledge is removed
+                    self.chat.system_prompt = self.base_prompt
                     
                     try:
                         # Triage the request
                         option, reason = await self.chat.triage_request(user_message)
                         
-                        # Handle based on triage decision
+                        # Log the triage decision
+                        print(f"\n{'='*50}")
+                        print(f"TRIAGE DECISION: Option {option}")
+                        print(f"  • 1=Decline, 2=Retrieve knowledge, 3=Answer directly")
+                        print(f"  • Reason: {reason}")
+                        print(f"  • User message: '{user_message[:50]}{'...' if len(user_message) > 50 else ''}'")
+                        print(f"{'='*50}\n")
+                        
                         if option == 1:  # Decline
                             history[-1]["content"] = f"I'm sorry, but I can't assist with that request. {reason}"
                             yield history
                             
                         elif option == 2:  # Retrieve knowledge
                             # Update status
-                            history[-1]["content"] = "🔍 Checking my knowledge base..."
+                            history[-1]["content"] = "Checking knowledge base..."
                             yield history
                             
-                            # Extract keywords from user message and reason
+                            # Extract keywords
                             words = f"{user_message} {reason}".lower().split()
                             keywords = [word for word in words if len(word) > 3]
                             
@@ -208,28 +225,35 @@ class ChatInterface:
                             knowledge = self._get_specific_knowledge(keywords)
                             
                             if knowledge:
+                                # Log that we're using knowledge for this response
+                                print("Using knowledge for this response. Knowledge size:", len(knowledge))
+                                
                                 # Update status
-                                history[-1]["content"] = "📚 Found relevant information!"
+                                history[-1]["content"] = "Checking knowledge base..."
                                 yield history
                                 
-                                # Create enhanced prompt with knowledge
-                                enhanced_prompt = f"{self.base_prompt}\n\nRelevant knowledge:\n{knowledge}"
-                                self.chat.system_prompt = enhanced_prompt
-                                
-                                # Get response with knowledge
-                                async for response in self.chat.get_response(user_message, history[:-1]):
-                                    history[-1]["content"] = response
-                                    yield history
+                                try:
+                                    # Temporarily enhance the system prompt with knowledge JUST for this request
+                                    enhanced_prompt = f"{self.base_prompt}\n\nRelevant knowledge:\n{knowledge}"
+                                    self.chat.system_prompt = enhanced_prompt
                                     
-                                # Reset to base prompt
-                                self.chat.system_prompt = self.base_prompt
+                                    # Get response with knowledge
+                                    async for response in self.chat.get_response(user_message, history[:-1]):
+                                        history[-1]["content"] = response
+                                        yield history
+                                finally:
+                                    # CRITICAL: Always reset to base prompt after response
+                                    self.chat.system_prompt = self.base_prompt
+                                    print("Reset system prompt to base version")
                             else:
+                                print("No relevant knowledge found, using base knowledge")
                                 # Fall back to base knowledge
                                 async for response in self.chat.get_response(user_message, history[:-1]):
                                     history[-1]["content"] = response
                                     yield history
                         
                         else:  # Answer directly (option 3)
+                            print("Using base knowledge (no retrieval)")
                             # Stream the response using base prompt
                             async for response in self.chat.get_response(user_message, history[:-1]):
                                 history[-1]["content"] = response
@@ -238,6 +262,12 @@ class ChatInterface:
                     except Exception as e:
                         history[-1]["content"] = f"I encountered an error: {str(e)}"
                         yield history
+                    
+                    finally:
+                        # Final safety check - make absolutely sure we reset to base prompt
+                        # This ensures the next request starts fresh
+                        self.chat.system_prompt = self.base_prompt
+                        print("Final reset of system prompt to ensure clean state for next message")
                 
                 # Add examples directly in the chat interface
                 examples = self.get_examples()
