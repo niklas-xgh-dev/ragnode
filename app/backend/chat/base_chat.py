@@ -57,10 +57,9 @@ class BaseChat:
         try:
             client = await self.get_client()
             
-            # Use part of the system prompt to understand the assistant's role
+            # Extract a brief context about the assistant's role
             role_context = ""
             if self.system_prompt:
-                # Extract the first few lines to understand role
                 prompt_lines = self.system_prompt.split('\n')
                 role_context = '\n'.join(prompt_lines[:min(5, len(prompt_lines))])
             
@@ -70,21 +69,15 @@ class BaseChat:
             Here is information about the assistant's role:
             {role_context}
             
-            For each user request, you must categorize it into EXACTLY ONE of the following options:
+            For each user request, categorize it into ONE of these options:
             
-            1. DECLINE: The request is clearly not relevant to your knowledge domain and expertise.
-               Examples: requests about unrelated topics, coding tasks if you're not a coding assistant, etc.
-               
-            2. RETRIEVE: The request is relevant, but requires specific facts, data, or information 
-               that would be in a knowledge base. Examples: specific statistics, historical details,
-               product specifications, etc.
-               
-            3. ANSWER: The request can be answered with general knowledge that the assistant already 
-               has. Examples: general advice, explanations of concepts, comparisons, etc.
+            1. DECLINE: The request is not relevant to your knowledge domain.
+            2. RETRIEVE: The request requires specific facts or information from a knowledge base.
+            3. ANSWER: The request can be answered with general knowledge.
             
-            YOU MUST RESPOND WITH EXACTLY THIS FORMAT - NOTHING ELSE:
+            RESPOND EXACTLY IN THIS FORMAT:
             OPTION: [1 or 2 or 3]
-            REASON: [brief explanation in 1-2 sentences]
+            REASON: [brief explanation]
             """
             
             response = await client.messages.create(
@@ -95,43 +88,24 @@ class BaseChat:
             )
             
             decision_text = response.content[0].text.strip()
-            print(f"Triage decision text: {decision_text}")
             
-            # Parse the decision with stricter pattern matching
-            option = 3  # Default is to answer directly
+            # More streamlined parsing
+            option = 3  # Default to answer directly
             reason = "Using foundational knowledge"
             
             if "OPTION: 1" in decision_text or "OPTION:1" in decision_text:
                 option = 1
-                reason_match = decision_text.split("REASON:", 1)
-                if len(reason_match) > 1:
-                    reason = reason_match[1].strip()
-                else:
-                    reason = "Request not relevant to my knowledge domain"
-                    
             elif "OPTION: 2" in decision_text or "OPTION:2" in decision_text:
                 option = 2
-                reason_match = decision_text.split("REASON:", 1)
-                if len(reason_match) > 1:
-                    reason = reason_match[1].strip()
-                else:
-                    reason = "Need additional knowledge to answer properly"
-                    
-            elif "OPTION: 3" in decision_text or "OPTION:3" in decision_text:
-                option = 3
-                reason_match = decision_text.split("REASON:", 1)
-                if len(reason_match) > 1:
-                    reason = reason_match[1].strip()
-                else:
-                    reason = "Can answer with foundational knowledge"
-                
-            # Log the decision for debugging
-            print(f"Parsed triage decision: Option {option} - {reason}")
+            
+            # Extract reason regardless of option
+            if "REASON:" in decision_text:
+                reason = decision_text.split("REASON:", 1)[1].strip()
+            
             return option, reason
                 
         except Exception as e:
             print(f"Error in triage_request: {str(e)}")
-            # If there's an error, default to option 3 (answer directly)
             return 3, f"Error during triage: {str(e)}"
 
     async def get_response(self, message: str, history: List[Dict] = None) -> AsyncGenerator[str, None]:

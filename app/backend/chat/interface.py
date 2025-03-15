@@ -90,10 +90,8 @@ class ChatInterface:
         if not self.bot_id or not keywords:
             return ""
             
-        # Path to knowledge file
         knowledge_file_path = f"app/knowledge/{self.bot_id}.yaml"
         
-        # Check if knowledge file exists
         if not os.path.exists(knowledge_file_path):
             return ""
             
@@ -102,68 +100,41 @@ class ChatInterface:
             with open(knowledge_file_path, 'r') as file:
                 knowledge_data = yaml.safe_load(file)
                 
-            # Find relevant sections based on keywords
-            relevant_data = {}
-            
-            print(f"Searching knowledge with keywords: {keywords}")
-            
-            # Convert yaml content to string for simple keyword searching
+            # Convert to lowercase string for simple searching
             knowledge_str = yaml.dump(knowledge_data, default_flow_style=False).lower()
             
-            # First check if any keyword appears in the entire knowledge base
-            if not any(keyword.lower() in knowledge_str for keyword in keywords if keyword):
-                # If no keywords match at all, just return a small sample of the knowledge
-                # This ensures we sometimes return knowledge even when keywords don't match
-                sample_data = {}
-                for key, value in list(knowledge_data.items())[:2]:  # Take first 2 sections
-                    sample_data[key] = value
-                
-                print(f"No keyword matches, returning sample knowledge")
+            # Check if any keyword appears in the knowledge
+            has_matches = any(keyword.lower() in knowledge_str for keyword in keywords if keyword)
+            
+            if not has_matches:
+                # Return a sample if no matches
+                sample_data = dict(list(knowledge_data.items())[:2])
                 return yaml.dump(sample_data, default_flow_style=False)
             
-            # Extract sections containing keywords
+            # Extract relevant sections
+            relevant_data = {}
+            
+            # First level search
             for key, value in knowledge_data.items():
-                # Check if any keyword is in the key
+                section_matched = False
+                
+                # Check key matches
                 if any(keyword.lower() in key.lower() for keyword in keywords if keyword):
                     relevant_data[key] = value
                     continue
                 
-                # If value is a dictionary, check nested keys
-                if isinstance(value, dict):
-                    nested_match = {}
-                    for nested_key, nested_value in value.items():
-                        if any(keyword.lower() in nested_key.lower() for keyword in keywords if keyword):
-                            nested_match[nested_key] = nested_value
-                        # Check if keyword is in the nested value if it's a string
-                        elif isinstance(nested_value, str) and any(keyword.lower() in nested_value.lower() for keyword in keywords if keyword):
-                            nested_match[nested_key] = nested_value
-                    
-                    if nested_match:
-                        relevant_data[key] = nested_match
-                # Check if keyword is in the value if it's a string
-                elif isinstance(value, str) and any(keyword.lower() in value.lower() for keyword in keywords if keyword):
+                # Check value content
+                value_str = str(value).lower() if value else ""
+                if any(keyword.lower() in value_str for keyword in keywords if keyword):
                     relevant_data[key] = value
-                # Check if it's a list and any item contains a keyword
-                elif isinstance(value, list):
-                    matching_items = []
-                    for item in value:
-                        if isinstance(item, str) and any(keyword.lower() in item.lower() for keyword in keywords if keyword):
-                            matching_items.append(item)
-                    if matching_items:
-                        relevant_data[key] = matching_items
-            
+                    continue
+                
+            # Return found data or a sample
             if relevant_data:
-                print(f"Found relevant knowledge sections: {list(relevant_data.keys())}")
                 return yaml.dump(relevant_data, default_flow_style=False)
-            
-            # If no specific sections found but keywords exist in the content,
-            # return a small sample of the knowledge
-            sample_data = {}
-            for key, value in list(knowledge_data.items())[:2]:  # Take first 2 sections
-                sample_data[key] = value
-            
-            print(f"No specific sections found, returning sample knowledge")
-            return yaml.dump(sample_data, default_flow_style=False)
+            else:
+                sample_data = dict(list(knowledge_data.items())[:2])
+                return yaml.dump(sample_data, default_flow_style=False)
                 
         except Exception as e:
             print(f"Error retrieving specific knowledge: {str(e)}")
@@ -208,84 +179,64 @@ class ChatInterface:
                     return "", history + [{"role": "user", "content": user_message}]
                     
                 async def bot(history):
-                    # Get the last user message
+                    """Streamlined bot response handler"""
                     user_message = history[-1]["content"]
                     
-                    # Add empty assistant message that will be updated during streaming
+                    # Initialize assistant message
                     history.append({"role": "assistant", "content": "🤔 Thinking..."})
                     yield history
                     
                     try:
-                        # First, triage the request - this is a separate API call
-                        history[-1]["content"] = "🤔 Analyzing your request..."
-                        yield history
-                        await asyncio.sleep(0.5)  # Short delay to make state visible
-                        
+                        # Triage the request
                         option, reason = await self.chat.triage_request(user_message)
-                        print(f"Triage decision: Option {option} - {reason}")
                         
-                        # Process based on triage decision
+                        # Handle based on triage decision
                         if option == 1:  # Decline
                             history[-1]["content"] = f"I'm sorry, but I can't assist with that request. {reason}"
                             yield history
                             
                         elif option == 2:  # Retrieve knowledge
-                            # Show retrieving state clearly
-                            history[-1]["content"] = "🔍 I need to check my knowledge base for this..."
+                            # Update status
+                            history[-1]["content"] = "🔍 Checking my knowledge base..."
                             yield history
-                            await asyncio.sleep(0.5)  # Short delay to make state visible
                             
-                            # Extract keywords from the reason and query
-                            all_text = f"{user_message} {reason}".lower()
-                            # Extract words 4+ chars long as keywords
-                            keywords = [word for word in all_text.split() if len(word) > 3]
-                            print(f"Extracted keywords: {keywords}")
+                            # Extract keywords from user message and reason
+                            words = f"{user_message} {reason}".lower().split()
+                            keywords = [word for word in words if len(word) > 3]
                             
-                            # Get specific knowledge
-                            additional_knowledge = self._get_specific_knowledge(keywords)
+                            # Get relevant knowledge
+                            knowledge = self._get_specific_knowledge(keywords)
                             
-                            if additional_knowledge:
-                                history[-1]["content"] = "📚 Found relevant information! Let me answer now..."
+                            if knowledge:
+                                # Update status
+                                history[-1]["content"] = "📚 Found relevant information!"
                                 yield history
-                                await asyncio.sleep(0.5)  # Short delay to make state visible
                                 
-                                # Enhance the system prompt with the additional knowledge
-                                enhanced_prompt = f"{self.base_prompt}\n\nHere is additional knowledge relevant to this question:\n{additional_knowledge}"
-                                
-                                # Temporarily set the system prompt to include knowledge
+                                # Create enhanced prompt with knowledge
+                                enhanced_prompt = f"{self.base_prompt}\n\nRelevant knowledge:\n{knowledge}"
                                 self.chat.system_prompt = enhanced_prompt
                                 
-                                # Get the response with the enhanced system prompt
-                                async for full_response in self.chat.get_response(user_message, history[:-1]):
-                                    history[-1]["content"] = full_response
+                                # Get response with knowledge
+                                async for response in self.chat.get_response(user_message, history[:-1]):
+                                    history[-1]["content"] = response
                                     yield history
-                                
-                                # Reset the system prompt to base
+                                    
+                                # Reset to base prompt
                                 self.chat.system_prompt = self.base_prompt
                             else:
-                                history[-1]["content"] = "I couldn't find specific information about that. Let me answer based on what I know..."
-                                yield history
-                                await asyncio.sleep(0.5)  # Short delay to make state visible
-                                
-                                # Just use the base prompt if no specific knowledge found
-                                async for full_response in self.chat.get_response(user_message, history[:-1]):
-                                    history[-1]["content"] = full_response
+                                # Fall back to base knowledge
+                                async for response in self.chat.get_response(user_message, history[:-1]):
+                                    history[-1]["content"] = response
                                     yield history
-                            
+                        
                         else:  # Answer directly (option 3)
-                            # Show answering state
-                            history[-1]["content"] = "✍️ I know about this! Crafting response..."
-                            yield history
-                            await asyncio.sleep(0.5)  # Short delay to make state visible
-                            
                             # Stream the response using base prompt
-                            async for full_response in self.chat.get_response(user_message, history[:-1]):
-                                history[-1]["content"] = full_response
+                            async for response in self.chat.get_response(user_message, history[:-1]):
+                                history[-1]["content"] = response
                                 yield history
                     
                     except Exception as e:
-                        print(f"Error in bot function: {str(e)}")
-                        history[-1]["content"] = f"I encountered an error while processing your request. Please try again."
+                        history[-1]["content"] = f"I encountered an error: {str(e)}"
                         yield history
                 
                 # Add examples directly in the chat interface
