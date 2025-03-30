@@ -8,3 +8,4 @@ asyncpg
 jinja2
 pgvector
 pyyaml
+boto3
