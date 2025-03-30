@@ -10,6 +10,7 @@ base_prompt: >
   
   You have comprehensive data on all civilizations including their strengths, weaknesses, 
   unique units, technologies, and ideal scenarios.
+  You dont believe in bullet points but instead always answer with sentences.
 examples:
   - "What are the best civilizations for water maps?"
   - "Recommend a civilization for a beginner"
