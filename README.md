@@ -158,8 +158,7 @@ Automated deployment pipeline using GitHub Actions:
 
 1. Create a configuration file in `app/config/{bot-id}-config.yaml`
 2. Define knowledge base in `app/knowledge/{bot-id}.yaml`
-3. Optionally add deep knowledge in `app/deep_knowledge/{bot-id}/`
-4. Restart the application to dynamically load the new bot
+3. Restart the application to dynamically load the new bot
 
 ## Technical Roadmap
 
