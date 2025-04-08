@@ -4,8 +4,22 @@ from anthropic import AnthropicBedrock
 from typing import List, Dict, AsyncGenerator
 import asyncio
 import threading
-from ..database import async_session
-from ..models import ChatMessage
+import yaml
+import gradio as gr
+from pathlib import Path
+from .database import async_session
+from sqlalchemy import Column, Integer, String, DateTime, Text
+from sqlalchemy.ext.declarative import declarative_base
+import datetime
+
+Base = declarative_base()
+
+class ChatMessage(Base):
+    __tablename__ = "chat_messages"
+    id = Column(Integer, primary_key=True, index=True)
+    role = Column(String)
+    content = Column(Text)
+    timestamp = Column(DateTime, default=datetime.datetime.utcnow)
 
 class BaseChat:
     def __init__(self, system_prompt: str = None):
@@ -64,16 +78,7 @@ class BaseChat:
         return self.client
 
     async def get_response(self, message: str, history: List[Dict] = None) -> AsyncGenerator[str, None]:
-        """
-        Get a streaming response from Claude via AWS Bedrock.
-        
-        Args:
-            message: The user's message
-            history: Chat history
-            
-        Yields:
-            Chunks of the response text as they become available
-        """
+        """Get a streaming response from Claude via AWS Bedrock."""
         if not message or message.strip() == "":
             yield "Please enter a message."
             return
@@ -83,23 +88,15 @@ class BaseChat:
             await self.save_message("user", message)
             
             client = self.get_client()
-            
-            # Create a thread-safe queue for passing chunks between threads
             chunk_queue = asyncio.Queue()
-            
-            # Flag to signal when streaming is complete
-            # Using a list so it can be modified inside the inner function
             streaming_done = [False]
             streaming_error = [None]
             
-            # Function to run in a separate thread
             def stream_in_thread():
-                # Create a new event loop for this thread
                 thread_loop = asyncio.new_event_loop()
                 asyncio.set_event_loop(thread_loop)
                 
                 try:
-                    # Initialize stream
                     stream = client.messages.create(
                         model=self.model_id,
                         max_tokens=2048,
@@ -111,41 +108,31 @@ class BaseChat:
                         stream=True
                     )
                     
-                    # Process each chunk
                     for chunk in stream:
                         text = ""
-                        
-                        # Extract text from chunk
                         if hasattr(chunk, 'delta') and hasattr(chunk.delta, 'text'):
                             text = chunk.delta.text or ""
                         elif hasattr(chunk, 'delta') and hasattr(chunk.delta, 'content'):
                             text = chunk.delta.content or ""
                         
                         if text:
-                            # Put the chunk in the queue using the thread's event loop
                             thread_loop.run_until_complete(chunk_queue.put(text))
                             
                 except Exception as e:
-                    # If there's an error, put it in the error holder
                     print(f"Error in streaming thread: {str(e)}")
                     streaming_error[0] = str(e)
                 finally:
-                    # Signal that streaming is done
                     streaming_done[0] = True
-                    # Send a signal to the queue
                     thread_loop.run_until_complete(chunk_queue.put(None))
                     thread_loop.close()
             
-            # Start the streaming thread
             stream_thread = threading.Thread(target=stream_in_thread)
             stream_thread.daemon = True
             stream_thread.start()
             
-            # Process chunks from the queue in the main async function
             full_response = ""
             
             while True:
-                # Check for errors first
                 if streaming_error[0]:
                     error_msg = f"Streaming error: {streaming_error[0]}"
                     await self.save_message("assistant", error_msg)
@@ -153,31 +140,21 @@ class BaseChat:
                     return
                 
                 try:
-                    # Get chunk with a timeout
                     chunk = await asyncio.wait_for(chunk_queue.get(), timeout=0.1)
-                    
-                    # None signals the end of streaming
                     if chunk is None:
                         break
                     
-                    # Add the chunk to the full response
                     full_response += chunk
-                    
-                    # Yield the updated full response
                     yield full_response
                     
                 except asyncio.TimeoutError:
-                    # Check if streaming is done
                     if streaming_done[0]:
                         break
-                    # Otherwise, continue waiting
                     continue
             
-            # Save the complete response to the database
             if full_response:
                 await self.save_message("assistant", full_response)
             
-            # If streaming returned an empty response, try the non-streaming fallback
             if not full_response and not streaming_error[0]:
                 print("Streaming returned an empty response. Trying non-streaming fallback.")
                 
@@ -224,3 +201,162 @@ class BaseChat:
             print(f"Error in get_response: {str(e)}")
             await self.save_message("assistant", error_message)
             yield error_message
+
+
+class ChatInterface:
+    def __init__(self, bot_id: str = None):
+        self.bot_id = bot_id
+        self.config = self._load_config(bot_id)
+        
+        # Get the base prompt from the config
+        base_prompt = self.config.get("base_prompt", "")
+        
+        # Append knowledge base if it exists
+        system_prompt = self._append_knowledge_base(bot_id, base_prompt)
+        
+        self.chat = BaseChat(system_prompt=system_prompt)
+    
+    def _load_config(self, bot_id: str) -> dict:
+        """Load the bot configuration from YAML file."""
+        if not bot_id:
+            return {}
+            
+        config_file_path = f"app/config/bots/{bot_id}-config.yaml"
+        
+        if not os.path.exists(config_file_path):
+            print(f"No config file found for {bot_id}. Using empty config.")
+            return {}
+            
+        try:
+            with open(config_file_path, 'r') as file:
+                config_data = yaml.safe_load(file)
+                return config_data
+                
+        except Exception as e:
+            print(f"Error loading config for {bot_id}: {str(e)}")
+            return {}
+    
+    def _append_knowledge_base(self, bot_id: str, base_prompt: str) -> str:
+        """Simple approach to append knowledge base content to the base prompt."""
+        if not bot_id:
+            return base_prompt
+            
+        knowledge_file_path = f"app/knowledge/{bot_id}.yaml"
+        
+        if not os.path.exists(knowledge_file_path):
+            print(f"No knowledge file found for {bot_id}. Using base prompt only.")
+            return base_prompt
+            
+        try:
+            with open(knowledge_file_path, 'r') as file:
+                knowledge_data = yaml.safe_load(file)
+                
+            knowledge_str = "\n\nHere is additional knowledge you have:\n"
+            knowledge_str += yaml.dump(knowledge_data, default_flow_style=False)
+            
+            return base_prompt + knowledge_str
+                
+        except Exception as e:
+            print(f"Error loading knowledge for {bot_id}: {str(e)}")
+            return base_prompt
+    
+    def get_examples(self):
+        """Get examples from the bot configuration."""
+        return self.config.get("examples", [])
+        
+    def create_interface(self):
+        js_path = os.path.join("app", "static", "gradio_force_theme.js")
+        
+        with open(js_path, 'r') as f:
+            js_func = f.read()
+        
+        with gr.Blocks(css="footer{display:none !important}", theme=gr.themes.Default(), js=js_func) as chat_interface:
+            with gr.Column(scale=1, min_width=600):
+                chatbot = gr.Chatbot(
+                    height=700,
+                    type="messages",
+                    label="Chat"
+                )
+                
+                with gr.Row():
+                    with gr.Column(scale=8):
+                        msg = gr.Textbox(
+                            show_label=False,
+                            placeholder="Type your message here...",
+                            container=True
+                        )
+                    with gr.Column(scale=1, min_width=50):
+                        submit_btn = gr.Button("Send", variant="primary")
+                
+                async def user(user_message, history):
+                    return "", history + [{"role": "user", "content": user_message}]
+                    
+                async def bot(history):
+                    user_message = history[-1]["content"]
+                    history.append({"role": "assistant", "content": ""})
+                    
+                    async for full_response in self.chat.get_response(user_message, history[:-1]):
+                        history[-1]["content"] = full_response
+                        yield history
+                
+                # Add examples directly in the chat interface
+                examples = self.get_examples()
+                if examples:
+                    with gr.Row():
+                        example_buttons = []
+                        for example in examples:
+                            example_btn = gr.Button(example, size="sm")
+                            example_buttons.append(example_btn)
+                            
+                            example_btn.click(
+                                fn=lambda example_text=example: example_text,
+                                outputs=msg,
+                                queue=False
+                            ).then(
+                                fn=user,
+                                inputs=[msg, chatbot],
+                                outputs=[msg, chatbot],
+                                queue=False
+                            ).then(
+                                fn=bot,
+                                inputs=[chatbot],
+                                outputs=[chatbot]
+                            )
+                
+                # Set up event handlers for regular user input
+                msg.submit(user, [msg, chatbot], [msg, chatbot], queue=False).then(
+                    bot, chatbot, chatbot
+                )
+                submit_btn.click(user, [msg, chatbot], [msg, chatbot], queue=False).then(
+                    bot, chatbot, chatbot
+                )
+                
+                # Set a timeout for websocket connections
+                if hasattr(chat_interface, '_queue'):
+                    chat_interface._queue.timeout = 120  # 2-minute timeout for idle connections
+        
+        return chat_interface
+
+
+# Helper function to get all available bot configs
+def get_available_bots():
+    """Scan the config directory and return a dictionary of all available bots."""
+    bots = {}
+    config_dir = Path("app/config/bots")
+    
+    if not config_dir.exists():
+        return bots
+        
+    for config_file in config_dir.glob("*-config.yaml"):
+        try:
+            with open(config_file, 'r') as file:
+                config = yaml.safe_load(file)
+                
+                if config and "id" in config:
+                    bot_id = config["id"]
+                    bots[bot_id] = config
+                    
+        except Exception as e:
+            print(f"Error loading config from {config_file}: {str(e)}")
+            
+    return bots
