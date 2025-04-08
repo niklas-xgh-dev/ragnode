@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, BackgroundTasks
+from fastapi import FastAPI, Request, BackgroundTasks, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, FileResponse
@@ -99,6 +99,17 @@ async def legacy_chat_page(request: Request, bot_id: str):
 async def get_bots():
     return bots
 
+# Handle Svelte app routes for client-side routing
+@app.get("/{bot_id}-chat", response_class=FileResponse)
+async def serve_svelte_routes(bot_id: str):
+    if bot_id in bots:
+        return FileResponse("app/static/dist/index.html")
+    raise HTTPException(status_code=404, detail="Bot not found")
+
 # Mount static files after the routes
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 app.mount("/dist", StaticFiles(directory="app/static/dist"), name="dist")
+
+# Mount assets directory for Svelte
+if os.path.exists("app/static/dist/assets"):
+    app.mount("/assets", StaticFiles(directory="app/static/dist/assets"), name="assets")

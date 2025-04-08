@@ -2,7 +2,7 @@
     export let bots = {};
     export let onNavClick;
     export let onHomeClick;
-    export let activePage = 'home';
+    export let activePage = "home";
   </script>
   
   <nav class="w-60 h-screen fixed bg-surface p-8 pb-0 border-r border-border">

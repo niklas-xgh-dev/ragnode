@@ -1,16 +1,12 @@
-import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
+import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
   plugins: [svelte()],
+  base: '/',  // This is important
   build: {
-    outDir: '../static/dist',
+    outDir: 'dist',
     emptyOutDir: true,
-    rollupOptions: {
-      input: {
-        main: 'src/main.js',
-        styles: '../static/app.css'
-      }
-    }
+    assetsDir: 'assets' // Ensure consistency with the FastAPI route
   }
-})
+});

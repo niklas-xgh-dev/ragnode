@@ -1,44 +1,44 @@
 <script>
-    import { onMount } from 'svelte';
-    import Navigation from './Navigation.svelte';
-    import BotCard from './BotCard.svelte';
+    import { onMount } from "svelte";
+    import BotCard from "./BotCard.svelte";
+    import Navigation from "./Navigation.svelte";
     
     let bots = [];
-    let activePage = 'home';
+    let activePage = "home";
     let activeBot = null;
-    let iframeURL = '';
+    let iframeURL = "";
     
     onMount(async () => {
       try {
-        const response = await fetch('/api/bots');
+        const response = await fetch("/api/bots");
         bots = await response.json();
         
         // Check URL for bot selection
         const path = window.location.pathname;
-        const botId = path.split('-chat')[0].replace('/', '');
+        const botId = path.split("-chat")[0].replace("/", "");
         
         if (botId && bots[botId]) {
           navigateToBot(botId);
         }
       } catch (error) {
-        console.error('Error loading bots:', error);
+        console.error("Error loading bots:", error);
       }
     });
     
     function navigateToBot(botId) {
-      activePage = 'chat';
+      activePage = "chat";
       activeBot = bots[botId];
       iframeURL = activeBot.chat_path;
       
       // Update URL
-      window.history.pushState({}, '', `/${botId}-chat`);
+      window.history.pushState({}, "", `/${botId}-chat`);
     }
     
     function navigateHome() {
-      activePage = 'home';
+      activePage = "home";
       activeBot = null;
-      iframeURL = '';
-      window.history.pushState({}, '', '/');
+      iframeURL = "";
+      window.history.pushState({}, "", "/");
     }
   </script>
   
@@ -46,7 +46,7 @@
     <Navigation {bots} onNavClick={navigateToBot} onHomeClick={navigateHome} activePage={activePage} />
     
     <main class="ml-60 p-8 w-[calc(100%-240px)]">
-      {#if activePage === 'home'}
+      {#if activePage === "home"}
         <div class="flex items-center gap-4 mb-12">
           <h1 class="text-3xl font-bold">Welcome to Ragnode</h1>
         </div>
@@ -61,7 +61,7 @@
             />
           {/each}
         </div>
-      {:else if activePage === 'chat' && activeBot}
+      {:else if activePage === "chat" && activeBot}
         <div class="mb-8">
           <h1 class="text-2xl font-semibold">{activeBot.title}</h1>
           <p class="text-text-secondary mt-2">{activeBot.description}</p>
