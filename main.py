@@ -20,6 +20,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 # Create a global variable to hold all Gradio apps
@@ -58,12 +59,37 @@ async def shutdown_event():
 # API routes for bot data
 @app.get("/api/bots")
 async def get_bots():
-    return bots
+    # Ensures each bot has a chat_path
+    result = {}
+    for bot_id, bot_config in bots.items():
+        result[bot_id] = bot_config.copy()
+        # Make sure chat_path exists and has the correct format
+        if "chat_path" not in result[bot_id]:
+            result[bot_id]["chat_path"] = f"/{bot_id}/"
+    return result
 
 # Health check endpoint
 @app.get("/api/health")
 async def health_check():
     return {"status": "ok"}
+
+# Debug endpoint for bots
+@app.get("/api/debug/bots")
+async def debug_bots():
+    try:
+        # Get the list of config files
+        config_dir = Path("app/config/bots")
+        config_files = list(config_dir.glob("*-config.yaml"))
+        
+        # Return info about configs
+        return {
+            "config_dir_exists": config_dir.exists(),
+            "config_files": [str(f) for f in config_files],
+            "bot_count": len(bots),
+            "bot_ids": list(bots.keys())
+        }
+    except Exception as e:
+        return {"error": str(e)}
 
 # Serve Svelte frontend
 @app.get("/", response_class=FileResponse)

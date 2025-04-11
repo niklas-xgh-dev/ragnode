@@ -3,7 +3,7 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
   plugins: [svelte()],
-  base: '/dist/',  // Match the FastAPI static file mounting
+  base: '/',  // Use root path for development
   build: {
     outDir: 'dist',
     emptyOutDir: true,
@@ -15,9 +15,21 @@ export default defineConfig({
     }
   },
   server: {
+    host: '0.0.0.0',
+    port: 3000,
+    strictPort: true,
     proxy: {
-      '/api': 'http://localhost:8000',
-      '/static': 'http://localhost:8000'
+      '/api': {
+        target: 'http://ragnode-backend:8000',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path
+      },
+      '/static': {
+        target: 'http://ragnode-backend:8000',
+        changeOrigin: true,
+        secure: false
+      }
     }
   }
 });

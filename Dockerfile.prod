@@ -1,12 +1,10 @@
 # Build frontend
-FROM node:20-slim AS frontend-builder
+FROM node:18-slim AS frontend-builder
 
 WORKDIR /build
 
 # Copy Svelte app files
-COPY app/svelte ./svelte
-
-WORKDIR /build/svelte
+COPY app/svelte ./
 
 # Install dependencies and build
 RUN npm install
@@ -17,6 +15,11 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+# Install curl for healthcheck
+RUN apt-get update && apt-get install -y curl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Copy Python requirements and install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
@@ -26,19 +29,16 @@ RUN mkdir -p app/static/dist app/config/bots app/knowledge
 
 # Copy all application files excluding svelte directory
 COPY main.py ./
-COPY app/*.py ./app/
 COPY app/config ./app/config/
 COPY app/knowledge ./app/knowledge/
 COPY app/static ./app/static/
+COPY app/*.py ./app/
 
 # Copy built frontend from the builder stage
-COPY --from=frontend-builder /build/svelte/dist/ ./app/static/dist/
+COPY --from=frontend-builder /build/dist/ ./app/static/dist/
 
 # Set correct permissions
 RUN chmod -R 755 /app/app/static
-
-# Check if the files are in the right place
-RUN ls -la /app/app/static/dist
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
