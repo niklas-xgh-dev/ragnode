@@ -4,9 +4,22 @@ A flexible platform for hosting chat bots with knowledge bases.
 
 ## Setup & Running
 
+### Using Docker Compose
+
+Run both frontend and backend with:
+
+```bash
+docker-compose up
+```
+
+This will:
+- Start the FastAPI backend at http://localhost:8000
+- Serve the Svelte frontend at http://localhost:3000
+- Connect both services through Docker network
+
 ### Development Mode
 
-Run both frontend and backend in development mode with:
+Run in development mode with:
 
 ```bash
 ./run-dev.sh
@@ -14,18 +27,7 @@ Run both frontend and backend in development mode with:
 
 This will:
 - Start the FastAPI backend at http://localhost:8000
-- Start the Svelte frontend at http://localhost:3000
-- Hot reload both on code changes
-
-### Production Mode
-
-For production deployment, run:
-
-```bash
-./run-prod.sh
-```
-
-This builds a single container serving both frontend and API on port 8000.
+- Start the Svelte frontend with hot reloading at http://localhost:3000
 
 ### Manual Build & Run
 
