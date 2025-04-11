@@ -1,44 +1,47 @@
-FROM python:3.13-slim AS backend
+# Build frontend
+FROM node:20-slim AS frontend-builder
 
-WORKDIR /app
-
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-# Set up NodeJS for Svelte
-FROM node:22-slim AS builder
-
-WORKDIR /app
+WORKDIR /build
 
 # Copy Svelte app files
 COPY app/svelte ./svelte
 
-WORKDIR /app/svelte
+WORKDIR /build/svelte
 
 # Install dependencies and build
 RUN npm install
 RUN npm run build
 
-# Final image
-FROM python:3.13-slim
+# Build backend
+FROM python:3.11-slim
 
 WORKDIR /app
 
-# Copy requirements and install directly in the final image
+# Copy Python requirements and install dependencies
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Create directory structure for static files
-RUN mkdir -p app/static/dist
+# Create directory structure
+RUN mkdir -p app/static/dist app/config/bots app/knowledge
 
-# Copy the built Svelte files
-COPY --from=builder /app/svelte/dist/ ./app/static/dist/
+# Copy all application files excluding svelte directory
+COPY main.py ./
+COPY app/*.py ./app/
+COPY app/config ./app/config/
+COPY app/knowledge ./app/knowledge/
+COPY app/static ./app/static/
 
-# Copy the rest of the application code
-COPY . .
+# Copy built frontend from the builder stage
+COPY --from=frontend-builder /build/svelte/dist/ ./app/static/dist/
 
-# Ensure permissions are set correctly
+# Set correct permissions
 RUN chmod -R 755 /app/app/static
 
-# Run the application
+# Check if the files are in the right place
+RUN ls -la /app/app/static/dist
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+
+# Run the application with proper settings
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -3,14 +3,19 @@
     import BotCard from "./BotCard.svelte";
     import Navigation from "./Navigation.svelte";
     
-    let bots = [];
+    let bots = {};
     let activePage = "home";
     let activeBot = null;
     let iframeURL = "";
+    let loading = true;
+    let error = null;
     
     onMount(async () => {
       try {
         const response = await fetch("/api/bots");
+        if (!response.ok) {
+          throw new Error(`HTTP error ${response.status}`);
+        }
         bots = await response.json();
         
         // Check URL for bot selection
@@ -22,6 +27,9 @@
         }
       } catch (error) {
         console.error("Error loading bots:", error);
+        error = "Failed to load bots. Please try again.";
+      } finally {
+        loading = false;
       }
     });
     
@@ -46,7 +54,13 @@
     <Navigation {bots} onNavClick={navigateToBot} onHomeClick={navigateHome} activePage={activePage} />
     
     <main class="ml-60 p-8 w-[calc(100%-240px)]">
-      {#if activePage === "home"}
+      {#if loading}
+        <div class="flex justify-center items-center h-[calc(100vh-100px)]">
+          <div class="animate-pulse text-accent text-xl">Loading...</div>
+        </div>
+      {:else if error}
+        <div class="bg-red-800 text-white p-4 rounded-lg">{error}</div>
+      {:else if activePage === "home"}
         <div class="flex items-center gap-4 mb-12">
           <h1 class="text-3xl font-bold">Welcome to Ragnode</h1>
         </div>
@@ -68,7 +82,7 @@
         </div>
         
         <div class="bg-surface rounded-lg border border-border h-[calc(100vh-200px)] overflow-hidden">
-          <iframe src={iframeURL} class="w-full h-full" frameborder="0" title="Chat"></iframe>
+          <iframe src={iframeURL} class="w-full h-full" frameborder="0" title="Chat" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
         </div>
       {/if}
     </main>

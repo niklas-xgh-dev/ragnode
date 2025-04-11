@@ -55,12 +55,29 @@ async def shutdown_event():
     await asyncio.sleep(0.5)
     print("Server shutdown complete")
 
+# API routes for bot data
+@app.get("/api/bots")
+async def get_bots():
+    return bots
+
+# Health check endpoint
+@app.get("/api/health")
+async def health_check():
+    return {"status": "ok"}
+
 # Serve Svelte frontend
 @app.get("/", response_class=FileResponse)
 async def serve_svelte_app():
     return FileResponse("app/static/dist/index.html")
 
-# Legacy template route for backward compatibility
+# Handle Svelte app routes for client-side routing
+@app.get("/{bot_id}-chat", response_class=FileResponse)
+async def serve_svelte_routes(bot_id: str):
+    if bot_id in bots:
+        return FileResponse("app/static/dist/index.html")
+    raise HTTPException(status_code=404, detail="Bot not found")
+
+# Legacy template routes for backward compatibility
 @app.get("/legacy", response_class=HTMLResponse)
 async def legacy_home(request: Request):
     from fastapi.templating import Jinja2Templates
@@ -93,18 +110,6 @@ async def legacy_chat_page(request: Request, bot_id: str):
         "chat_path": bot_config["chat_path"],
         "bots": bots
     })
-
-# API routes for bot data
-@app.get("/api/bots")
-async def get_bots():
-    return bots
-
-# Handle Svelte app routes for client-side routing
-@app.get("/{bot_id}-chat", response_class=FileResponse)
-async def serve_svelte_routes(bot_id: str):
-    if bot_id in bots:
-        return FileResponse("app/static/dist/index.html")
-    raise HTTPException(status_code=404, detail="Bot not found")
 
 # Mount static files after the routes
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
