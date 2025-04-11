@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    container_name: ragnode-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app/app
+      - ./main.py:/app/main.py
+      - ./app/config/bots:/app/app/config/bots
+      - ./app/knowledge:/app/app/knowledge
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - ragnode-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    container_name: ragnode-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app/svelte:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - ragnode-network
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+networks:
+  ragnode-network:
+    driver: bridge

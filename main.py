@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, BackgroundTasks
+from fastapi import FastAPI, Request, BackgroundTasks, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, FileResponse
@@ -20,6 +20,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 # Create a global variable to hold all Gradio apps
@@ -55,12 +56,54 @@ async def shutdown_event():
     await asyncio.sleep(0.5)
     print("Server shutdown complete")
 
+# API routes for bot data
+@app.get("/api/bots")
+async def get_bots():
+    # Ensures each bot has a chat_path
+    result = {}
+    for bot_id, bot_config in bots.items():
+        result[bot_id] = bot_config.copy()
+        # Make sure chat_path exists and has the correct format
+        if "chat_path" not in result[bot_id]:
+            result[bot_id]["chat_path"] = f"/{bot_id}/"
+    return result
+
+# Health check endpoint
+@app.get("/api/health")
+async def health_check():
+    return {"status": "ok"}
+
+# Debug endpoint for bots
+@app.get("/api/debug/bots")
+async def debug_bots():
+    try:
+        # Get the list of config files
+        config_dir = Path("app/config/bots")
+        config_files = list(config_dir.glob("*-config.yaml"))
+        
+        # Return info about configs
+        return {
+            "config_dir_exists": config_dir.exists(),
+            "config_files": [str(f) for f in config_files],
+            "bot_count": len(bots),
+            "bot_ids": list(bots.keys())
+        }
+    except Exception as e:
+        return {"error": str(e)}
+
 # Serve Svelte frontend
 @app.get("/", response_class=FileResponse)
 async def serve_svelte_app():
     return FileResponse("app/static/dist/index.html")
 
-# Legacy template route for backward compatibility
+# Handle Svelte app routes for client-side routing
+@app.get("/{bot_id}-chat", response_class=FileResponse)
+async def serve_svelte_routes(bot_id: str):
+    if bot_id in bots:
+        return FileResponse("app/static/dist/index.html")
+    raise HTTPException(status_code=404, detail="Bot not found")
+
+# Legacy template routes for backward compatibility
 @app.get("/legacy", response_class=HTMLResponse)
 async def legacy_home(request: Request):
     from fastapi.templating import Jinja2Templates
@@ -94,11 +137,10 @@ async def legacy_chat_page(request: Request, bot_id: str):
         "bots": bots
     })
 
-# API routes for bot data
-@app.get("/api/bots")
-async def get_bots():
-    return bots
-
 # Mount static files after the routes
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 app.mount("/dist", StaticFiles(directory="app/static/dist"), name="dist")
+
+# Mount assets directory for Svelte
+if os.path.exists("app/static/dist/assets"):
+    app.mount("/assets", StaticFiles(directory="app/static/dist/assets"), name="assets")

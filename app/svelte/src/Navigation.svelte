@@ -2,12 +2,12 @@
     export let bots = {};
     export let onNavClick;
     export let onHomeClick;
-    export let activePage = 'home';
+    export let activePage = "home";
   </script>
   
   <nav class="w-60 h-screen fixed bg-surface p-8 pb-0 border-r border-border">
     <div class="flex justify-center w-full mb-8">
-      <img src="/static/logo_v2.svg" alt="Ragnode Logo" class="w-24 h-auto">
+      <img src="/static/logo_v2.svg" alt="Ragnode Logo" class="w-24 h-auto" onerror="this.onerror=null; this.src='/assets/logo_v2.svg';">
     </div>
     
     <ul class="list-none p-0 m-0">
