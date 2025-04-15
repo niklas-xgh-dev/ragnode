@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from anthropic import AnthropicBedrock
 from typing import List, Dict, AsyncGenerator
+import time
 import asyncio
 import threading
 from ..database import async_session
@@ -74,6 +75,8 @@ class BaseChat:
             
             # Pre-warm the client connection
             client = self.get_client()
+
+            print(f"[STREAM_DEBUG] Starting response streaming at {time.time()}")
             
             # Create a thread-safe queue for passing chunks between threads
             chunk_queue = asyncio.Queue()
@@ -136,6 +139,7 @@ class BaseChat:
             full_response = ""
             waiting_time = 0
             
+            print(f"[STREAM_DEBUG] Sending 'Thinking...' message at {time.time()}")
             # Yield an immediate acknowledgment to reduce perceived delay
             yield "Thinking..."
             
@@ -153,6 +157,8 @@ class BaseChat:
                     
                     # Get chunk with the dynamic timeout
                     chunk = await asyncio.wait_for(chunk_queue.get(), timeout=timeout)
+                    
+                    print(f"[STREAM_DEBUG] Processing chunk at {time.time()}")
                     
                     # Replace the "Thinking..." text with the real content once we receive it
                     if full_response == "":
