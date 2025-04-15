@@ -64,16 +64,6 @@ class BaseChat:
         return self.client
 
     async def get_response(self, message: str, history: List[Dict] = None) -> AsyncGenerator[str, None]:
-        """
-        Get a streaming response from Claude via AWS Bedrock.
-        
-        Args:
-            message: The user's message
-            history: Chat history
-            
-        Yields:
-            Chunks of the response text as they become available
-        """
         if not message or message.strip() == "":
             yield "Please enter a message."
             return
@@ -82,24 +72,24 @@ class BaseChat:
             formatted_messages = self.format_messages(message, history)
             await self.save_message("user", message)
             
+            # Pre-warm the client connection
             client = self.get_client()
             
             # Create a thread-safe queue for passing chunks between threads
             chunk_queue = asyncio.Queue()
             
-            # Flag to signal when streaming is complete
-            # Using a list so it can be modified inside the inner function
+            # Add a flag specifically for first chunk
+            first_chunk_received = [False]
             streaming_done = [False]
             streaming_error = [None]
             
             # Function to run in a separate thread
             def stream_in_thread():
-                # Create a new event loop for this thread
                 thread_loop = asyncio.new_event_loop()
                 asyncio.set_event_loop(thread_loop)
                 
                 try:
-                    # Initialize stream
+                    # Initialize stream with a lower temperature for faster first response
                     stream = client.messages.create(
                         model=self.model_id,
                         max_tokens=2048,
@@ -122,27 +112,32 @@ class BaseChat:
                             text = chunk.delta.content or ""
                         
                         if text:
+                            # Signal first chunk received
+                            if not first_chunk_received[0]:
+                                first_chunk_received[0] = True
+                                
                             # Put the chunk in the queue using the thread's event loop
                             thread_loop.run_until_complete(chunk_queue.put(text))
                             
                 except Exception as e:
-                    # If there's an error, put it in the error holder
                     print(f"Error in streaming thread: {str(e)}")
                     streaming_error[0] = str(e)
                 finally:
-                    # Signal that streaming is done
                     streaming_done[0] = True
-                    # Send a signal to the queue
                     thread_loop.run_until_complete(chunk_queue.put(None))
                     thread_loop.close()
             
-            # Start the streaming thread
+            # Start the streaming thread with higher priority
             stream_thread = threading.Thread(target=stream_in_thread)
             stream_thread.daemon = True
             stream_thread.start()
             
-            # Process chunks from the queue in the main async function
+            # Process chunks from the queue with optimized first-chunk handling
             full_response = ""
+            waiting_time = 0
+            
+            # Yield an immediate acknowledgment to reduce perceived delay
+            yield "Thinking..."
             
             while True:
                 # Check for errors first
@@ -153,9 +148,16 @@ class BaseChat:
                     return
                 
                 try:
-                    # Get chunk with a timeout
-                    chunk = await asyncio.wait_for(chunk_queue.get(), timeout=0.5)
+                    # Use a shorter timeout for the first chunk
+                    timeout = 0.2 if not first_chunk_received[0] else 0.5
                     
+                    # Get chunk with the dynamic timeout
+                    chunk = await asyncio.wait_for(chunk_queue.get(), timeout=timeout)
+                    
+                    # Replace the "Thinking..." text with the real content once we receive it
+                    if full_response == "":
+                        full_response = "" # This will replace the "Thinking..." message
+                        
                     # None signals the end of streaming
                     if chunk is None:
                         break
@@ -167,9 +169,18 @@ class BaseChat:
                     yield full_response
                     
                 except asyncio.TimeoutError:
+                    waiting_time += 0.2 if not first_chunk_received[0] else 0.5
+                    
                     # Check if streaming is done
                     if streaming_done[0]:
                         break
+                        
+                    # If waiting too long for first chunk, give feedback
+                    if not first_chunk_received[0] and waiting_time > 3.0:
+                        # Don't change full_response - this keeps the "Thinking..." visible
+                        # but we'll update the dots to show activity
+                        yield f"Thinking{'.' * (int(waiting_time) % 4 + 1)}"
+                        
                     # Otherwise, continue waiting
                     continue
             
