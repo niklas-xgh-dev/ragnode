@@ -2,7 +2,7 @@ name: Trigger Deploy
 
 on:
   push:
-    branches: [working-fastapi-htmx]
+    branches: [master]
 
 jobs:
   trigger:
