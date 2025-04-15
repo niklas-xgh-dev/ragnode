@@ -142,6 +142,7 @@ class BaseChat:
             print(f"[STREAM_DEBUG] Sending 'Thinking...' message at {time.time()}")
             # Yield an immediate acknowledgment to reduce perceived delay
             yield "Thinking..."
+            await asyncio.sleep(0.1)  # Force flush
             
             while True:
                 # Check for errors first
