@@ -8,7 +8,7 @@ Ragnode implements a cloud-native architecture combining FastAPI, Gradio, and An
 
 ### Core Components
 
-- **LLM Integration**: AWS Bedrock API with Claude 3.7 Sonnet for high-quality text generation
+- **LLM Integration**: AWS Bedrock API with Claude 3.5 Haiku for high-quality text generation
 - **Chat Engine**: Async streaming implementation with fallback mechanisms
 - **Interface Layer**: Gradio-based chat interfaces dynamically mounted in FastAPI
 - **Configuration**: YAML-based bot definitions with knowledge embeddings
@@ -44,7 +44,7 @@ self.client = AnthropicBedrock(parameters)
 ```
 
 Key features:
-- Configurable model selection (defaults to `anthropic.claude-3-7-sonnet-20240229-v1:0`)
+- Configurable model selection (defaults to `anthropic.claude-3-5-haiku`)
 - Streaming response implementation with chunk processing
 - Thread-safe asynchronous queue for response handling
 - Non-streaming fallback mechanism
