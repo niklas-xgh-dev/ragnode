@@ -154,7 +154,7 @@ class BaseChat:
                 
                 try:
                     # Get chunk with a timeout
-                    chunk = await asyncio.wait_for(chunk_queue.get(), timeout=0.1)
+                    chunk = await asyncio.wait_for(chunk_queue.get(), timeout=0.5)
                     
                     # None signals the end of streaming
                     if chunk is None:

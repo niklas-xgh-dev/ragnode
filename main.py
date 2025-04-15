@@ -48,23 +48,6 @@ for bot_id, bot_config in bots.items():
     except Exception as e:
         print(f"Error mounting interface for {bot_id}: {str(e)}")
 
-# Add shutdown event handler
-@app.on_event("shutdown")
-async def shutdown_event():
-    print("Shutting down server and closing all Gradio connections...")
-    for gradio_app in gradio_apps:
-        # Close all running Gradio apps
-        if hasattr(gradio_app, 'close'):
-            await gradio_app.close()
-        elif hasattr(gradio_app, '_queue'):
-            # For newer Gradio versions
-            if hasattr(gradio_app._queue, 'close'):
-                await gradio_app._queue.close()
-    
-    # Give a small timeout to allow connections to close
-    await asyncio.sleep(0.5)
-    print("Server shutdown complete")
-
 # Routes
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
