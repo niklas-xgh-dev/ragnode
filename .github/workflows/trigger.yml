@@ -8,6 +8,7 @@ jobs:
   trigger:
     runs-on: ubuntu-latest
     steps:
+      # From here, the dockerfile will be deployed on AWS as a new container image and the nginx VM will point towards the IP of the successfully deployed new container
       - name: Trigger infra deploy
         uses: peter-evans/repository-dispatch@v2
         with:
