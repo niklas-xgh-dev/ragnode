@@ -1,7 +1,7 @@
 # name: Trigger Deploy
 # on:
 #   push:
-#     branches: [main]
+#     branches: [master]
 # jobs:
 #   trigger:
 #     runs-on: ubuntu-latest
