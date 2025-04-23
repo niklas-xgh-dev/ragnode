@@ -1,0 +1,98 @@
+owasp_api_top10_2023:
+  - code: "API1"
+    name: "Broken Object Level Authorization (BOLA)"
+    gist: "IDs in requests allow access to objects without robust per-object checks."
+  - code: "API2"
+    name: "Broken Authentication"
+    gist: "Flawed credential, session, or token handling lets attackers impersonate others."
+  - code: "API3"
+    name: "Broken Object Property Level Authorization"
+    gist: "Lack of filtering or property-level checks exposes or allows mutation of hidden fields."
+  - code: "API4"
+    name: "Unrestricted Resource Consumption"
+    gist: "No ceilings on CPU, memory, or requests enable DoS or cost blow-outs."
+  - code: "API5"
+    name: "Broken Function Level Authorization"
+    gist: "Privileged operations reachable by low-privilege callers."
+  - code: "API6"
+    name: "Server-Side Request Forgery (SSRF)"
+    gist: "Endpoint fetches attacker-supplied URLs; internal assets become reachable."
+  - code: "API7"
+    name: "Security Misconfiguration"
+    gist: "Verbose errors, default creds, open S3 buckets, and lax CORS all lurk here."
+  - code: "API8"
+    name: "Lack of Protection From Automated Threats"
+    gist: "No bot detection or velocity checks lets scrapers or brute-forcers run wild."
+  - code: "API9"
+    name: "Improper Inventory & Documentation"
+    gist: "Unknown shadow endpoints escape patching and review."
+  - code: "API10"
+    name: "Unsafe Consumption of Third-Party APIs"
+    gist: "Trusting upstream responses blindly leads to data poisoning or over-privilege."
+
+auth_schemes:
+  api_key:
+    pros: "Simple to roll out; works with CI tools."
+    cons: "No user identity; easy to leak; poor rotation story."
+    best_for: "Server-to-server traffic inside a secured VPC."
+  basic_auth:
+    pros: "Standards-based; universally supported."
+    cons: "Transmits credentials every call; should be phased out in favour of token-based flows."
+  oauth2_bearer_jwt:
+    pros: "Widely adopted; scopes map cleanly to micro-service roles."
+    cons: "Token revocation awkward; large, unsigned JWTs invite tampering."
+  oauth2_bearer_paseto:
+    pros: "Built-in signature & expiry; no JWT canonicalisation quirks."
+    cons: "Smaller ecosystem; some gateways lack native validation."
+  m_tls:
+    pros: "Strong mutual identity; no shared secrets to steal."
+    cons: "Certificate lifecycle adds ops overhead."
+
+rate_limiting:
+  strategies:
+    fixed_window: "Counts requests in discrete intervals; simple but bursty."
+    sliding_window: "Smooths spikes by tracking rolling time intervals."
+    token_bucket: "Tokens refill at set rate; burst allowed up to bucket size."
+    leaky_bucket: "Serialises requests at constant rate; ideal for payment APIs."
+  guidance:
+    auth_free_endpoints: "Keep limits tight (e.g., 30 req/min/IP) to deter enumeration."
+    authenticated_endpoints: "Scope limits per user or token rather than IP."
+    soft_vs_hard: "Return HTTP 429 with ‘Retry-After’; cut connections if abuse persists."
+
+validation:
+  json_schema: "Draft 2020-12; integrate with Ajv, Fastify, or Joi."
+  graphql_depth_limit: "Set max depth and complexity weighting; adopt persisted queries."
+  protobuf: "Enforce required fields and sane defaults before marshalling."
+  mass_assignment_defence: "Use allow-lists (strong parameters) not attribute-black-lists."
+
+error_handling:
+  princ_1: "Return generic messages (‘invalid credentials’)—never stack traces."
+  princ_2: "Log correlation IDs server-side for traceability."
+  princ_3: "Use RFC7807 problem-detail JSON for client clarity without leakage."
+
+cors_and_headers:
+  cors:
+    rule: "Never use ‘*’; echo exact origin or a curated allow-list."
+  security_headers:
+    - "Strict-Transport-Security: max-age=63072000; includeSubDomains"
+    - "X-Content-Type-Options: nosniff"
+    - "X-Frame-Options: DENY"
+    - "Cache-Control: no-store for auth endpoints"
+
+logging_redaction:
+  secrets: ["Authorization", "Cookie", "Set-Cookie", "X-Api-Key"]
+  pii: ["email", "phone", "ssn"]
+  method: "Hash or truncate values server-side before ingestion into SIEM."
+
+common_misconfigs:
+  verbose_graphql_schema: "Introspection left enabled in production leaks schema metadata."
+  open_swagger: "Public docs endpoint reveals internal paths; protect with auth or remove."
+  wildcard_cors: "Browsers block credentials by spec, but wildcard masks mis-scoped POST APIs."
+  env_files_in_repo: ".env committed to git contains secrets; move to vault."
+
+reference_flows:
+  oauth2_code_pkce: "For SPA → API patterns; short-lived access token, refresh via silent iframe."
+  client_credentials_jwt: "For service-to-service; issue 5-minute tokens, rotate signing keys annually."
+  m_tls_mesh: "Cert-based identity inside service mesh (Istio, Linkerd) removes need for bearer tokens."
+
+disclaimer: "This corpus reflects industry best practice but cannot cover every edge-case; schedule quarterly threat-model reviews."

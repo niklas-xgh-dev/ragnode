@@ -1,0 +1,51 @@
+location:
+  coordinates: "0.57 °N, 30.35 °E"
+  altitude_range_m: "1 100 – 1 600"
+  size_km2: 766
+  habitat: "moist evergreen and semi-deciduous rainforest inter-grading to woodland and papyrus swamp"
+
+climate:
+  mean_day_temp: "≈ 26 °C year-round"
+  mean_night_temp: "≈ 16 °C" 
+  mean_annual_rain_mm: "≈ 1 500 – 1 700"
+  rainfall_pattern: "bimodal: wet seasons Mar – May and Sep – Nov; drier intervals Jan–Feb and Jun–Jul"
+
+biodiversity:
+  primates:
+    total_species: 13
+    flagship:
+      chimpanzees: "≈ 1 500 individuals across ≥ 12 communities; daily treks focus on Kanyanchu group"
+      red_colobus: "Uganda red colobus (Piliocolobus tephrosceles) endemic to the Albertine Rift"
+    complete_list: ["chimpanzee", "olive baboon", "black-and-white colobus", "Uganda red colobus", "red-tailed monkey", "blue monkey", "L’Hoest’s monkey", "vervet monkey", "Uganda mangabey", "grey-cheeked mangabey", "potto", "bushbaby", "galago"]  # :contentReference[oaicite:8]{index=8}
+  mammals_other: "≈ 120 species, including forest elephant, bushpig, sitatunga, and three duiker species"
+  birds: "≈ 370 species; 23 Albertine Rift endemics such as Nahan’s francolin and blue-headed bee-eater"
+  trees: "≥ 351 species; canopy dominated by Ficus mucuso, Pseudospondias microcarpa, and large mahoganies" 
+
+research_highlights:
+  kibale_chimp_project:
+    founded: 1987
+    founder: "Richard Wrangham"
+    focus: ["social network dynamics", "hunting behaviour", "disease ecology"]
+    milestone: "Continuous data on the Kanyawara community for > 35 years"
+    span: "1997 – present"
+    insight: "fruit peaks drive chimpanzee birth pulses and patrol rates"
+    detail: "forms a 180 km forest corridor with Queen Elizabeth NP, aiding elephant and primate movement"
+
+conservation:
+  major_threats: ["snare poaching", "edge-effect agriculture", "illegal selective logging", "periodic droughts like 1999"]  # 
+  initiatives: ["Uganda Wildlife Authority ranger patrols", "Kibale Chimpanzee Project snare-removal teams", "Kasiisi Project school outreach"]
+  visitor_guidelines: "max 6 trekkers per group; masks mandatory; 7 m minimum distance; no food in forest"
+
+visitor_info:
+  permit_fees_2025_usd: {trek: 250, habituation_full_day: 320}
+  trek_slots: ["08:00", "11:00", "14:00"]
+  access: "5–6 h paved drive from Kampala or 1 h flight to Kasese + 2 h road transfer"
+  accommodation: "Primate Lodge, Chimpundu Lodge, and basic Makerere field-station bandas (generator off at 22:00)"
+  health_requirements: ["yellow-fever vaccination", "recent COVID-19 PCR or proof of vaccination"]
+
+quick_facts:
+  nickname: "Primate Capital of the World"
+  corridor_partners: ["Queen Elizabeth NP (south)", "Sebitoli sector (north)"]
+  film_credits: "Featured in Netflix series *Chimp Empire* (2023)"
+
+disclaimer: "Statistics current to 2024; park rules and fees can change—always verify with Uganda Wildlife Authority before travel."

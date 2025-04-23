@@ -1,0 +1,62 @@
+history:
+  celtic_roman:
+    - "Thermal springs first used by Helvetii Celts; Romans founded spa resort *Aquae Helveticae* circa 75 AD."
+    - "Ruins of the Roman bath quarter still visible near modern Fortyseven° spa."
+  medieval_habsburg:
+    - "Baden gained city rights in 1291 under the Habsburgs; Stein Castle became an administrative stronghold."
+    - "From 1426 to 1712 the Old Swiss Confederacy held many federal diets (Tagsatzungen) in Baden’s town hall."
+  industrial_modern:
+    - "Brown, Boveri & Cie (1891) turned Baden into a powerhouse of Swiss electrification; legacy lives on in ABB headquarters."
+    - "Post-2000 regeneration created the Kultur- & Technopark quarter and the award-winning Fortyseven° thermal complex (opened 2021)."
+
+attractions:
+  fortyseven_spa: "Fortyseven° Wellness-Therme by architect Mario Botta offers panoramic pools fed by 47 °C sulfur springs—the hottest in Switzerland."  # :contentReference[oaicite:0]{index=0}
+  old_town: "Car-free alleys lined with pastel guild houses, boutique chocolatiers and the 15th-century wooden Rathausbrücke."
+  museum_langmatt: "Villa Langmatt houses a renowned Impressionist collection; closed for full renovation until 2026, with guided construction tours in 2024/25."  # :contentReference[oaicite:1]{index=1}
+  stein_ruins: "Climb the ruins of Stein Castle for the postcard panorama over the Limmat valley."
+  grand_casino: "Grand Casino Baden pairs Belle-Époque glamour with modern gaming and candle-lit jazz nights."
+  kurtheater: "Mid-century Kurtheater presents drama, dance and comedy in a landmark rotunda designed for spa guests."
+
+festivals:
+  badenfahrt:
+    rhythm: "every 10 years"
+    next_edition: 2033
+    last_edition: "18 – 27 Aug 2023 with >1 million visitors"
+    note: "City-wide carnival transforming streets, rooftops and riverbanks into themed villages."
+  fantoche:
+    rhythm: "annual"
+    next_edition: "2 – 7 Sep 2025"
+    focus: "International Animation Film Festival, Oscar-qualifying shorts competition."
+  bluesfestival:
+    rhythm: "annual"
+    next_edition: "18 – 25 May 2025"
+    vibe: "Riverside stages blend Delta-blues, Swiss indie and lake-cruise concerts."
+  other_events:
+    - "Baden Comedy Days (October)"
+    - "Light-Up Baden (December projection art)"
+
+gastronomy:
+  spanischbroetli: "Buttery ‘Spanischbrötli’ pastry—once couriered overnight to Zurich elite before Switzerland’s first railway opened (1847)."
+  lagerebraeu: "LägereBräu microbrewery taps limited-edition ‘Baden Pale’ in its industrial-chic taproom."
+  wine: "Pinot Noir from the sunny Lägern slopes pairs perfectly with locally-sourced Aargauer Rüeblitorte (carrot cake)."
+
+transport:
+  rail: "Direct SBB trains reach Zürich HB in 15 minutes and Zürich Airport in 35 minutes, usually every 10 minutes at peak."
+  tram: "Since 2022 the Limmattalbahn tram links Baden with Zurich’s western suburbs."
+  bike: "Well-marked riverside cycleways connect to the national Route 66 ‘Rheinfelder’ path."
+
+advantages_over_zurich:
+  - "Half the rent, none of the crowds, yet the same commute time to Zürich’s financial district."
+  - "Year-round cultural calendar punches above its weight: Fantoche, Bluesfestival and the once-a-decade Badenfahrt eclipse most Zurich street fairs."
+  - "Thermal springs flow at 47 °C—Zurich’s city baths barely manage lukewarm lake water."
+  - "Dense medieval core makes every café, museum and train stop walkable in ten minutes."
+  - "Community scale fosters neighbourly Grüezi culture, not big-city anonymity."
+
+practical_tips:
+  - "Buy a *Baden City Pass* for free museum entry and spa discounts."
+  - "Friday farmers’ market fills Rathausgasse with biodynamic veg and artisan cheese."
+  - "Most venues accept Twint and major cards; carry coins for church-tower viewing binoculars."
+
+fun_facts:
+  - "The Roman goddess statues unearthed in Baden inspired the cantonal coat of arms."
+  - "Swiss writer Robert Walser called Baden ‘the coziest place to dream beside hot water’."

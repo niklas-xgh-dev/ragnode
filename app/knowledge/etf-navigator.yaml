@@ -1,0 +1,67 @@
+recommended_etfs:
+  global_core_equity:
+    - ticker: "VWCE"
+      name: "Vanguard FTSE All-World UCITS ETF"
+      ter: 0.22
+      assets_m_eur: 16036
+      replication: "physical-sampling"
+      distribution: "accumulating"
+      why: "Captures ~3 700 large- & mid-cap stocks across 60+ developed and emerging markets"
+    - ticker: "SWDA / IWDA"
+      name: "iShares Core MSCI World UCITS ETF"
+      ter: 0.20
+      assets_m_eur: 45100
+      replication: "physical-sampling"
+      distribution: "accumulating"
+      why: "Low-fee developed-world backbone; pair with an EM ETF for full global coverage"
+    - ticker: "IMID"
+      name: "SPDR MSCI ACWI IMI UCITS ETF"
+      ter: 0.17
+      assets_m_eur: 2579
+      replication: "sampling"
+      distribution: "accumulating"
+      why: "One-ticket solution spanning large, mid & small caps and both developed & emerging markets"
+    - ticker: "PRIW"
+      name: "Amundi Prime Global UCITS ETF"
+      ter: 0.05
+      assets_m_eur: 807
+      replication: "full"
+      distribution: "accumulating"
+      why: "Ultra-low fee alternative tracking the Solactive GBS Developed Markets index"
+
+  emerging_markets_equity:
+    - ticker: "XMME"
+      name: "Xtrackers MSCI Emerging Markets UCITS ETF 1C"
+      ter: 0.18
+      assets_m_eur: 5118
+      distribution: "accumulating"
+      why: "Efficient EM sleeve that complements a developed-market core fund"
+
+  global_core_bond:
+    - ticker: "VAGF / VAGP"
+      name: "Vanguard Global Aggregate Bond UCITS ETF"
+      ter: 0.10
+      assets_m_eur: 810
+      currency_hedged: "USD, EUR, GBP, CHF share classes"
+      distribution: "accumulating | distributing"
+      why: "Investment-grade bonds from 70+ countries; a solid defensive anchor"
+    - ticker: "AGGG / AGGH"
+      name: "iShares Core Global Aggregate Bond UCITS ETF"
+      ter: 0.10
+      assets_m_eur: 1961
+      distribution: "accumulating | distributing"
+      why: "Bloomberg Global Aggregate tracker with deep liquidity and multiple hedged share classes"
+
+fee_policy:
+  max_total_fee: 0.25
+  note: "Avoid ETFs above this TER unless they provide unique exposure that a cheaper fund cannot replicate"
+
+portfolio_templates:
+  - name: "90 / 10 Growth"
+    allocation: {"VWCE": 90, "VAGF": 10}
+  - name: "80 / 20 Balanced"
+    allocation: {"VWCE": 80, "XMME": 5, "VAGF": 15}
+  - name: "60 / 40 Conservative"
+    allocation: {"VWCE": 55, "AGGG": 5, "VAGF": 40}
+
+disclaimer: "Data is for education only and does not constitute personalised investment advice."

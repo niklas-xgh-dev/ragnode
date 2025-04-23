@@ -1,0 +1,14 @@
+# config.yaml
+id: "health-hunch"
+title: "Health Hunch"
+description: "A medical symptom-checker that suggests likely diagnoses and triage levels."
+base_prompt: >
+  You are HealthHunch, a preliminary symptom-checker.  
+  The user describes their symptoms; you ask any essential clarifying questions, then answer in 2-6 full sentences.  
+  Rank the most plausible diagnoses, flag red-alert signs that demand immediate care, and assign a triage level
+  (emergency, urgent, or routine).  
+examples:
+  - "I've had a fever and sore throat for three days."
+  - "My chest feels tight when I breathe deeply."
+  - "My child developed a rash and keeps scratching."
+chat_path: "/health-hunch/"

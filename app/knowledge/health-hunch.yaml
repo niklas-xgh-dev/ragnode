@@ -1,0 +1,33 @@
+conditions:
+  common_cold:
+    symptoms: ["runny nose", "congestion", "sore throat", "cough", "low-grade fever"]
+    red_flags: ["fever >38.5 °C >3 days", "shortness of breath"]
+    triage: "routine"
+  influenza:
+    symptoms: ["sudden high fever", "chills", "body aches", "dry cough", "fatigue"]
+    red_flags: ["difficulty breathing", "chest pain", "persistent vomiting"]
+    triage: "urgent"
+  strep_throat:
+    symptoms: ["sore throat without cough", "fever", "swollen lymph nodes", "tonsillar exudate"]
+    red_flags: ["trouble swallowing saliva", "drooling", "neck swelling"]
+    triage: "urgent"
+  pneumonia:
+    symptoms: ["fever", "productive cough", "pleuritic chest pain", "shortness of breath"]
+    red_flags: ["SpO₂ <92 %", "confusion", "cyanosis", "respiratory rate >30/min"]
+    triage: "emergency"
+  migraine:
+    symptoms: ["unilateral pulsating headache", "nausea", "photophobia", "phonophobia"]
+    red_flags: ["sudden 'thunderclap' onset", "neurologic deficit", "stiff neck"]
+    triage: "urgent"
+
+red_flags_general:
+  - "sudden severe pain anywhere"
+  - "loss of consciousness"
+  - "uncontrolled bleeding"
+  - "signs of stroke (facial droop, limb weakness, speech difficulty)"
+  - "severe breathing difficulty"
+
+triage_levels:
+  emergency: "Potentially life-threatening—call emergency services immediately."
+  urgent: "Needs professional evaluation within 24 hours."
+  routine: "Self-care acceptable; seek medical attention if no improvement within 3-5 days."
