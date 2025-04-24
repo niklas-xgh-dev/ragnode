@@ -1,51 +1,127 @@
 location:
   coordinates: "0.57 °N, 30.35 °E"
-  altitude_range_m: "1 100 – 1 600"
-  size_km2: 766
-  habitat: "moist evergreen and semi-deciduous rainforest inter-grading to woodland and papyrus swamp"
+  altitude_range_m: "1,100–1,600"
+  size_km2: 795
+  habitat: "Evergreen and semi-deciduous rainforest with grassland and papyrus swamp"
 
 climate:
   mean_day_temp: "≈ 26 °C year-round"
-  mean_night_temp: "≈ 16 °C" 
-  mean_annual_rain_mm: "≈ 1 500 – 1 700"
-  rainfall_pattern: "bimodal: wet seasons Mar – May and Sep – Nov; drier intervals Jan–Feb and Jun–Jul"
+  mean_night_temp: "≈ 16 °C"
+  mean_annual_rain_mm: "≈ 1,500–1,700"
+  rainfall_pattern: "Bimodal (wet: Mar–May, Sep–Nov; dry: Jan–Feb, Jun–Jul)"
+  recent_trends: "Slight increase in rainfall (~3 mm/year) and temperature rise (~1.05°C over last 50 years)"
 
 biodiversity:
   primates:
     total_species: 13
     flagship:
-      chimpanzees: "≈ 1 500 individuals across ≥ 12 communities; daily treks focus on Kanyanchu group"
-      red_colobus: "Uganda red colobus (Piliocolobus tephrosceles) endemic to the Albertine Rift"
-    complete_list: ["chimpanzee", "olive baboon", "black-and-white colobus", "Uganda red colobus", "red-tailed monkey", "blue monkey", "L’Hoest’s monkey", "vervet monkey", "Uganda mangabey", "grey-cheeked mangabey", "potto", "bushbaby", "galago"]  # :contentReference[oaicite:8]{index=8}
-  mammals_other: "≈ 120 species, including forest elephant, bushpig, sitatunga, and three duiker species"
-  birds: "≈ 370 species; 23 Albertine Rift endemics such as Nahan’s francolin and blue-headed bee-eater"
-  trees: "≥ 351 species; canopy dominated by Ficus mucuso, Pseudospondias microcarpa, and large mahoganies" 
+      chimpanzees:
+        population: "≈1,400"
+        subspecies: "Pan troglodytes schweinfurthii"
+        density: "≈2.3 individuals/km²"
+        communities:
+          - Kanyawara (~50 individuals, habituated, studied since 1987)
+          - Ngogo (~150 individuals, split in 2018 into two sub-communities)
+        social_structure: "Male philopatric, female dispersing, fission–fusion dynamics"
+        behaviors:
+          - Frugivorous diet, primary seed dispersers
+          - Cooperative hunting, especially of red colobus monkeys
+          - Cultural behaviors (e.g., grooming handclasp learned maternally)
+          - Reduced aggression and selective social interaction in older males
+          - Vocal communication facilitating social bonds and cooperation
+          - Use of medicinal plants for parasite management
+        genetics:
+          - Female dispersal maintains genetic diversity
+          - Genetic differentiation between neighboring communities
+          - Immunogenetic variation influences disease resistance
+          - Strontium isotopes reveal sex-biased dispersal
+      red_colobus:
+        species: "Uganda red colobus (Piliocolobus tephrosceles)"
+        status: "Endangered"
+        ecology: "Folivorous, primary prey of chimpanzees, key role in vegetation dynamics"
+    other_primates:
+      - olive baboon (Papio anubis)
+      - black-and-white colobus (Colobus guereza)
+      - red-tailed monkey (Cercopithecus ascanius)
+      - blue monkey (Cercopithecus mitis)
+      - L'Hoest’s monkey (Allochrocebus lhoesti)
+      - vervet monkey (Chlorocebus pygerythrus)
+      - Uganda mangabey (Lophocebus ugandae)
+      - grey-cheeked mangabey (Lophocebus albigena)
+      - potto (Perodicticus potto)
+      - Demidoff's dwarf galago (Galagoides demidovii)
 
-research_highlights:
+  mammals_other:
+    total_species: "≈70"
+    key_species:
+      - forest elephant (Loxodonta africana)
+      - buffalo (Syncerus caffer)
+      - leopard (Panthera pardus)
+      - African golden cat (Caracal aurata)
+      - bushpig (Potamochoerus larvatus)
+      - giant forest hog (Hylochoerus meinertzhageni)
+      - blue duiker (Philantomba monticola)
+      - red duiker (Cephalophus natalensis)
+      - yellow-backed duiker (Cephalophus silvicultor)
+    roles: "Herbivory, seed dispersal, nutrient cycling, ecosystem engineering"
+
+  birds:
+    total_species: "≈325"
+    notable_species:
+      - Green-breasted Pitta (Pitta reichenowi)
+      - African Grey Parrot (Psittacus erithacus)
+      - Black-capped Apalis (Apalis nigriceps)
+      - Purple-breasted Sunbird (Cinnyris bifasciatus)
+      - Collared Apalis (Apalis ruwenzorii)
+      - Red-faced Woodland Warbler (Phylloscopus laetus)
+
+  reptiles_amphibians:
+    notable_species:
+      - Forest cobra (Naja melanoleuca)
+      - Gaboon viper (Bitis gabonica)
+      - Uganda bush viper (Atheris nitschei)
+      - Chameleons (Family Chamaeleonidae)
+      - Tree frogs (Family Hyperoliidae)
+
+  insects:
+    butterflies: "≈245 species, 40 restricted-range"
+    moths: "≈108 species"
+    other_groups:
+      - termites (Isoptera)
+      - driver ants (Dorylus spp.)
+      - fig wasps (Agaonidae)
+      - bees (Apis spp., stingless bees)
+
+  flora:
+    trees_shrubs: "≈350 species, dominated by Chlorophora excelsa, Pseudospondias microcarpa, Ficus spp., Entandrophragma spp."
+    regeneration: "Primate-mediated regeneration critical in logged areas, active replanting efforts in degraded sites"
+
+chimpanzee_research:
   kibale_chimp_project:
     founded: 1987
     founder: "Richard Wrangham"
-    focus: ["social network dynamics", "hunting behaviour", "disease ecology"]
-    milestone: "Continuous data on the Kanyawara community for > 35 years"
-    span: "1997 – present"
-    insight: "fruit peaks drive chimpanzee birth pulses and patrol rates"
-    detail: "forms a 180 km forest corridor with Queen Elizabeth NP, aiding elephant and primate movement"
+    research_focus: ["Social dynamics", "Hunting behavior", "Disease ecology", "Genetics", "Conservation"]
+    key_findings:
+      - "Increasing sociability and group size linked to forest recovery and fruit availability"
+      - "Social aging parallels human patterns of selective relationships"
+      - "Cultural traditions maintained along maternal lines"
+      - "Significant reduction in snare-related injuries due to conservation efforts"
 
 conservation:
-  major_threats: ["snare poaching", "edge-effect agriculture", "illegal selective logging", "periodic droughts like 1999"]  # 
-  initiatives: ["Uganda Wildlife Authority ranger patrols", "Kibale Chimpanzee Project snare-removal teams", "Kasiisi Project school outreach"]
-  visitor_guidelines: "max 6 trekkers per group; masks mandatory; 7 m minimum distance; no food in forest"
-
-visitor_info:
-  permit_fees_2025_usd: {trek: 250, habituation_full_day: 320}
-  trek_slots: ["08:00", "11:00", "14:00"]
-  access: "5–6 h paved drive from Kampala or 1 h flight to Kasese + 2 h road transfer"
-  accommodation: "Primate Lodge, Chimpundu Lodge, and basic Makerere field-station bandas (generator off at 22:00)"
-  health_requirements: ["yellow-fever vaccination", "recent COVID-19 PCR or proof of vaccination"]
+  threats:
+    - "Population pressure, agricultural encroachment"
+    - "Snare poaching (reduced by Kibale Snare Removal Program)"
+    - "Human-wildlife disease transmission"
+  conservation_actions:
+    - "Snare removal (8,500+ snares removed since 1997)"
+    - "Community education (Kasiisi Project)"
+    - "Wildlife health and veterinary interventions"
+  visitor_guidelines:
+    - "6 trekkers max per chimpanzee group"
+    - "Masks and 7 m minimum distance mandatory"
+    - "Prohibition on food in the forest"
 
 quick_facts:
   nickname: "Primate Capital of the World"
-  corridor_partners: ["Queen Elizabeth NP (south)", "Sebitoli sector (north)"]
-  film_credits: "Featured in Netflix series *Chimp Empire* (2023)"
-
-disclaimer: "Statistics current to 2024; park rules and fees can change—always verify with Uganda Wildlife Authority before travel."
+  ecological_corridor: "Links Kibale to Queen Elizabeth NP, supports wildlife migration"
+  media_coverage: "Featured prominently in Netflix series 'Chimp Empire' (2023)"
