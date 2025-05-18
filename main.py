@@ -16,9 +16,15 @@ from app.backend.chat.interface import ChatInterface, get_available_bots
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:4173",
+    "https://ragnode.com"
+]
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -77,5 +83,16 @@ async def chat_page(request: Request, bot_id: str):
         "chat_path": bot_config["chat_path"],
         "bots": bots
     })
+
+@app.get("/api/bots")
+async def list_bots():
+    return {
+        bot_id: {
+            "title": cfg["title"],
+            "description": cfg["description"],
+            "chat_path": cfg.get("chat_path", f"/{bot_id}/")
+        }
+        for bot_id, cfg in bots.items()
+    }
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")

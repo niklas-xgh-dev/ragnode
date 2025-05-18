@@ -125,6 +125,10 @@ class ChatInterface:
                     return "", history + [{"role": "user", "content": user_message}]
                     
                 async def bot(history):
+
+                    if not history:
+                    # nothing for us to do
+                        return
                     # Get the last user message
                     user_message = history[-1]["content"]
                     

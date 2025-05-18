@@ -108,6 +108,10 @@ chimpanzee_research:
       - "Significant reduction in snare-related injuries due to conservation efforts"
 
 conservation:
+  major_threats: ["snare poaching", "edge-effect agriculture", "illegal selective logging", "periodic droughts like 1999"]  # 
+  initiatives: ["Uganda Wildlife Authority ranger patrols", "Kibale Chimpanzee Project snare-removal teams", "Kasiisi Project school outreach"]
+  visitor_guidelines: "max 6 trekkers per group; masks mandatory; 7 m minimum distance; no food in forest"
+
   threats:
     - "Population pressure, agricultural encroachment"
     - "Snare poaching (reduced by Kibale Snare Removal Program)"
@@ -123,5 +127,5 @@ conservation:
 
 quick_facts:
   nickname: "Primate Capital of the World"
-  ecological_corridor: "Links Kibale to Queen Elizabeth NP, supports wildlife migration"
-  media_coverage: "Featured prominently in Netflix series 'Chimp Empire' (2023)"
+  corridor_partners: ["Queen Elizabeth NP (south)", "Sebitoli sector (north)"]
+  film_credits: "Featured in Netflix series *Chimp Empire* (2023)"
